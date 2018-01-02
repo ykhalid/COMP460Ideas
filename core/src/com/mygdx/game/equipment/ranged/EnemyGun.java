@@ -15,24 +15,24 @@ import com.mygdx.game.entities.userdata.CharacterData;
 
 import box2dLight.RayHandler;
 
-public class Gun extends RangedWeapon {
+public class EnemyGun extends RangedWeapon {
 
-	private final static String name = "Gun";
+	private final static String name = "Enemy Gun";
 	private final static int clipSize = 6;
-	private final static float shootCd = 0.25f;
+	private final static float shootCd = 1.2f;
 	private final static float shootDelay = 0;
-	private final static float reloadTime = 0.75f;
+	private final static float reloadTime = 0.5f;
 	private final static int reloadAmount = 6;
 	private final static float baseDamage = 30.0f;
-	private final static float recoil = 1.5f;
-	private final static float knockback = 0.0f;
-	private final static float projectileSpeed = 60.0f;
-	private final static int projectileWidth = 20;
-	private final static int projectileHeight = 5;
-	private final static float lifespan = 0.6f;
+	private final static float recoil = 0.0f;
+	private final static float knockback = 1.5f;
+	private final static float projectileSpeed = 10.0f;
+	private final static int projectileWidth = 15;
+	private final static int projectileHeight = 15;
+	private final static float lifespan = 5.5f;
 	private final static float gravity = 0;
 	
-	private final static int projDura = 1;
+	private final static int projDura = 2;
 	
 	private final static HitboxFactory onShoot = new HitboxFactory() {
 
@@ -61,7 +61,7 @@ public class Gun extends RangedWeapon {
 		
 	};
 	
-	public Gun(Schmuck user) {
+	public EnemyGun(Schmuck user) {
 		super(user, name, clipSize, reloadTime, recoil, projectileSpeed, shootCd, shootDelay, reloadAmount, onShoot);
 	}
 

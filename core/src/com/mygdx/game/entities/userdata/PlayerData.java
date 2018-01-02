@@ -3,6 +3,7 @@ package com.mygdx.game.entities.userdata;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.equipment.Equipment;
+import com.mygdx.game.equipment.ranged.AnotherGun;
 import com.mygdx.game.equipment.ranged.Gun;
 
 public class PlayerData extends CharacterData {
@@ -20,6 +21,7 @@ public class PlayerData extends CharacterData {
 		this.player = body;
 		multitools = new Equipment[itemSlots];
 		multitools[0] = new Gun(body);
+		multitools[1] = new AnotherGun(body);
 		this.currentTool = multitools[currentSlot];
 	}
 
