@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.event.EntitySpawner;
 import com.mygdx.game.handlers.WorldContactListener;
 import com.mygdx.game.manager.GameStateManager;
 import com.mygdx.game.util.CameraStyles;
@@ -39,9 +40,6 @@ public class PlayState extends GameState {
 	
 	//The font is for writing text.
     public BitmapFont font;
-    
-    //The hud is an alternate camera that does not move with the player and will draw ui elements.
-    public OrthographicCamera hud;
     
     //TODO: rays will eventually implement lighting.
 	private RayHandler rays;
@@ -73,8 +71,6 @@ public class PlayState extends GameState {
 		
 		//Initialize font and text camera for ui purposes.
         font = new BitmapFont();
-        hud = new OrthographicCamera();
-        hud.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         
         //Initialize box2d world and related stuff
 		world = new World(new Vector2(0, 0), false);
@@ -94,7 +90,15 @@ public class PlayState extends GameState {
 		
 		tmr = new OrthogonalTiledMapRenderer(map);
 		
-		player = new Player(this, world, camera, rays, 100, 100);
+//		player = new Player(this, world, camera, rays, 100, 100);
+		
+		//This spawner creates the player once
+		new EntitySpawner(this, world, camera, rays, 32, 32, 100, 100, 0, 0, 1);
+		
+		//These spawners create generic enemies every 10 seconds with no limit
+		new EntitySpawner(this, world, camera, rays, 32, 32, 500, 500, 1, 10.0f, 0);
+		new EntitySpawner(this, world, camera, rays, 32, 32, 200, 700, 1, 10.0f, 0);
+		new EntitySpawner(this, world, camera, rays, 32, 32, 800, 800, 1, 10.0f, 0);
 		
 		TiledObjectUtil.parseTiledObjectLayer(world, map.getLayers().get("collision-layer").getObjects());
 		

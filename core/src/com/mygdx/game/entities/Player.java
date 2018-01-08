@@ -15,7 +15,7 @@ import box2dLight.RayHandler;
 public class Player extends Schmuck {
 
 	//player stats
-	private final static int playerWidth = 16;
+	private final static int playerWidth = 32;
 	private final static int playerHeight = 32;
 		
 	//is the player currently in the process of holding their currently used tool?
