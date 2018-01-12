@@ -17,13 +17,13 @@ public class comp460game extends ApplicationAdapter {
 		
 	
 	//Camera and Spritebatch. This is pretty standard stuff.
-	private OrthographicCamera camera, hud;
+	private OrthographicCamera camera, sprite, hud;
 	private SpriteBatch batch;
 
 	//This is the Gamestate Manager. It manages the current game state.
 	private GameStateManager gsm;
 		
-    public static FitViewport viewport;
+    public static FitViewport viewportCamera, viewportSprite;
 
 	private static final int DEFAULT_WIDTH = 1080;
 	private static final int DEFAULT_HEIGHT = 720;
@@ -44,11 +44,17 @@ public class comp460game extends ApplicationAdapter {
 		camera = new OrthographicCamera(CONFIG_WIDTH * SCALE, CONFIG_HEIGHT * SCALE);
 		camera.setToOrtho(false, CONFIG_WIDTH * SCALE, CONFIG_HEIGHT * SCALE);
 		
+		sprite = new OrthographicCamera(CONFIG_WIDTH * SCALE, CONFIG_HEIGHT * SCALE);
+		sprite.setToOrtho(false, CONFIG_WIDTH * SCALE, CONFIG_HEIGHT * SCALE);
+		    	    
+		viewportCamera = new FitViewport(CONFIG_WIDTH * SCALE, CONFIG_HEIGHT * SCALE, camera);
+		viewportCamera.apply();
+			
+		viewportSprite = new FitViewport(CONFIG_WIDTH * SCALE, CONFIG_HEIGHT * SCALE, sprite);
+		viewportSprite.apply();
+		    
 		hud = new OrthographicCamera(CONFIG_WIDTH, CONFIG_HEIGHT);
 	    hud.setToOrtho(false, CONFIG_WIDTH, CONFIG_HEIGHT);
-		
-		viewport = new FitViewport(CONFIG_WIDTH * SCALE, CONFIG_HEIGHT * SCALE, camera);
-	    viewport.apply();
 		
 		gsm = new GameStateManager(this);	
 	}
@@ -71,13 +77,17 @@ public class comp460game extends ApplicationAdapter {
 	 */
 	@Override
 	public void resize (int width, int height) { 
-		viewport.update((int)(width * SCALE), (int)(height * SCALE), true);
-//		camera.setToOrtho(false, width, height);
-//		camera.update();
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+
 		gsm.resize((int)(width * SCALE), (int)(height * SCALE));
-		viewport.apply();
 		
+		viewportCamera.update((int)(width * SCALE), (int)(height * SCALE), true);
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+		viewportCamera.apply();
+		
+		viewportSprite.update((int)(width * SCALE), (int)(height * SCALE), true);
+        sprite.position.set(sprite.viewportWidth / 2, sprite.viewportHeight / 2, 0);
+		viewportSprite.apply();
+				
 		CONFIG_WIDTH = width;
 		CONFIG_HEIGHT = height;
 	}
@@ -106,6 +116,10 @@ public class comp460game extends ApplicationAdapter {
 	 */
 	public OrthographicCamera getHud() {
 		return hud;
+	}
+	
+	public OrthographicCamera getSprite() {
+		return sprite;
 	}
 	
 	/**

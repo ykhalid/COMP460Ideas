@@ -12,6 +12,7 @@ public class CharacterData extends UserData {
 	
 	//Speed on ground
 	public float maxSpeed = 20.0f;
+	public float maxAngularSpeed = 5.0f;
 
 	//Hp and regen
 	public int maxHp = 100;

@@ -17,7 +17,10 @@ public class Player extends Schmuck {
 	//player stats
 	private final static int playerWidth = 32;
 	private final static int playerHeight = 32;
-		
+	
+	protected MoveStates moveState1, moveState2;
+
+	
 	//is the player currently in the process of holding their currently used tool?
 	private boolean charging = false;
 		
@@ -44,7 +47,7 @@ public class Player extends Schmuck {
 		this.playerData = new PlayerData(world, this);
 		this.bodyData = playerData;
 		
-		this.body = BodyBuilder.createBox(world, startX, startY, width, height, 1, 1, 0, false, true, Constants.BIT_PLAYER, 
+		this.body = BodyBuilder.createBox(world, startX, startY, width, height, 1, 1, 0, false, false, Constants.BIT_PLAYER, 
 				(short) (Constants.BIT_WALL | Constants.BIT_SENSOR | Constants.BIT_PROJECTILE | Constants.BIT_ENEMY),
 				Constants.PLAYER_HITBOX, false, playerData);
         
@@ -56,17 +59,50 @@ public class Player extends Schmuck {
 	 */
 	public void controller(float delta) {
 	
-		if(Gdx.input.isKeyPressed((Input.Keys.W))) {
-			desiredYVel = playerData.maxSpeed;
+		desiredYVel = 0;
+		desiredXVel = 0;
+		desiredAngleVel = 0;
+		
+		if (Gdx.input.isKeyPressed((Input.Keys.W))) {
+			desiredYVel += playerData.maxSpeed;
 		}
-		if(Gdx.input.isKeyPressed((Input.Keys.A))) {
-			desiredXVel = -playerData.maxSpeed;
+		if (Gdx.input.isKeyPressed((Input.Keys.A))) {
+			desiredXVel += -playerData.maxSpeed;
 		}
-		if(Gdx.input.isKeyPressed((Input.Keys.S))) {
-			desiredYVel = -playerData.maxSpeed;
+		if (Gdx.input.isKeyPressed((Input.Keys.S))) {
+			desiredYVel += -playerData.maxSpeed;
 		}
-		if(Gdx.input.isKeyPressed((Input.Keys.D))) {
-			desiredXVel = playerData.maxSpeed;
+		if (Gdx.input.isKeyPressed((Input.Keys.D))) {
+			desiredXVel += playerData.maxSpeed;
+		}
+		
+		if (Gdx.input.isKeyPressed((Input.Keys.UP))) {
+			desiredYVel += playerData.maxSpeed;
+		}
+		if (Gdx.input.isKeyPressed((Input.Keys.LEFT))) {
+			desiredXVel += -playerData.maxSpeed;
+		}
+		if (Gdx.input.isKeyPressed((Input.Keys.DOWN))) {
+			desiredYVel += -playerData.maxSpeed;
+		}
+		if (Gdx.input.isKeyPressed((Input.Keys.RIGHT))) {
+			desiredXVel += playerData.maxSpeed;
+		}
+		
+		if (Gdx.input.isKeyPressed((Input.Keys.Q))) {
+			desiredAngleVel += -playerData.maxAngularSpeed;
+		}
+		
+		if (Gdx.input.isKeyPressed((Input.Keys.COMMA))) {
+			desiredAngleVel += -playerData.maxAngularSpeed;
+		}
+		
+		if (Gdx.input.isKeyPressed((Input.Keys.E))) {
+			desiredAngleVel += playerData.maxAngularSpeed;
+		}
+		
+		if (Gdx.input.isKeyPressed((Input.Keys.PERIOD))) {
+			desiredAngleVel += playerData.maxAngularSpeed;
 		}
 		
 		//Pressing 'R' = reload current weapon.

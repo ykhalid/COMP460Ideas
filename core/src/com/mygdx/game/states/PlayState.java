@@ -5,11 +5,11 @@ import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -197,9 +197,13 @@ public class PlayState extends GameState {
 	 */
 	private void cameraUpdate() {
 		camera.zoom = 1;
+		sprite.zoom = 1;
 		if (player != null) {
 			if (player.getBody() != null) {
+//				CameraStyles.lerpToPlayerAngle(camera, player.getBody().getPosition().scl(PPM), player.getBody().getAngle());
+//				CameraStyles.lerpToPlayerAngle(sprite, player.getBody().getPosition().scl(PPM), player.getBody().getAngle());
 				CameraStyles.lerpToTarget(camera, player.getBody().getPosition().scl(PPM));
+				CameraStyles.lerpToTarget(sprite, player.getBody().getPosition().scl(PPM));
 			}
 		}
 	}
