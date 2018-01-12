@@ -28,6 +28,8 @@ public class Schmuck extends Entity {
 	public float desiredXVel = 0.0f;
 	public float desiredYVel = 0.0f;
 	
+	public float desiredAngleVel = 0.0f;
+	
 	public float acceleration = 0.1f;
 	
 	/**
@@ -78,6 +80,16 @@ public class Schmuck extends Entity {
 			
 			desiredXVel = 0.0f;
 			desiredYVel = 0.0f;
+			
+			float currentAngleVel = body.getAngularVelocity();
+			
+			float newAngleVel = acceleration * desiredAngleVel + (1 - acceleration) * currentAngleVel;
+			
+			
+			float angularForce = (newAngleVel - currentAngleVel) * (body.getMass());
+			body.applyAngularImpulse(angularForce, true);
+			
+			desiredAngleVel = 0.0f;
 		}
 		
 		//Apply base hp regen
