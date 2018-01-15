@@ -35,7 +35,7 @@ public class GameStateManager {
 		this.states = new Stack<GameState>();
 		
 		//Default state is the splash state currently.
-		this.setState(State.PLAY);
+		this.addState(State.PLAY, null);
 	}
 	
 	/**
@@ -86,11 +86,21 @@ public class GameStateManager {
 	 * This code adds the new input state, replacing and disposing the previous state if existant.
 	 * @param state: The new state
 	 */
-	public void setState(State state) {
-		if (states.size() >= 1) {
-			states.pop().dispose();
+	public void addState(State state, Class<? extends GameState> lastState) {
+		if (states.empty()) {
+			states.push(getState(state));
+		} else if (states.peek().getClass().equals(lastState)) {
+			states.push(getState(state));
 		}
-		states.push(getState(state));
+	}
+	
+	public void removeState(Class<? extends GameState> lastState) {
+
+		if (!states.empty()) {
+			if (states.peek().getClass().equals(lastState)) {
+				states.pop().dispose();
+			}
+		}
 	}
 	
 	/**

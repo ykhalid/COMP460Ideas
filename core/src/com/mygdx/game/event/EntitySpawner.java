@@ -53,7 +53,7 @@ public class EntitySpawner extends Event {
 				state.player = new Player(state, world, camera, rays, spawnX, spawnY);
 				break;
 			case 1:
-//				new Enemy(state, world, camera, rays, 32, 32, spawnX, spawnY);
+				new Enemy(state, world, camera, rays, 32, 32, spawnX, spawnY);
 				
 			}
 		}

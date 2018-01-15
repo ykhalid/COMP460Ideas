@@ -22,6 +22,12 @@ public class EventData extends UserData {
 		this.schmucks = new HashSet<Entity>();
 	}
 	
+	public EventData(World world, Event event, UserDataTypes type) {
+		super(world, type, event);
+		this.event = event;
+		this.schmucks = new HashSet<Entity>();
+	}
+
 	public void onTouch(UserData fixB) {
 		if (fixB != null) {	
 			schmucks.add(fixB.getEntity());
@@ -35,6 +41,10 @@ public class EventData extends UserData {
 	}
 
 	public void onInteract(Player p) {
+		
+	}
+	
+	public void onActivate(EventData activator) {
 		
 	}
 	
