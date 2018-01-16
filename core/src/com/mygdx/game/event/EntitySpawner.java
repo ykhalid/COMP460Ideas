@@ -3,7 +3,6 @@ package com.mygdx.game.event;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Enemy;
-import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.RangedEnemy;
 import com.mygdx.game.event.userdata.EventData;
 import com.mygdx.game.states.PlayState;

@@ -205,14 +205,14 @@
   </object>
   <object id="41" name="Spawn" type="Spawn" x="1120" y="2016" width="32" height="32">
    <properties>
-    <property name="id" type="int" value="1"/>
+    <property name="id" type="int" value="2"/>
     <property name="interval" type="float" value="10"/>
     <property name="limit" type="int" value="0"/>
    </properties>
   </object>
   <object id="42" name="Spawn" type="Spawn" x="1088" y="2848" width="32" height="32">
    <properties>
-    <property name="id" type="int" value="1"/>
+    <property name="id" type="int" value="2"/>
     <property name="interval" type="float" value="100"/>
     <property name="limit" type="int" value="0"/>
    </properties>
