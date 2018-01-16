@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Enemy;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.RangedEnemy;
 import com.mygdx.game.event.userdata.EventData;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.util.Constants;
@@ -54,7 +55,9 @@ public class EntitySpawner extends Event {
 				break;
 			case 1:
 				new Enemy(state, world, camera, rays, 32, 32, spawnX, spawnY);
-				
+				break;
+			case 2:
+				new RangedEnemy(state, world, camera, rays, 24, 24, spawnX, spawnY);
 			}
 		}
 	}

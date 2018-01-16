@@ -100,9 +100,10 @@ public class PlayState extends GameState {
 		new EntitySpawner(this, world, camera, rays, 32, 32, 100, 100, 0, 0, 1);
 		
 		//These spawners create generic enemies every 10 seconds with no limit
-		new EntitySpawner(this, world, camera, rays, 32, 32, 500, 500, 1, 10.0f, 0);
-		new EntitySpawner(this, world, camera, rays, 32, 32, 200, 700, 1, 10.0f, 0);
-		new EntitySpawner(this, world, camera, rays, 32, 32, 800, 800, 1, 10.0f, 0);
+		new EntitySpawner(this, world, camera, rays, 32, 32, 500, 500, 1, 20.0f, 0);
+		new EntitySpawner(this, world, camera, rays, 32, 32, 200, 700, 1, 20.0f, 0);
+		new EntitySpawner(this, world, camera, rays, 32, 32, 800, 800, 2, 7.0f, 0);
+		new EntitySpawner(this, world, camera, rays, 32, 32, 800, 200, 2, 7.0f, 0);
 		
 		TiledObjectUtil.parseTiledObjectLayer(world, map.getLayers().get("collision-layer").getObjects());
 		
