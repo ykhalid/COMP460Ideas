@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.userdata.PlayerData;
+import com.mygdx.game.event.Event;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.b2d.BodyBuilder;
@@ -24,8 +25,12 @@ public class Player extends Schmuck {
 	//is the player currently in the process of holding their currently used tool?
 	private boolean charging = false;
 		
+	protected float interactCd = 0.15f;
+	protected float interactCdCount = 0;
+	
 	//user data
 	public PlayerData playerData;
+	public Event currentEvent;
 		
 	/**
 	 * This constructor is called by the player spawn event that must be located in each map
@@ -143,11 +148,21 @@ public class Player extends Schmuck {
 			charging = false;
 		}
 		
+		//Pressing 'E' = interact with an event
+		if(Gdx.input.isKeyJustPressed((Input.Keys.E))) {
+			if (currentEvent != null && interactCdCount < 0) {
+				interactCdCount = interactCd;
+				currentEvent.eventData.onInteract(this);
+			}
+		}
+				
 		//If player is reloading, run the reload method of the current equipment.
 		if (playerData.currentTool.reloading) {
 			playerData.currentTool.reload(delta);
 		}				
 				
+		interactCdCount-=delta;
+
 		super.controller(delta);
 	}
 	

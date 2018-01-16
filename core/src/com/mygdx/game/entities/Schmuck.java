@@ -167,4 +167,7 @@ public class Schmuck extends Entity {
 		tool.release(state, bodyData, world, camera, rays);
 	}
 
+	public CharacterData getBodyData() {
+		return bodyData;
+	}
 }
