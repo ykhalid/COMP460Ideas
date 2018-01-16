@@ -14,7 +14,6 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
-import com.mygdx.game.event.EntitySpawner;
 import com.mygdx.game.handlers.WorldContactListener;
 import com.mygdx.game.manager.GameStateManager;
 import com.mygdx.game.util.CameraStyles;
@@ -94,19 +93,13 @@ public class PlayState extends GameState {
 		
 		tmr = new OrthogonalTiledMapRenderer(map);
 		
-//		player = new Player(this, world, camera, rays, 100, 100);
-		
-		//This spawner creates the player once
-		new EntitySpawner(this, world, camera, rays, 32, 32, 100, 100, 0, 0, 1);
-		
-		//These spawners create generic enemies every 10 seconds with no limit
-		new EntitySpawner(this, world, camera, rays, 32, 32, 500, 500, 1, 10.0f, 0);
-		new EntitySpawner(this, world, camera, rays, 32, 32, 200, 700, 1, 10.0f, 0);
-		new EntitySpawner(this, world, camera, rays, 32, 32, 800, 800, 1, 10.0f, 0);
+		player = new Player(this, world, camera, rays, 100, 100);
 		
 		TiledObjectUtil.parseTiledObjectLayer(world, map.getLayers().get("collision-layer").getObjects());
 		
-		TiledObjectUtil.parseTiledEventLayer(this, world, camera, rays, map.getLayers().get("event-layer").getObjects());		
+		TiledObjectUtil.parseTiledEventLayer(this, world, camera, rays, map.getLayers().get("event-layer").getObjects());	
+		
+		TiledObjectUtil.parseTiledTriggerLayer(this, world, camera, rays);
 	}
 
 	/**

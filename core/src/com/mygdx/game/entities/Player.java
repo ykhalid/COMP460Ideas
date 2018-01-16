@@ -94,19 +94,19 @@ public class Player extends Schmuck {
 			desiredXVel += playerData.maxSpeed;
 		}
 		
-		if (Gdx.input.isKeyPressed((Input.Keys.Q))) {
-			desiredAngleVel += -playerData.maxAngularSpeed;
-		}
-		
-		if (Gdx.input.isKeyPressed((Input.Keys.COMMA))) {
-			desiredAngleVel += -playerData.maxAngularSpeed;
-		}
-		
 		if (Gdx.input.isKeyPressed((Input.Keys.E))) {
-			desiredAngleVel += playerData.maxAngularSpeed;
+			desiredAngleVel += -playerData.maxAngularSpeed;
 		}
 		
 		if (Gdx.input.isKeyPressed((Input.Keys.PERIOD))) {
+			desiredAngleVel += -playerData.maxAngularSpeed;
+		}
+		
+		if (Gdx.input.isKeyPressed((Input.Keys.Q))) {
+			desiredAngleVel += playerData.maxAngularSpeed;
+		}
+		
+		if (Gdx.input.isKeyPressed((Input.Keys.COMMA))) {
 			desiredAngleVel += playerData.maxAngularSpeed;
 		}
 		
@@ -117,7 +117,7 @@ public class Player extends Schmuck {
 		
 		//Pressing 'Q' = switch to last weapon.
 		if(Gdx.input.isKeyJustPressed((Input.Keys.Q))) {
-			playerData.switchToLast();
+//			playerData.switchToLast();
 		}
 		
 		//Pressing '1' ... '0' = switch to weapon slot.
@@ -149,7 +149,7 @@ public class Player extends Schmuck {
 		}
 		
 		//Pressing 'E' = interact with an event
-		if(Gdx.input.isKeyJustPressed((Input.Keys.E))) {
+		if(Gdx.input.isKeyJustPressed((Input.Keys.SPACE))) {
 			if (currentEvent != null && interactCdCount < 0) {
 				interactCdCount = interactCd;
 				currentEvent.eventData.onInteract(this);

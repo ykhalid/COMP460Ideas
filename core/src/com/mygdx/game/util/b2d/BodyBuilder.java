@@ -50,7 +50,7 @@ public class BodyBuilder {
 
         PolygonShape shape = new PolygonShape();
         
-        shape.setAsBox(w / PPM, h / PPM);
+        shape.setAsBox(w / PPM / 2, h / PPM / 2);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
