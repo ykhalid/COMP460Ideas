@@ -10,20 +10,27 @@ import com.mygdx.game.util.b2d.BodyBuilder;
 
 import box2dLight.RayHandler;
 
-public class Switch extends Event {
+public class UsePortal extends Event {
 
-	private static final String name = "Switch";
+	private static final String name = "Portal";
 
-	public Switch(PlayState state, World world, OrthographicCamera camera, RayHandler rays, int width, int height,
-			int x, int y) {
+	boolean oneTime;
+
+	public UsePortal(PlayState state, World world, OrthographicCamera camera, RayHandler rays, int width, int height,
+			int x, int y, boolean oneTime) {
 		super(state, world, camera, rays, name, width, height, x, y);
+		this.oneTime = oneTime;
 	}
 	
 	public void create() {
 		this.eventData = new InteractableEventData(world, this) {
 			public void onInteract(Player p) {
 				if (event.getConnectedEvent() != null) {
-					event.getConnectedEvent().eventData.onActivate(this);
+					p.getBody().setTransform(event.getConnectedEvent().getBody().getPosition(), 0);
+					
+					if (oneTime) {
+						event.queueDeletion();
+					}
 				}
 			}
 		};
@@ -34,7 +41,7 @@ public class Switch extends Event {
 	}
 	
 	public String getText() {
-		return name + " (SPACE TO ACTIVATE)";
+		return name + " (SPACE TO USE)";
 	}
 
 }

@@ -71,12 +71,25 @@ public class TiledObjectUtil {
     					(int)(rect.x + rect.width / 2), (int)(rect.y + rect.height / 2), object.getProperties().get("id", int.class), 
     					object.getProperties().get("interval", float.class), object.getProperties().get("limit", int.class));
     		}
-			
+			if (object.getName().equals("Current")) {
+    			Vector2 power = new Vector2(object.getProperties().get("currentX", float.class), object.getProperties().get("currentY", float.class));
+    			new Currents(state, world, camera, rays, (int)rect.width, (int)rect.height, 
+    					(int)(rect.x + rect.width / 2), (int)(rect.y + rect.height / 2), power);
+    		}
+			if (object.getName().equals("Equip")) {
+    			new EquipPickup(state, world, camera, rays, (int)rect.width, (int)rect.height, 
+    					(int)(rect.x + rect.width / 2), (int)(rect.y + rect.height / 2), 
+    					object.getProperties().get("equipId", int.class));
+    		}
 			if (object.getName().equals("Door")) {
     			triggeredEvents.put(object.getProperties().get("triggeredId", String.class), new Door(state, world, camera, rays, (int)rect.width, (int)rect.height, 
     					(int)(rect.x + rect.width / 2), (int)(rect.y + rect.height / 2)));
     		}
-			
+			if (object.getName().equals("Text")) {
+    			new InfoFlag(state, world, camera, rays, (int)rect.width, (int)rect.height, 
+    					(int)(rect.x + rect.width / 2), (int)(rect.y + rect.height / 2), 
+    					object.getProperties().get("text", String.class));
+    		}
     		if (object.getName().equals("Switch")) {
     			triggeringEvents.put(new Switch(state, world, camera, rays, (int)rect.width, (int)rect.height, 
     					(int)(rect.x + rect.width / 2), (int)(rect.y + rect.height / 2)), object.getProperties().get("triggeringId", String.class));
@@ -110,7 +123,15 @@ public class TiledObjectUtil {
     			triggeringEvents.put(spawn, object.getProperties().get("triggeringId", String.class));
     			triggeredEvents.put(object.getProperties().get("triggeredId", String.class), spawn);
     		}
-    		
+    		if (object.getName().equals("UsePortal")) {
+    			
+    			Event portal = new UsePortal(state, world, camera, rays, (int)rect.width, (int)rect.height, 
+    					(int)(rect.x + rect.width / 2), (int)(rect.y + rect.height / 2), 
+    					object.getProperties().get("oneTime", boolean.class));
+    			
+    			triggeringEvents.put(portal, object.getProperties().get("triggeringId", String.class));
+    			triggeredEvents.put(object.getProperties().get("triggeredId", String.class), portal);
+    		}
     		if (object.getName().equals("Victory")) {
     			new Victory(state, world, camera, rays, (int)rect.width, (int)rect.height, 
     					(int)(rect.x + rect.width / 2), (int)(rect.y + rect.height / 2));
@@ -118,6 +139,11 @@ public class TiledObjectUtil {
     	}
     }
 
+    public static void parseTiledTriggerLayer(PlayState state, World world, OrthographicCamera camera, RayHandler rays) {
+    	for (Event key : triggeringEvents.keySet()) {
+    		key.setConnectedEvent(triggeredEvents.getOrDefault(triggeringEvents.get(key), null));
+    	}
+    }
     
     
     /**
