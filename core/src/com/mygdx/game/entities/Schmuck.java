@@ -145,6 +145,14 @@ public class Schmuck extends Entity implements Location<Vector2> {
 	@Override
 	public void render(SpriteBatch batch) {
 		
+		if (body.getAngle() < 0 && !schmuckSprite.isFlipY()) {
+			schmuckSprite.flip(false, true);
+		}
+		
+		if (body.getAngle() > 0 && schmuckSprite.isFlipY()) {
+			schmuckSprite.flip(false, true);
+		}
+		
 		batch.setProjectionMatrix(state.sprite.combined);
 
 		batch.draw(schmuckSprite, 

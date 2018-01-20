@@ -3,6 +3,9 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.userdata.PlayerData;
 import com.mygdx.game.event.Event;
@@ -16,7 +19,9 @@ public class Player extends Schmuck {
 
 	protected MoveStates moveState1, moveState2;
 
-	
+	//Fixtures and user data
+	protected Fixture viewWedge;
+		
 	//is the player currently in the process of holding their currently used tool?
 	private boolean charging = false;
 		
@@ -51,6 +56,20 @@ public class Player extends Schmuck {
 				(short) (Constants.BIT_WALL | Constants.BIT_SENSOR | Constants.BIT_PROJECTILE | Constants.BIT_ENEMY),
 				Constants.PLAYER_HITBOX, false, playerData);
         
+		FixtureDef fixtureDef = new FixtureDef();
+		
+		PolygonShape pShape = new PolygonShape();
+		fixtureDef.shape = pShape;
+		
+		fixtureDef.density = 0;
+		
+		
+		pShape.set(new float[]{0, 0, -500, 500, -500, -500});
+		
+		fixtureDef.isSensor = true;
+		
+		this.viewWedge = this.body.createFixture(fixtureDef);
+		
 		super.create();
 	}
 
