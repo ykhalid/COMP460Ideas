@@ -2,14 +2,12 @@ package com.mygdx.game.entities;
 
 import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.userdata.CharacterData;
 import com.mygdx.game.equipment.Equipment;
 import com.mygdx.game.equipment.ranged.BadGun;
-import com.mygdx.game.equipment.ranged.EnemyGun;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.b2d.BodyBuilder;
@@ -73,13 +71,6 @@ public class RangedEnemy extends Schmuck {
         randSpeedCdCount += delta;
 
         super.controller(delta);
-    }
-
-    /**
-     * draws enemy
-     */
-    public void render(SpriteBatch batch) {
-
     }
 
     /**

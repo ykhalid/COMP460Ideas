@@ -3,7 +3,6 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.userdata.PlayerData;
 import com.mygdx.game.event.Event;
@@ -15,10 +14,6 @@ import box2dLight.RayHandler;
 
 public class Player extends Schmuck {
 
-	//player stats
-	private final static int playerWidth = 32;
-	private final static int playerHeight = 32;
-	
 	protected MoveStates moveState1, moveState2;
 
 	
@@ -27,7 +22,7 @@ public class Player extends Schmuck {
 		
 	protected float interactCd = 0.15f;
 	protected float interactCdCount = 0;
-	
+		
 	//user data
 	public PlayerData playerData;
 	public Event currentEvent;
@@ -42,7 +37,7 @@ public class Player extends Schmuck {
 	 * @param y: player starting x position.
 	 */
 	public Player(PlayState state, World world, OrthographicCamera camera, RayHandler rays, int x, int y) {
-		super(state, world, camera, rays, playerWidth, playerHeight, x, y);
+		super(state, world, camera, rays, x, y, "torpedofish_swim", 250, 161, 161, 250);
 	}
 	
 	/**
@@ -164,10 +159,6 @@ public class Player extends Schmuck {
 		interactCdCount-=delta;
 
 		super.controller(delta);
-	}
-	
-	public void render(SpriteBatch batch) {
-		
 	}
 	
 	public void dispose() {

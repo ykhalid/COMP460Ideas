@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.entities.RangedEnemy;
 import com.mygdx.game.entities.Schmuck;
+import com.mygdx.game.entities.StandardEnemy;
 import com.mygdx.game.event.userdata.EventData;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.util.Constants;
@@ -53,7 +53,7 @@ public class TriggerSpawn extends Event {
 					
 					switch(id) {
 					case 0:
-						spawns.add(new RangedEnemy(state, world, camera, rays, 32, 32, randX, randY));
+						spawns.add(new StandardEnemy(state, world, camera, rays, 32, 32, randX, randY));
 						break;						
 					}
 				}

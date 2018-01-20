@@ -2,15 +2,24 @@ package com.mygdx.game.entities;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.equipment.Equipment;
+import com.mygdx.game.manager.AssetList;
+import com.mygdx.game.comp460game;
 import com.mygdx.game.entities.userdata.CharacterData;
 import com.mygdx.game.states.PlayState;
+import com.mygdx.game.util.SteeringUtil;
+import com.badlogic.gdx.ai.utils.Location;
+
+import static com.mygdx.game.util.Constants.PPM;
+
 
 import box2dLight.RayHandler;
 
-public class Schmuck extends Entity {
+public class Schmuck extends Entity implements Location<Vector2> {
 
 	//user data.
 	protected CharacterData bodyData;
@@ -32,6 +41,17 @@ public class Schmuck extends Entity {
 	
 	public float acceleration = 0.1f;
 	
+	public int spriteWidth = 197;
+	public int spriteHeight = 76;
+	
+	public int hbWidth = 76;
+	public int hbHeight = 197;
+	
+	public static float scale = 0.25f;
+	
+	private TextureAtlas atlas;
+	private TextureRegion schmuckSprite;
+	
 	/**
 	 * This constructor is called when a Schmuck is made.
 	 * @param state: Current playState
@@ -45,7 +65,20 @@ public class Schmuck extends Entity {
 	 */
 	public Schmuck(PlayState state, World world, OrthographicCamera camera, RayHandler rays, float w, float h,
 			float startX, float startY) {
-		super(state, world, camera, rays, w, h, startX, startY);
+		super(state, world, camera, rays, w * scale, h * scale, startX, startY);
+		atlas = (TextureAtlas) comp460game.assetManager.get(AssetList.FISH_ATL.toString());
+		schmuckSprite = atlas.findRegion("spittlefish_swim");
+	}
+	
+	public Schmuck(PlayState state, World world, OrthographicCamera camera, RayHandler rays,
+			float startX, float startY, String spriteId, int width, int height, int hbWidth, int hbHeight) {
+		super(state, world, camera, rays, width * scale, height * scale, startX, startY);
+		this.atlas = (TextureAtlas) comp460game.assetManager.get(AssetList.FISH_ATL.toString());
+		this.schmuckSprite = atlas.findRegion(spriteId);
+		this.hbWidth = hbWidth;
+		this.hbHeight = hbHeight;
+		this.spriteWidth = width;
+		this.spriteHeight = height;
 	}
 
 	/**
@@ -104,7 +137,6 @@ public class Schmuck extends Entity {
 			useToolEnd();
 		}
 	}
-	
 
 
 	/**
@@ -113,6 +145,14 @@ public class Schmuck extends Entity {
 	@Override
 	public void render(SpriteBatch batch) {
 		
+		batch.setProjectionMatrix(state.sprite.combined);
+
+		batch.draw(schmuckSprite, 
+				body.getPosition().x * PPM - hbHeight * scale / 2, 
+				body.getPosition().y * PPM - hbWidth * scale / 2, 
+				hbHeight * scale / 2, hbWidth * scale / 2,
+				spriteWidth * scale, spriteHeight * scale, 1, 1, 
+				(float) Math.toDegrees(body.getAngle()));
 	}
 	
 	/**
@@ -169,5 +209,37 @@ public class Schmuck extends Entity {
 
 	public CharacterData getBodyData() {
 		return bodyData;
+	}
+
+	@Override
+	public Vector2 getPosition() {
+		return body.getPosition();
+	}
+
+	@Override
+	public float getOrientation() {
+		return body.getAngle();
+	}
+
+	@Override
+	public void setOrientation(float orientation) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public float vectorToAngle(Vector2 vector) {
+		return SteeringUtil.vectorToAngle(vector);
+	}
+
+	@Override
+	public Vector2 angleToVector(Vector2 outVector, float angle) {
+		return SteeringUtil.angleToVector(outVector, angle);
+	}
+
+	@Override
+	public Location<Vector2> newLocation() {
+		System.out.println("newLocation was run? I don't know what this function does but this should never appear.");
+		return null;//new Location<Vector2>();
 	}
 }

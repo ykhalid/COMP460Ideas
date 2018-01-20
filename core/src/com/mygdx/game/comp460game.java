@@ -3,18 +3,21 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.mygdx.game.manager.AssetList;
 import com.mygdx.game.manager.GameStateManager;
 
 public class comp460game extends ApplicationAdapter {
 	
-
 	//The main camera scales to the viewport size scaled to this. Useful for zoom-in/out testing.
 	//TODO: replace this with a constant aspect ratio?
 	private final float SCALE = 1.0f;
-		
 	
 	//Camera and Spritebatch. This is pretty standard stuff.
 	private OrthographicCamera camera, sprite, hud;
@@ -22,9 +25,13 @@ public class comp460game extends ApplicationAdapter {
 
 	//This is the Gamestate Manager. It manages the current game state.
 	private GameStateManager gsm;
-		
+	
+	public static AssetManager assetManager;
     public static FitViewport viewportCamera, viewportSprite;
 
+    public static BitmapFont SYSTEM_FONT_TITLE, SYSTEM_FONT_TEXT;
+    public static Color DEFAULT_TEXT_COLOR;
+    
 	private static final int DEFAULT_WIDTH = 1080;
 	private static final int DEFAULT_HEIGHT = 720;
 	public static int CONFIG_WIDTH;
@@ -56,7 +63,24 @@ public class comp460game extends ApplicationAdapter {
 		hud = new OrthographicCamera(CONFIG_WIDTH, CONFIG_HEIGHT);
 	    hud.setToOrtho(false, CONFIG_WIDTH, CONFIG_HEIGHT);
 		
+	    assetManager = new AssetManager(new InternalFileHandleResolver());
+	    loadAssets();
+	    
 		gsm = new GameStateManager(this);	
+	}
+	
+	public void loadAssets() {
+		SYSTEM_FONT_TITLE = new BitmapFont(Gdx.files.internal(AssetList.LEARNING_FONT.toString()), false);
+		SYSTEM_FONT_TEXT = new BitmapFont(Gdx.files.internal(AssetList.BUTLER_FONT.toString()), false);
+		DEFAULT_TEXT_COLOR = Color.BLACK;
+		
+		for (AssetList asset: AssetList.values()) {
+            if (asset.getType() != null) {
+                assetManager.load(asset.toString(), asset.getType());
+            }
+        }
+
+        assetManager.finishLoading();
 	}
 
 	/**
