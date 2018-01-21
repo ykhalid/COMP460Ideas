@@ -2,7 +2,7 @@ package com.mygdx.game.server;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.mygdx.game.server.Packets.Packet01Message;
+import com.mygdx.game.server.Packets.*;
 
 public class ServerNetworkListener extends Listener {
 
@@ -22,6 +22,10 @@ public class ServerNetworkListener extends Listener {
 		
 		if (o instanceof Packets.Packet01Message) {
 			Packet01Message p = (Packet01Message) o;
+		}
+		
+		if (o instanceof Packets.Packet02Input) {
+			Packet02Input p = (Packet02Input) o;
 		}
 	}
 }

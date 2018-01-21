@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,6 +17,7 @@ import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.handlers.WorldContactListener;
 import com.mygdx.game.manager.GameStateManager;
+import com.mygdx.game.manager.GameStateManager.State;
 import com.mygdx.game.util.CameraStyles;
 import com.mygdx.game.util.TiledObjectUtil;
 import static com.mygdx.game.util.Constants.PPM;
@@ -64,6 +66,8 @@ public class PlayState extends GameState {
 //	public Set<Zone> zones;
 	
 //	private float controllerCounter = 0;
+	
+	
 	
 	/**
 	 * Constructor is called upon player beginning a game.
@@ -198,6 +202,8 @@ public class PlayState extends GameState {
 				font.draw(batch, player.getPlayerData().currentTool.getText(), 20, 60);
 			}
 		}
+		
+		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) { gsm.addState(State.MENU, PlayState.class); }
 		
 		batch.end();
 		

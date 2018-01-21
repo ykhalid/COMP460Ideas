@@ -3,8 +3,7 @@ package com.mygdx.game.manager;
 import java.util.Stack;
 
 import com.mygdx.game.comp460game;
-import com.mygdx.game.states.GameState;
-import com.mygdx.game.states.PlayState;
+import com.mygdx.game.states.*;
 
 /**
  * The GameStateManager manages a stack of game states. This delegates logic to the current game state.
@@ -23,6 +22,7 @@ public class GameStateManager {
 	public enum State {
 		SPLASH,
 		TITLE,
+		MENU,
 		PLAY
 	}
 	
@@ -35,7 +35,7 @@ public class GameStateManager {
 		this.states = new Stack<GameState>();
 		
 		//Default state is the splash state currently.
-		this.addState(State.PLAY, null);
+		this.addState(State.TITLE, null);
 	}
 	
 	/**
@@ -77,28 +77,32 @@ public class GameStateManager {
 	 * @param h: new height of the screen.
 	 */
 	public void resize(int w, int h) {
-		states.peek().resize(w, h);
+		for (Object state : states.toArray()) {
+			((GameState) state).resize(w, h);
+		};
 	}
 	
 	/**
 	 * This is run when we change the current state.
 	 * TODO: At the moment, we only have one state active. Maybe change later?
-	 * This code adds the new input state, replacing and disposing the previous state if existant.
+	 * This code adds the new input state, replacing and disposing the previous state if existent.
 	 * @param state: The new state
 	 */
 	public void addState(State state, Class<? extends GameState> lastState) {
 		if (states.empty()) {
 			states.push(getState(state));
+			states.peek().show();
 		} else if (states.peek().getClass().equals(lastState)) {
 			states.push(getState(state));
+			states.peek().show();
 		}
 	}
 	
 	public void removeState(Class<? extends GameState> lastState) {
-
 		if (!states.empty()) {
 			if (states.peek().getClass().equals(lastState)) {
 				states.pop().dispose();
+				states.peek().show();
 			}
 		}
 	}
@@ -110,9 +114,10 @@ public class GameStateManager {
 	 */
 	public GameState getState(State state) {
 		switch(state) {
-		case SPLASH: return null;
-		case TITLE: return null;
-		case PLAY: return new PlayState(this);
+			case SPLASH: return null;
+			case TITLE: return new TitleState(this);
+			case MENU: return new MenuState(this);
+			case PLAY: return new PlayState(this);
 		}
 		return null;
 	}

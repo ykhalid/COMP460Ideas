@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
-import com.mygdx.game.server.Packets.*;
+import com.mygdx.game.server.Packets;
 
 public class KryoClient {
 
@@ -35,6 +35,7 @@ public class KryoClient {
 	
 	private void registerPackets() {
 		Kryo kryo = client.getKryo();
-		kryo.register(Packet01Message.class);
+		kryo.register(Packets.Packet01Message.class);
+		kryo.register(Packets.Packet02Input.class);
 	}
 }

@@ -62,8 +62,7 @@ public class Player extends Schmuck {
 		fixtureDef.shape = pShape;
 		
 		fixtureDef.density = 0;
-		
-		
+		fixtureDef.filter.groupIndex = Constants.PLAYER_HITBOX;
 		pShape.set(new float[]{0, 0, -500, 500, -500, -500});
 		
 		fixtureDef.isSensor = true;

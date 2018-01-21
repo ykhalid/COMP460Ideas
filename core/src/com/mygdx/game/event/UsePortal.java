@@ -26,7 +26,7 @@ public class UsePortal extends Event {
 		this.eventData = new InteractableEventData(world, this) {
 			public void onInteract(Player p) {
 				if (event.getConnectedEvent() != null) {
-					p.getBody().setTransform(event.getConnectedEvent().getBody().getPosition(), 0);
+					p.getBody().setTransform(event.getConnectedEvent().getBody().getPosition(), p.getOrientation());
 					
 					if (oneTime) {
 						event.queueDeletion();
