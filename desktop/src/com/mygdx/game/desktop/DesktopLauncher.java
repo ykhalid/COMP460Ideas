@@ -16,8 +16,9 @@ public class DesktopLauncher {
 		config.fullscreen = true;
 		config.foregroundFPS = 60;
 		config.backgroundFPS = 60;
-		new LwjglApplication(new comp460game(), config);
 		new ChatServer();
 		new ChatClient();
+		new LwjglApplication(new comp460game(), config);
+
 	}
 }

@@ -2,13 +2,14 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.manager.AssetList;
 import com.mygdx.game.manager.GameStateManager;
@@ -36,7 +37,8 @@ public class comp460game extends ApplicationAdapter {
 	private static final int DEFAULT_HEIGHT = 720;
 	public static int CONFIG_WIDTH;
 	public static int CONFIG_HEIGHT;
-	
+    public Stage currentMenu;
+
 	/**
 	 * This creates a game, setting up the sprite batch to render things and the main game camera.
 	 * This also initializes the Gamestate Manager.
@@ -65,8 +67,10 @@ public class comp460game extends ApplicationAdapter {
 		
 	    assetManager = new AssetManager(new InternalFileHandleResolver());
 	    loadAssets();
+
+	    currentMenu = new Stage();
 	    
-		gsm = new GameStateManager(this);	
+		gsm = new GameStateManager(this);
 	}
 	
 	public void loadAssets() {
@@ -88,12 +92,19 @@ public class comp460game extends ApplicationAdapter {
 	 * Here, we tell the gsm to tell the current state of the elapsed time.
 	 */
 	@Override
-	public void render() {
+	public void render() {		
 		gsm.update(Gdx.graphics.getDeltaTime());
-		gsm.render();
+		currentMenu.act();
+
+		Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		//TODO: Tentatively pressing esc exits the game. Will replace later with an actual menu.
-		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) { Gdx.app.exit(); }
+		gsm.render();
+
+		batch.setProjectionMatrix(hud.combined);
+		batch.begin();
+		currentMenu.draw();
+		batch.end();
 	}
 	
 	/**
@@ -112,8 +123,15 @@ public class comp460game extends ApplicationAdapter {
         sprite.position.set(sprite.viewportWidth / 2, sprite.viewportHeight / 2, 0);
 		viewportSprite.apply();
 				
+		currentMenu.getViewport().update(width, height);
+
 		CONFIG_WIDTH = width;
 		CONFIG_HEIGHT = height;
+	}
+	
+	public void newMenu(Stage menu) {
+		currentMenu = menu;
+		Gdx.input.setInputProcessor(currentMenu);
 	}
 	
 	/**

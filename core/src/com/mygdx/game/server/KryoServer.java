@@ -33,6 +33,7 @@ public class KryoServer {
 		Kryo kryo = server.getKryo();
 		
 		kryo.register(Packets.Packet01Message.class);
+		kryo.register(Packets.Packet02Input.class);
 		
 	}
 }
