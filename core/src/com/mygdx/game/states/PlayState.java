@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.handlers.WorldContactListener;
@@ -67,7 +68,7 @@ public class PlayState extends GameState {
 	
 //	private float controllerCounter = 0;
 	
-	
+	public Stage stage;
 	
 	/**
 	 * Constructor is called upon player beginning a game.
@@ -106,6 +107,13 @@ public class PlayState extends GameState {
 		TiledObjectUtil.parseTiledTriggerLayer(this, world, camera, rays);
 	}
 
+	@Override
+	public void show() {
+		
+		this.stage = new Stage(); 
+		app.newMenu(stage);
+	}
+	
 	/**
 	 * Every engine tick, the GameState must process all entities in it according to the time elapsed.
 	 */
