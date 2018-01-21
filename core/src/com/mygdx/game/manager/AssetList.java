@@ -1,0 +1,33 @@
+package com.mygdx.game.manager;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
+public enum AssetList {
+	BUTLER_FONT("fonts/butler.fnt", null),
+	LEARNING_FONT("fonts/learning_curve.fnt", null),
+	
+	PROJ_1("sprites/projectiles.png", Texture.class),
+	PROJ_1_ATL("sprites/projectiles.atlas", TextureAtlas.class),
+	
+	FISH_1("sprites/fish.png", Texture.class),
+	FISH_ATL("sprites/fish.atlas", TextureAtlas.class);
+	
+	//Enum constructor and methods.
+	private String pathname;
+    private Class<?> type;
+    
+    AssetList(String s, Class<?> c) {
+        this.pathname = s;
+        this.type = c;
+    }
+
+    @Override
+    public String toString() {
+        return this.pathname;
+    }
+
+    public Class<?> getType() { 
+    	return type; 
+    }
+}

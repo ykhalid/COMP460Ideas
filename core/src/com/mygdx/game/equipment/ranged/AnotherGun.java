@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Hitbox;
+import com.mygdx.game.entities.HitboxImage;
 import com.mygdx.game.entities.Schmuck;
 import com.mygdx.game.entities.userdata.HitboxData;
 import com.mygdx.game.entities.userdata.UserData;
@@ -50,8 +51,8 @@ public class AnotherGun extends RangedWeapon {
 				
 				float newDegrees = (float) (startVelocity.angle() + (ThreadLocalRandom.current().nextInt(-spread, spread + 1)));
 				
-				Hitbox proj = new Hitbox(state, x, y, projectileWidth, projectileHeight, gravity, lifespan, projDura, 0, startVelocity.setAngle(newDegrees),
-						filter, true, world, camera, rays, user);
+				Hitbox proj = new HitboxImage(state, x, y, projectileWidth, projectileHeight, gravity, lifespan, projDura, 0, startVelocity.setAngle(newDegrees),
+						filter, true, world, camera, rays, user, "orb_yellow");
 				proj.setUserData(new HitboxData(state, world, proj) {
 					
 					public void onHit(UserData fixB) {
