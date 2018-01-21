@@ -48,8 +48,6 @@ project(":desktop") {
 		compile "com.badlogicgames.gdx:gdx-ai:1.8.0"
         compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
         compile group: 'com.esotericsoftware', name: 'kryonet', version: '2.22.0-RC1'
-
-
     }
 }
 
@@ -64,7 +62,6 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
 		compile "com.badlogicgames.gdx:gdx-ai:1.8.0"
         compile group: 'com.esotericsoftware', name: 'kryonet', version: '2.22.0-RC1'
-
 
     }
 }
