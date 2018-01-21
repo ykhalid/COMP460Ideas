@@ -40,7 +40,7 @@ public class Currents extends Event {
 			
 			for (Entity entity : eventData.schmucks) {
 //				entity.getBody().applyLinearImpulse(vec, entity.getBody().getWorldCenter(), true);
-				entity.getBody().setTransform(entity.getBody().getPosition().add(vec.x / 32, vec.y / 32), 0);
+				entity.getBody().setTransform(entity.getBody().getPosition().add(vec.x / 32, vec.y / 32), entity.getBody().getAngle());
 			}
 		}
 		

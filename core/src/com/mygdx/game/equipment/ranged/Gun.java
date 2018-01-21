@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Hitbox;
+import com.mygdx.game.entities.HitboxImage;
 import com.mygdx.game.entities.Schmuck;
 import com.mygdx.game.entities.userdata.HitboxData;
 import com.mygdx.game.entities.userdata.UserData;
@@ -41,8 +42,8 @@ public class Gun extends RangedWeapon {
 				World world, OrthographicCamera camera,
 				RayHandler rays) {
 			
-			Hitbox proj = new Hitbox(state, x, y, projectileWidth, projectileHeight, gravity, lifespan, projDura, 0, startVelocity,
-					filter, true, world, camera, rays, user);
+			Hitbox proj = new HitboxImage(state, x, y, projectileWidth, projectileHeight, gravity, lifespan, projDura, 0, startVelocity,
+					filter, true, world, camera, rays, user, "orb_yellow");
 			
 			proj.setUserData(new HitboxData(state, world, proj) {
 				

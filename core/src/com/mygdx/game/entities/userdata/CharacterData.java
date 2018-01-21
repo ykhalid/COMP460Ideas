@@ -11,7 +11,7 @@ public class CharacterData extends UserData {
 	public Schmuck schmuck;
 	
 	//Speed on ground
-	public float maxSpeed = 20.0f;
+	public float maxSpeed = 10.0f;
 	public float maxAngularSpeed = 5.0f;
 
 	//Hp and regen
