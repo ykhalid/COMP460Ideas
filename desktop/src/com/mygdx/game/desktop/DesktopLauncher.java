@@ -3,9 +3,13 @@ package com.mygdx.game.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.game.comp460game;
+import testNetworking.ChatClient;
+import testNetworking.ChatServer;
+
+import java.io.IOException;
 
 public class DesktopLauncher {
-	public static void main (String[] arg) {
+	public static void main (String[] arg) throws IOException {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 1080;
 		config.height = 720;
@@ -13,5 +17,7 @@ public class DesktopLauncher {
 		config.foregroundFPS = 60;
 		config.backgroundFPS = 60;
 		new LwjglApplication(new comp460game(), config);
+		new ChatServer();
+		new ChatClient();
 	}
 }
