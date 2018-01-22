@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -99,19 +100,23 @@ public class Packets {
         kryo.register(PlayState.class);
         kryo.register(SyncPlayState.class);
 
-        kryo.register(Player.class);
-        kryo.register(TiledMap.class);
-        kryo.register(OrthogonalTiledMapRenderer.class);
-        kryo.register(BitmapFont.class);
-        kryo.register(RayHandler.class);
-        kryo.register(Box2DDebugRenderer.class);
-        kryo.register(World.class);
-        kryo.register(Entity.class);
-        kryo.register(Stage.class);
-        kryo.register(GameStateManager.class);
-        kryo.register(SpriteBatch.class);
-        kryo.register(OrthographicCamera.class);
-
+//        kryo.register(Player.class);
+//        kryo.register(TiledMap.class);
+//        kryo.register(OrthogonalTiledMapRenderer.class);
+//        kryo.register(BitmapFont.class);
+//        kryo.register(RayHandler.class);
+//        kryo.register(Box2DDebugRenderer.class);
+//        kryo.register(World.class);
+//        kryo.register(Entity.class);
+//        kryo.register(Stage.class);
+//        kryo.register(GameStateManager.class);
+//        kryo.register(SpriteBatch.class);
+//        kryo.register(OrthographicCamera.class);
+//        kryo.register(com.mygdx.game.comp460game.class);
+//        kryo.register(Matrix4.class);
+//        kryo.register(float[].class);
+//        kryo.register(com.badlogic.gdx.graphics.Mesh.class);
+//        kryo.register(com.badlogic.gdx.graphics.glutils.IndexArray.class);
 
     }
 }
