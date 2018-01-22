@@ -1,12 +1,15 @@
 package com.mygdx.game.equipment;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Schmuck;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.util.HitboxFactory;
+import com.mygdx.game.util.SteeringUtil;
+
 import static com.mygdx.game.util.Constants.PPM;
 
 import box2dLight.RayHandler;
@@ -93,20 +96,28 @@ public class RangedWeapon extends Equipment {
 		//Check ckip size. empty clip = reload instead. This makes reloading automatic.
 		if (clipLeft > 0) {
 			
-			//Generate the hitbox(s). This method's return is unused, so it may not return a hitbox or whatever at all.
-			onShoot.makeHitbox(user, state, velo, 
-					shooter.getSchmuck().getBody().getPosition().x * PPM, 
-					shooter.getSchmuck().getBody().getPosition().y * PPM, 
-					faction, world, camera, rays);
+			float bodyAngle = shooter.getEntity().getBody().getAngle() * MathUtils.radiansToDegrees;
+			float shootAngle = SteeringUtil.vectorToAngle(velo) * MathUtils.radiansToDegrees - 90;
 			
-			clipLeft--;
-			
-			//If player fires in the middle of reloading, reset reload progress
-			reloading = false;
-			reloadCd = reloadTime;
-			
-			//process weapon recoil.
-			user.recoil(x, y, recoil);
+			float phi = Math.abs(bodyAngle - shootAngle) % 360;
+	        float distance = phi > 180 ? 360 - phi : phi;
+	        
+			if (distance <= 60) {
+				//Generate the hitbox(s). This method's return is unused, so it may not return a hitbox or whatever at all.
+				onShoot.makeHitbox(user, state, velo, 
+						shooter.getSchmuck().getBody().getPosition().x * PPM, 
+						shooter.getSchmuck().getBody().getPosition().y * PPM, 
+						faction, world, camera, rays);
+				
+				clipLeft--;
+				
+				//If player fires in the middle of reloading, reset reload progress
+				reloading = false;
+				reloadCd = reloadTime;
+				
+				//process weapon recoil.
+				user.recoil(x, y, recoil);
+			}
 		} 
 		if (clipLeft <= 0) {
 			if (!reloading) {
