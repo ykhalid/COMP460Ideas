@@ -7,12 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.manager.GameStateManager;
 import com.mygdx.game.manager.GameStateManager.State;
 import com.mygdx.game.networking.ChatClient;
 import com.mygdx.game.networking.ChatServer;
 import com.mygdx.game.comp460game;
 import com.mygdx.game.actors.Text;
+import com.mygdx.game.server.KryoServer;
 
 public class TitleState extends GameState {
 
@@ -43,7 +45,7 @@ public class TitleState extends GameState {
 				
 				joinServerOption.addListener(new ClickListener() {
 			        public void clicked(InputEvent e, float x, float y) {
-			        	new ChatClient();
+			        	new KryoClient();
 			        }
 			    });
 				joinServerOption.setScale(0.5f);
@@ -51,11 +53,12 @@ public class TitleState extends GameState {
 				startServerOption.addListener(new ClickListener() {
 			        public void clicked(InputEvent e, float x, float y) {
 			        	//TODO: start a server
-			        	try {
-							new ChatServer();
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
+						new KryoServer();
+//			        	try {
+//							new KryoServer();
+//						} catch (IOException e1) {
+//							e1.printStackTrace();
+//						}
 			        }
 			    });
 				startServerOption.setScale(0.5f);

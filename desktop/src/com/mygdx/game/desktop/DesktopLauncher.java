@@ -17,8 +17,8 @@ public class DesktopLauncher {
 //		config.fullscreen = true;
 		config.foregroundFPS = 60;
 		config.backgroundFPS = 60;
-		new ChatServer();
-		new ChatClient();
+//		new ChatServer();
+//		new ChatClient();
 /*		try {
 			new ChatServer();
 		} catch (IOException e1) {
