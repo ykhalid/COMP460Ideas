@@ -7,7 +7,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
-import com.mygdx.game.networking.Network;
+import com.mygdx.game.manager.GameStateManager;
 
 public class KryoServer {
 
@@ -46,16 +46,6 @@ public class KryoServer {
 					Packets.Packet01Message newPlayer = new Packets.Packet01Message( name + " has joined the game.");
 					Log.info(name + " has joined the game.");
 					server.sendToAllExceptTCP(c.getID(), newPlayer);
-					players += 1;
-					// If we are at 2 players, enter the PlayState.
-					if (players < 2) {
-						return;
-					}
-					if (players > 2) {
-						throw new IllegalStateException("We messed up somewhere...there are more than 2 players.");
-					}
-					// Send the PlayState to both players
-//					Packets.Packet04EnterPlayState newGame =
 
 				}
 
@@ -68,6 +58,14 @@ public class KryoServer {
 					// We have received a mouse click.
 					Packets.Packet03Click p = (Packets.Packet03Click) o;
 				}
+
+				if (o instanceof Packets.ReadyToPlay) {
+				    Packets.ReadyToPlay p = (Packets.ReadyToPlay) o;
+				    players += 1;
+				    if (players == 2) {
+				        server.sendToAllTCP(new Packets.Packet04EnterPlayState());
+                    }
+                }
 			}
 		});
 

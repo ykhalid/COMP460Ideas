@@ -25,10 +25,15 @@ public class Packets {
 		public Equipment usedTool;
 	}
 
+	public static class ReadyToPlay {
+
+    }
+
 	public static class Packet04EnterPlayState {
-		public Packet04EnterPlayState (PlayState playState) {
+
+		/*public Packet04EnterPlayState (PlayState playState) {
 			ps = playState;
 		}
-		public PlayState ps;
+		public PlayState ps;*/
 	}
 }

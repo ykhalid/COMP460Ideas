@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" nextobjectid="45">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" nextobjectid="57">
  <tileset firstgid="1" source="460.tsx"/>
  <layer name="Tile Layer 1" width="200" height="200">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <objectgroup name="collision-layer">
@@ -16,8 +16,11 @@
   <object id="3" x="1600" y="1600">
    <polyline points="0,0 0,448 608,448 608,352 768,352 768,448 928,448 928,256 608,256 608,0 0,0"/>
   </object>
-  <object id="40" x="1792" y="4000">
-   <polyline points="0,0 0,-576 1056,-576 1056,576 384,576 192,384 192,192 0,0"/>
+  <object id="47" x="3198.19" y="3612.13">
+   <polyline points="0,0 1.81457,1563.62 192.724,1760.59 2586.66,1763.62 2783.63,1572.71 2780.6,-0.0137468 2592.72,-190.923 192.724,-190.923 1.81457,-3.04405"/>
+  </object>
+  <object id="50" x="1792.23" y="3427.7">
+   <polyline points="0,0 -4.67946,563.875 182.499,760.412 189.518,952.27 386.055,1148.81 605.99,1148.81 603.65,1396.82 690.22,1396.82 701.919,1146.47 1048.2,1141.79 1055.22,0 4.67946,-7.01919"/>
   </object>
  </objectgroup>
  <objectgroup name="event-layer">
@@ -197,14 +200,14 @@
     <property name="triggeringId" value="11"/>
    </properties>
   </object>
-  <object id="39" name="UsePortal" type="UsePortal" x="1984" y="4032" width="32" height="32">
+  <object id="39" name="UsePortal" type="UsePortal" x="1887.55" y="3530.46" width="32" height="32">
    <properties>
     <property name="oneTime" type="bool" value="false"/>
     <property name="triggeredId" value="11"/>
     <property name="triggeringId" value="10"/>
    </properties>
   </object>
-  <object id="41" name="Spawn" type="Spawn" x="2720" y="3616" width="32" height="32">
+  <object id="41" name="Spawn" type="Spawn" x="2172.16" y="4379.89" width="32" height="32">
    <properties>
     <property name="id" type="int" value="2"/>
     <property name="interval" type="float" value="10"/>
@@ -226,6 +229,55 @@
   <object id="44" name="Text" type="Text" x="3104" y="2240" width="576" height="896">
    <properties>
     <property name="text" value="DEFEAT ENEMIES TO CONTINUE"/>
+   </properties>
+  </object>
+  <object id="48" name="UsePortal" type="UsePortal" x="3381.38" y="3572.85" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="false"/>
+    <property name="triggeredId" value="10"/>
+    <property name="triggeringId" value="11"/>
+   </properties>
+  </object>
+  <object id="51" name="UsePortal" type="UsePortal" x="2425.61" y="4756.61" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="false"/>
+    <property name="triggeredId" value="10"/>
+    <property name="triggeringId" value="11"/>
+   </properties>
+  </object>
+  <object id="52" name="Spawn" type="Spawn" x="5806.7" y="5188.45" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+    <property name="interval" type="float" value="100"/>
+    <property name="limit" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="53" name="Spawn" type="Spawn" x="3360" y="5200" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+    <property name="interval" type="float" value="100"/>
+    <property name="limit" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="54" name="Spawn" type="Spawn" x="5800" y="3564" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+    <property name="interval" type="float" value="100"/>
+    <property name="limit" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="55" name="Spawn" type="Spawn" x="5805.21" y="4362.79" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+    <property name="interval" type="float" value="100"/>
+    <property name="limit" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="56" name="Spawn" type="Spawn" x="4587.03" y="5220.36" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+    <property name="interval" type="float" value="100"/>
+    <property name="limit" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>
