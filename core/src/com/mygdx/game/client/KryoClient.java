@@ -198,6 +198,24 @@ public class KryoClient {
                             }
                         }
                     }
+                    else if (p.message == Input.Keys.SPACE) {
+                        if (myGame.getGsm().states.peek() instanceof PlayState) {
+                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.spacePressed = true;
+                                } else {
+                                    ps.player.spacePressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.spacePressed = true;
+                                } else {
+                                    ps.player.spacePressed = false;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         });
