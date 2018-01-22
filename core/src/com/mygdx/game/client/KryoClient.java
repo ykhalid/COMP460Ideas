@@ -6,8 +6,8 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.mygdx.game.networking.Network;
-import com.mygdx.game.server.Packets;
+import com.mygdx.game.server.*;
+//import com.mygdx.game.server.Packets;
 
 import javax.swing.*;
 
@@ -31,14 +31,10 @@ public class KryoClient {
 		registerPackets();
 
 		client.addListener(new Listener() {
-			private Client client;
-
-			public void init(Client client) {
-				this.client = client;
-			}
 
 			public void connected(Connection c) {
-
+                Packets.Packet01Message connected = new Packets.Packet01Message(name);
+                client.sendTCP(connected);
 			}
 
 			public void disconnected(Connection c) {

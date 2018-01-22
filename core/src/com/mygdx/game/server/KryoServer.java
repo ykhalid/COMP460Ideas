@@ -6,6 +6,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.networking.Network;
 
 public class KryoServer {
@@ -43,6 +44,7 @@ public class KryoServer {
 						return;
 					}
 					Packets.Packet01Message newPlayer = new Packets.Packet01Message( name + " has joined the game.");
+					Log.info(name + " has joined the game.");
 					server.sendToAllExceptTCP(c.getID(), newPlayer);
 					players += 1;
 					// If we are at 2 players, enter the PlayState.
