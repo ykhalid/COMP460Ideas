@@ -77,6 +77,9 @@ public class Player extends Schmuck implements InputProcessor {
 				(short) (Constants.BIT_WALL | Constants.BIT_SENSOR | Constants.BIT_PROJECTILE | Constants.BIT_ENEMY),
 				Constants.PLAYER_HITBOX, false, playerData);
         
+		dummy.body = this.body;
+		dummy.bodyData = this.bodyData;
+		
 		FixtureDef fixtureDef = new FixtureDef();
         FixtureDef fixtureDef2 = new FixtureDef();
 		
