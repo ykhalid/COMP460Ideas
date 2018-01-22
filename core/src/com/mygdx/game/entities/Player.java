@@ -263,7 +263,7 @@ public class Player extends Schmuck implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        client.client.sendTCP(new Packets.Packet03Click(new Vector2(screenX,screenY),playerData.currentTool, client.myID, lastDelta));
+        client.client.sendTCP(new Packets.Packet03Click(new Vector2(screenX,screenY), null, client.myID, lastDelta));
 
         return false;
     }

@@ -2,11 +2,13 @@ package com.mygdx.game.server;
 
 import java.io.IOException;
 
+import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
+import com.mygdx.game.equipment.ranged.Gun;
 import com.mygdx.game.manager.GameStateManager;
 
 public class KryoServer {
@@ -89,14 +91,7 @@ public class KryoServer {
 
 	private void registerPackets() {
 		Kryo kryo = server.getKryo();
-
-		kryo.register(Packets.Packet01Message.class);
-		kryo.register(Packets.Packet02Input.class);
-		kryo.register(Packets.Packet03Click.class);
-		kryo.register(Packets.Packet04EnterPlayState.class);
-		kryo.register(Packets.PacketReadyToPlay.class);
-		kryo.register(Packets.IDMessage.class);
-
+		Packets.allPackets(kryo);
 	}
 }
 

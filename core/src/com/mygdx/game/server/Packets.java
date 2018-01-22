@@ -2,7 +2,10 @@ package com.mygdx.game.server;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.esotericsoftware.kryo.Kryo;
 import com.mygdx.game.equipment.Equipment;
+import com.mygdx.game.equipment.RangedWeapon;
+import com.mygdx.game.equipment.ranged.Gun;
 import com.mygdx.game.states.PlayState;
 import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 
@@ -58,5 +61,18 @@ public class Packets {
             this.ID = ID;
         }
         public int ID;
+    }
+
+    public static void allPackets(Kryo kryo) {
+        kryo.register(Packets.Packet01Message.class);
+        kryo.register(Packets.Packet02Input.class);
+        kryo.register(Packets.Packet03Click.class);
+        kryo.register(Packets.Packet04EnterPlayState.class);
+        kryo.register(Packets.PacketReadyToPlay.class);
+        kryo.register(Packets.IDMessage.class);
+        kryo.register(Vector2.class);
+        kryo.register(Gun.class);
+        kryo.register(RangedWeapon.class);
+        kryo.register(Equipment.class);
     }
 }

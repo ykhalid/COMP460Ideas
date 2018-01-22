@@ -4,12 +4,14 @@ import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.comp460game;
+import com.mygdx.game.equipment.ranged.Gun;
 import com.mygdx.game.manager.GameStateManager;
 import com.mygdx.game.server.*;
 import com.mygdx.game.states.GameState;
@@ -75,7 +77,7 @@ public class KryoClient {
                 else if (o instanceof Packets.Packet03Click) {
                     Packets.Packet03Click p = (Packets.Packet03Click) o;
                     PlayState ps = (PlayState) myGame.getGsm().states.peek();
-                    ps.player.useToolStart(p.delta, p.usedTool, Constants.PLAYER_HITBOX, (int) p.location.x , (int)(Gdx.graphics.getHeight() - p.location.y), true);
+                    ps.player.useToolStart(p.delta, ps.player.usedTool, Constants.PLAYER_HITBOX, (int) p.location.x , (int)(Gdx.graphics.getHeight() - p.location.y), true);
                 }
 
                 else if (o instanceof Packets.Packet02Input) {
@@ -219,13 +221,6 @@ public class KryoClient {
 	
 	private void registerPackets() {
 		Kryo kryo = client.getKryo();
-
-		kryo.register(Packets.Packet01Message.class);
-		kryo.register(Packets.Packet02Input.class);
-        kryo.register(Packets.Packet03Click.class);
-        kryo.register(Packets.Packet04EnterPlayState.class);
-        kryo.register(Packets.PacketReadyToPlay.class);
-        kryo.register(Packets.IDMessage.class);
-
+        Packets.allPackets(kryo);
     }
 }
