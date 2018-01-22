@@ -23,10 +23,4 @@ public class Player2Dummy extends Schmuck {
 		this.body = player.getBody();
 	}
 	
-	/**
-	 * The player's controller currently polls for input.
-	 */
-	public void controller(float delta) {
-	
-	}
 }
