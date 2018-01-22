@@ -59,6 +59,8 @@ public class Player extends Schmuck implements InputProcessor {
 	public Player(KryoClient client, PlayState state, World world, OrthographicCamera camera, RayHandler rays, int x, int y) {
 		super(state, world, camera, rays, x, y, "torpedofish_swim", 250, 161, 161, 250);
 		this.client = client;
+		
+		new Player2Dummy(state, world, camera, rays, 250, 161, x, y, this);
 	}
 	
 	/**
