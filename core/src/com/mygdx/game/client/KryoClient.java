@@ -12,7 +12,7 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.comp460game;
 import com.mygdx.game.equipment.ranged.Gun;
-import com.mygdx.game.manager.GameStateManager;
+import com.mygdx.game.manager.GameStateManager.State;
 import com.mygdx.game.server.*;
 import com.mygdx.game.states.GameState;
 import com.mygdx.game.states.PlayState;
@@ -30,6 +30,7 @@ public class KryoClient {
 	public Client client;
     comp460game myGame;
     public int myID;
+    public boolean master = false;
 
     public static final int timeout = 5000;
     String name;
@@ -64,7 +65,7 @@ public class KryoClient {
                 else if (o instanceof Packets.Packet04EnterPlayState) {
                     Gdx.app.postRunnable(new Runnable() {
                         public void run() {
-                            myGame.getGsm().addState(GameStateManager.State.PLAY, TitleState.class);
+                            myGame.getGsm().addState(State.PLAY, TitleState.class);
                         }
                     });
                 }
@@ -72,6 +73,14 @@ public class KryoClient {
                 else if (o instanceof Packets.IDMessage) {
                     Packets.IDMessage p = (Packets.IDMessage) o;
                     myID = p.ID;
+                    master = p.master;
+                }
+
+                else if (o instanceof Packets.SyncPlayState) {
+                    Packets.SyncPlayState p = (Packets.SyncPlayState) o;
+                    PlayState ps = (PlayState)myGame.getGsm().states.peek();
+                    myGame.getGsm().states.pop();
+                    myGame.getGsm().states.push(ps);
                 }
 
                 else if (o instanceof Packets.Packet03Click) {

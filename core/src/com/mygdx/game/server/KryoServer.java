@@ -18,6 +18,7 @@ public class KryoServer {
 	Server server;
 	ServerNetworkListener serverListener;
 	GameStateManager gsm;
+	boolean setMaster = true;
 
 	public KryoServer(GameStateManager gameStateManager) {
 		this.server = new Server();
@@ -50,7 +51,8 @@ public class KryoServer {
 					Packets.Packet01Message newPlayer = new Packets.Packet01Message( name + " has joined the game server.");
 					Log.info(name + " has joined the game.");
 					server.sendToAllExceptTCP(c.getID(), newPlayer);
-					server.sendToTCP(c.getID(), new Packets.IDMessage(c.getID()));
+					server.sendToTCP(c.getID(), new Packets.IDMessage(c.getID(), setMaster));
+					setMaster = false;
 
 				}
 
@@ -75,6 +77,12 @@ public class KryoServer {
 				        server.sendToAllTCP(new Packets.Packet04EnterPlayState());
                     }
                 }
+
+                else if (o instanceof Packets.SyncPlayState) {
+					Log.info("Syncing PlayStates...");
+					Packets.SyncPlayState p = (Packets.SyncPlayState) o;
+					server.sendToAllExceptTCP(c.getID(),p);
+				}
 			}
 		});
 

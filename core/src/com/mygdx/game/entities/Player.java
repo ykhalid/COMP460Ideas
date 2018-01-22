@@ -36,6 +36,7 @@ public class Player extends Schmuck implements InputProcessor {
 		
 	protected float interactCd = 0.15f;
 	protected float interactCdCount = 0;
+	protected float syncTimer = 0;
 
 	//is the button for that respective movement pressed currently?
     public boolean wPressed = false, aPressed = false, sPressed = false, dPressed = false, qPressed = false, ePressed = false;
@@ -106,6 +107,7 @@ public class Player extends Schmuck implements InputProcessor {
 	public void controller(float delta) {
 
 	    lastDelta = delta;
+
 		desiredYVel = 0;
 		desiredXVel = 0;
 		desiredAngleVel = 0;
@@ -177,6 +179,13 @@ public class Player extends Schmuck implements InputProcessor {
 		interactCdCount-=delta;
 
 		super.controller(delta);
+
+        syncTimer += delta;
+
+        if (syncTimer > 5000) {
+            client.client.sendTCP(new Packets.SyncPlayState(this.state));
+            syncTimer = 0;
+        }
 	}
 	
 	public void dispose() {

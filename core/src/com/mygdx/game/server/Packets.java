@@ -57,10 +57,20 @@ public class Packets {
 
 	public static class IDMessage {
         public IDMessage() {}
-        public IDMessage(int ID) {
+        public IDMessage(int ID, boolean mas) {
             this.ID = ID;
+            master = mas;
         }
         public int ID;
+        public boolean master;
+    }
+
+    public static class SyncPlayState {
+	    public SyncPlayState() {}
+	    public SyncPlayState(PlayState play) {
+	        ps = play;
+        }
+        public PlayState ps;
     }
 
     public static void allPackets(Kryo kryo) {
@@ -74,5 +84,6 @@ public class Packets {
         kryo.register(Gun.class);
         kryo.register(RangedWeapon.class);
         kryo.register(Equipment.class);
+        kryo.register(PlayState.class);
     }
 }
