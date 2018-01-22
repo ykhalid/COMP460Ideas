@@ -15,10 +15,12 @@ public class KryoServer {
 	int players = 0;
 	Server server;
 	ServerNetworkListener serverListener;
+	GameStateManager gsm;
 
-	public KryoServer() {
+	public KryoServer(GameStateManager gameStateManager) {
 		this.server = new Server();
 		this.serverListener = new ServerNetworkListener();
+		gsm = gameStateManager;
 
 		server.addListener(new Listener() {
 			public void disconnected(Connection c) {
@@ -27,7 +29,7 @@ public class KryoServer {
 			}
 
 			public void received(Connection c, Object o) {
-
+				Log.info("" + (o instanceof Packets.PacketReadyToPlay));
 				if (o instanceof Packets.Packet01Message) {
 					// We have received a player connection message.
 					Packets.Packet01Message p = (Packets.Packet01Message) o;
@@ -43,25 +45,27 @@ public class KryoServer {
 						server.sendToTCP(c.getID(), new Packets.Packet01Message("Cannot have empty player name."));
 						return;
 					}
-					Packets.Packet01Message newPlayer = new Packets.Packet01Message( name + " has joined the game.");
+					Packets.Packet01Message newPlayer = new Packets.Packet01Message( name + " has joined the game server.");
 					Log.info(name + " has joined the game.");
 					server.sendToAllExceptTCP(c.getID(), newPlayer);
 
 				}
 
-				if (o instanceof Packets.Packet02Input) {
+				else if (o instanceof Packets.Packet02Input) {
 					// We have received a player movement message.
 					Packets.Packet02Input p = (Packets.Packet02Input) o;
 				}
 
-				if (o instanceof Packets.Packet03Click) {
+				else if (o instanceof Packets.Packet03Click) {
 					// We have received a mouse click.
 					Packets.Packet03Click p = (Packets.Packet03Click) o;
 				}
 
-				if (o instanceof Packets.ReadyToPlay) {
-				    Packets.ReadyToPlay p = (Packets.ReadyToPlay) o;
+				else if (o instanceof Packets.PacketReadyToPlay) {
+					Log.info("Server received ReadyToPlay");
+				    Packets.PacketReadyToPlay p = (Packets.PacketReadyToPlay) o;
 				    players += 1;
+					Log.info("Player " + players + " ready.");
 				    if (players == 2) {
 				        server.sendToAllTCP(new Packets.Packet04EnterPlayState());
                     }
@@ -87,6 +91,7 @@ public class KryoServer {
 		kryo.register(Packets.Packet02Input.class);
 		kryo.register(Packets.Packet03Click.class);
 		kryo.register(Packets.Packet04EnterPlayState.class);
+		kryo.register(Packets.PacketReadyToPlay.class);
 
 	}
 }

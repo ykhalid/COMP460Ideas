@@ -6,7 +6,9 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.mygdx.game.manager.GameStateManager;
 import com.mygdx.game.server.*;
+import com.mygdx.game.states.TitleState;
 //import com.mygdx.game.server.Packets;
 
 import javax.swing.*;
@@ -17,17 +19,17 @@ public class KryoClient {
 	String ipAddress = "localhost";
 	
 	public Client client;
-	public ClientNetworkListener clientListener;
-	
-	public static final int timeout = 5000;
+    GameStateManager gsm;
+
+    public static final int timeout = 5000;
     String name;
-	
-	public KryoClient() {
-		this.client = new Client();
+
+    public KryoClient(GameStateManager gameStateManager) {
+        gsm = gameStateManager;
+
+        this.client = new Client();
         client.start();
-		this.clientListener = new ClientNetworkListener();
-		
-		clientListener.init(client);
+
 		registerPackets();
 
 		client.addListener(new Listener() {
@@ -46,6 +48,10 @@ public class KryoClient {
 				if (o instanceof Packets.Packet01Message) {
 					Packets.Packet01Message p = (Packets.Packet01Message) o;
 				}
+
+				else if (o instanceof Packets.Packet04EnterPlayState) {
+                    gsm.addState(GameStateManager.State.PLAY, TitleState.class);
+                }
 			}
 		});
 
@@ -82,6 +88,8 @@ public class KryoClient {
 		kryo.register(Packets.Packet01Message.class);
 		kryo.register(Packets.Packet02Input.class);
         kryo.register(Packets.Packet03Click.class);
+        kryo.register(Packets.PacketReadyToPlay.class);
         kryo.register(Packets.Packet04EnterPlayState.class);
+
 	}
 }

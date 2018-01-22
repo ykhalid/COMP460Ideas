@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.manager.GameStateManager;
 import com.mygdx.game.manager.GameStateManager.State;
@@ -15,11 +16,12 @@ import com.mygdx.game.networking.ChatServer;
 import com.mygdx.game.comp460game;
 import com.mygdx.game.actors.Text;
 import com.mygdx.game.server.KryoServer;
+import com.mygdx.game.server.Packets;
 
 public class TitleState extends GameState {
 
 	private Stage stage;
-	
+	private KryoClient client;
 	//Temporary links to other modules for testing.
 	private Actor playOption, exitOption, joinServerOption, startServerOption;
 	
@@ -38,14 +40,21 @@ public class TitleState extends GameState {
 				
 				playOption.addListener(new ClickListener() {
 			        public void clicked(InputEvent e, float x, float y) {
-			        	gsm.addState(State.PLAY, TitleState.class);
+			            Log.info("Clicked play button...");
+			            if (client == null) return;
+                        Log.info("Client successfully set");
+                        Packets.PacketReadyToPlay r2p = new Packets.PacketReadyToPlay();
+                        client.client.sendTCP(r2p);
+                        Packets.Packet01Message connected = new Packets.Packet01Message("Billy");
+                        client.client.sendTCP(connected);
+
 			        }
 			    });
 				playOption.setScale(0.5f);
 				
 				joinServerOption.addListener(new ClickListener() {
 			        public void clicked(InputEvent e, float x, float y) {
-			        	new KryoClient();
+			        	client = new KryoClient(gsm);
 			        }
 			    });
 				joinServerOption.setScale(0.5f);
@@ -53,7 +62,7 @@ public class TitleState extends GameState {
 				startServerOption.addListener(new ClickListener() {
 			        public void clicked(InputEvent e, float x, float y) {
 			        	//TODO: start a server
-						new KryoServer();
+						new KryoServer(gsm);
 //			        	try {
 //							new KryoServer();
 //						} catch (IOException e1) {
