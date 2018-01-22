@@ -2,12 +2,17 @@ package com.mygdx.game.client;
 
 import java.io.IOException;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.mygdx.game.comp460game;
 import com.mygdx.game.manager.GameStateManager;
 import com.mygdx.game.server.*;
+import com.mygdx.game.states.GameState;
+import com.mygdx.game.states.PlayState;
 import com.mygdx.game.states.TitleState;
 //import com.mygdx.game.server.Packets;
 
@@ -19,41 +24,160 @@ public class KryoClient {
 	String ipAddress = "localhost";
 	
 	public Client client;
-    GameStateManager gsm;
+    comp460game myGame;
+    public int myID;
 
     public static final int timeout = 5000;
     String name;
 
-    public KryoClient(GameStateManager gameStateManager) {
-        gsm = gameStateManager;
+    public KryoClient(comp460game myGame) {
+        this.myGame = myGame;
+	}
 
+	public void init() {
         this.client = new Client();
         client.start();
 
-		registerPackets();
+        registerPackets();
 
-		client.addListener(new Listener() {
+        client.addListener(new Listener() {
 
-			public void connected(Connection c) {
+            public void connected(Connection c) {
                 Packets.Packet01Message connected = new Packets.Packet01Message(name);
                 client.sendTCP(connected);
-			}
+            }
 
-			public void disconnected(Connection c) {
+            public void disconnected(Connection c) {
 
-			}
+            }
 
-			public void received(Connection c, Object o) {
+            public void received(Connection c, Object o) {
 
-				if (o instanceof Packets.Packet01Message) {
-					Packets.Packet01Message p = (Packets.Packet01Message) o;
-				}
-
-				else if (o instanceof Packets.Packet04EnterPlayState) {
-                    gsm.addState(GameStateManager.State.PLAY, TitleState.class);
+                if (o instanceof Packets.Packet01Message) {
+                    Packets.Packet01Message p = (Packets.Packet01Message) o;
                 }
-			}
-		});
+
+                else if (o instanceof Packets.Packet04EnterPlayState) {
+                    Gdx.app.postRunnable(new Runnable() {
+                        public void run() {
+                            myGame.getGsm().addState(GameStateManager.State.PLAY, TitleState.class);
+                        }
+                    });
+                }
+
+                else if (o instanceof Packets.IDMessage) {
+                    Packets.IDMessage p = (Packets.IDMessage) o;
+                    myID = p.ID;
+                }
+
+                else if (o instanceof Packets.Packet02Input) {
+                    Packets.Packet02Input p = (Packets.Packet02Input) o;
+                    if (p.message == Input.Keys.W) {
+                        if (myGame.getGsm().states.peek() instanceof PlayState) {
+                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.wPressed = true;
+                                } else {
+                                    ps.player.wPressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.wPressed2 = true;
+                                } else {
+                                    ps.player.wPressed2 = false;
+                                }
+                            }
+                        }
+                    } else if (p.message == Input.Keys.A) {
+                        if (myGame.getGsm().states.peek() instanceof PlayState) {
+                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.aPressed = true;
+                                } else {
+                                    ps.player.aPressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.aPressed2 = true;
+                                } else {
+                                    ps.player.aPressed2 = false;
+                                }
+                            }
+                        }
+                    } else if (p.message == Input.Keys.S) {
+                        if (myGame.getGsm().states.peek() instanceof PlayState) {
+                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.sPressed = true;
+                                } else {
+                                    ps.player.sPressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.sPressed2 = true;
+                                } else {
+                                    ps.player.sPressed2 = false;
+                                }
+                            }
+                        }
+                    } else if (p.message == Input.Keys.D) {
+                        if (myGame.getGsm().states.peek() instanceof PlayState) {
+                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.dPressed = true;
+                                } else {
+                                    ps.player.dPressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.dPressed2 = true;
+                                } else {
+                                    ps.player.dPressed2 = false;
+                                }
+                            }
+                        }
+                    } else if (p.message == Input.Keys.Q) {
+                        if (myGame.getGsm().states.peek() instanceof PlayState) {
+                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.qPressed = true;
+                                } else {
+                                    ps.player.qPressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.qPressed2 = true;
+                                } else {
+                                    ps.player.qPressed2 = false;
+                                }
+                            }
+                        }
+                    } else if (p.message == Input.Keys.E) {
+                        if (myGame.getGsm().states.peek() instanceof PlayState) {
+                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.ePressed = true;
+                                } else {
+                                    ps.player.ePressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.ePressed2 = true;
+                                } else {
+                                    ps.player.ePressed2 = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
         // Request the host from the user.
         String input = (String) JOptionPane.showInputDialog(null, "Host:", "Connect to chat server", JOptionPane.QUESTION_MESSAGE,
@@ -80,7 +204,7 @@ public class KryoClient {
                 }
             }
         }.start();
-	}
+    }
 	
 	private void registerPackets() {
 		Kryo kryo = client.getKryo();
@@ -90,7 +214,7 @@ public class KryoClient {
         kryo.register(Packets.Packet03Click.class);
         kryo.register(Packets.Packet04EnterPlayState.class);
         kryo.register(Packets.PacketReadyToPlay.class);
-
+        kryo.register(Packets.IDMessage.class);
 
     }
 }

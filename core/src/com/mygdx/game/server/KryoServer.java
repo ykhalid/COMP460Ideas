@@ -48,12 +48,14 @@ public class KryoServer {
 					Packets.Packet01Message newPlayer = new Packets.Packet01Message( name + " has joined the game server.");
 					Log.info(name + " has joined the game.");
 					server.sendToAllExceptTCP(c.getID(), newPlayer);
+					server.sendToTCP(c.getID(), new Packets.IDMessage(c.getID()));
 
 				}
 
 				else if (o instanceof Packets.Packet02Input) {
 					// We have received a player movement message.
 					Packets.Packet02Input p = (Packets.Packet02Input) o;
+					server.sendToAllTCP(p);
 				}
 
 				else if (o instanceof Packets.Packet03Click) {
@@ -65,7 +67,7 @@ public class KryoServer {
 					Log.info("Server received ReadyToPlay");
 				    Packets.PacketReadyToPlay p = (Packets.PacketReadyToPlay) o;
 				    players += 1;
-					Log.info("Player " + players + " ready.");
+					Log.info("Player " + c.getID() + " ready.");
 				    if (players == 2) {
 				        server.sendToAllTCP(new Packets.Packet04EnterPlayState());
                     }
@@ -92,6 +94,7 @@ public class KryoServer {
 		kryo.register(Packets.Packet03Click.class);
 		kryo.register(Packets.Packet04EnterPlayState.class);
 		kryo.register(Packets.PacketReadyToPlay.class);
+		kryo.register(Packets.IDMessage.class);
 
 	}
 }

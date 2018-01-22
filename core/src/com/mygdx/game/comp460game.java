@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.esotericsoftware.minlog.Log;
+import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.manager.AssetList;
 import com.mygdx.game.manager.GameStateManager;
 
@@ -26,7 +28,9 @@ public class comp460game extends ApplicationAdapter {
 
 	//This is the Gamestate Manager. It manages the current game state.
 	private GameStateManager gsm;
-	
+
+    private KryoClient client;
+
 	public static AssetManager assetManager;
     public static FitViewport viewportCamera, viewportSprite;
 
@@ -45,6 +49,8 @@ public class comp460game extends ApplicationAdapter {
 	 */
 	@Override
 	public void create () {
+        client = new KryoClient(this);
+
 		CONFIG_WIDTH = DEFAULT_WIDTH;
 		CONFIG_HEIGHT = DEFAULT_HEIGHT;
 
@@ -171,4 +177,13 @@ public class comp460game extends ApplicationAdapter {
 	public SpriteBatch getBatch() {
 		return batch;
 	}
+
+    public KryoClient getClient() {
+        Log.info("Client: " + client);
+        return client;
+    }
+
+    public GameStateManager getGsm() {
+	    return gsm;
+    }
 }

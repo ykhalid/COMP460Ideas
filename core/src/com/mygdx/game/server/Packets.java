@@ -17,8 +17,17 @@ public class Packets {
 	}
 	
 	public static class Packet02Input {
+	    public static final int PRESSED = 0;
+        public static final int RELEASED = 1;
 	    public Packet02Input() {}
-		public Input.Keys message;
+	    public Packet02Input(int m, int pOrR, int playerID) {
+	        message = m;
+	        pressOrRelease = pOrR;
+	        this.playerID = playerID;
+        }
+        public int playerID;
+		public int message;
+	    public int pressOrRelease; //0 = pressed, 1 = released.
 	}
 	
 	public static class Packet03Click {
@@ -34,4 +43,12 @@ public class Packets {
 	public static class Packet04EnterPlayState {
         public Packet04EnterPlayState() {}
 	}
+
+	public static class IDMessage {
+        public IDMessage() {}
+        public IDMessage(int ID) {
+            this.ID = ID;
+        }
+        public int ID;
+    }
 }

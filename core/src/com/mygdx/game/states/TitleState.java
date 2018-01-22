@@ -22,11 +22,13 @@ public class TitleState extends GameState {
 
 	private Stage stage;
 	private KryoClient client;
-	//Temporary links to other modules for testing.
+
+    //Temporary links to other modules for testing.
 	private Actor playOption, exitOption, joinServerOption, startServerOption;
 	
-	public TitleState(GameStateManager gsm) {
+	public TitleState(KryoClient client, GameStateManager gsm) {
 		super(gsm);
+		this.client = client;
 	}
 
 	@Override
@@ -45,16 +47,13 @@ public class TitleState extends GameState {
                         Log.info("Client successfully set");
                         Packets.PacketReadyToPlay r2p = new Packets.PacketReadyToPlay();
                         client.client.sendTCP(r2p);
-                        Packets.Packet01Message connected = new Packets.Packet01Message("Billy");
-                        client.client.sendTCP(connected);
-
 			        }
 			    });
 				playOption.setScale(0.5f);
 				
 				joinServerOption.addListener(new ClickListener() {
 			        public void clicked(InputEvent e, float x, float y) {
-			        	client = new KryoClient(gsm);
+                        client.init();
 			        }
 			    });
 				joinServerOption.setScale(0.5f);
