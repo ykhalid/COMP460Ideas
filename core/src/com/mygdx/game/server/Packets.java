@@ -2,7 +2,9 @@ package com.mygdx.game.server;
 
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -14,6 +16,7 @@ import com.mygdx.game.entities.Player;
 import com.mygdx.game.equipment.Equipment;
 import com.mygdx.game.equipment.RangedWeapon;
 import com.mygdx.game.equipment.ranged.Gun;
+import com.mygdx.game.manager.GameStateManager;
 import com.mygdx.game.states.PlayState;
 import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import javafx.stage.Stage;
@@ -105,6 +108,10 @@ public class Packets {
         kryo.register(World.class);
         kryo.register(Entity.class);
         kryo.register(Stage.class);
+        kryo.register(GameStateManager.class);
+        kryo.register(SpriteBatch.class);
+        kryo.register(OrthographicCamera.class);
+
 
     }
 }
