@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.entities.userdata.PlayerData;
 import com.mygdx.game.event.Event;
@@ -181,9 +182,9 @@ public class Player extends Schmuck implements InputProcessor {
 		super.controller(delta);
 
         syncTimer += delta;
-
-        if (syncTimer > 5000) {
-            client.client.sendTCP(new Packets.SyncPlayState(this.state));
+        if (syncTimer > 5) {
+            if (client.master)
+                client.client.sendTCP(new Packets.SyncPlayState(this.state));
             syncTimer = 0;
         }
 	}

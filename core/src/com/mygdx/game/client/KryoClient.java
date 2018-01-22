@@ -81,6 +81,7 @@ public class KryoClient {
                     PlayState ps = (PlayState)myGame.getGsm().states.peek();
                     myGame.getGsm().states.pop();
                     myGame.getGsm().states.push(ps);
+                    Log.info("Received sync message...");
                 }
 
                 else if (o instanceof Packets.Packet03Click) {
