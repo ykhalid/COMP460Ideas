@@ -85,5 +85,7 @@ public class Packets {
         kryo.register(RangedWeapon.class);
         kryo.register(Equipment.class);
         kryo.register(PlayState.class);
+        kryo.register(SyncPlayState.class);
+
     }
 }
