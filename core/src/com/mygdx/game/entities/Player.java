@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -26,7 +27,9 @@ public class Player extends Schmuck implements InputProcessor {
 
 	//Fixtures and user data
 	protected Fixture viewWedge;
+    protected Fixture viewWedge2;
 	private KryoClient client;
+	private float lastDelta;
 		
 	//is the player currently in the process of holding their currently used tool?
 	private boolean charging = false;
@@ -69,19 +72,30 @@ public class Player extends Schmuck implements InputProcessor {
 				Constants.PLAYER_HITBOX, false, playerData);
         
 		FixtureDef fixtureDef = new FixtureDef();
+        FixtureDef fixtureDef2 = new FixtureDef();
 		
 		PolygonShape pShape = new PolygonShape();
+        PolygonShape pShape2 = new PolygonShape();
 		fixtureDef.shape = pShape;
+        fixtureDef2.shape = pShape2;
 		
 		fixtureDef.density = 0;
 		fixtureDef.filter.categoryBits = Constants.BIT_SENSOR;
 		fixtureDef.filter.maskBits = 0;
 		fixtureDef.filter.groupIndex = (short) 0;
-		pShape.set(new float[]{0, 0, -500, 500, -500, -500});
+		pShape.set(new float[]{0, 0, -500, 1000, -500, -1000});
+
+        fixtureDef2.density = 0;
+        fixtureDef2.filter.categoryBits = Constants.BIT_SENSOR;
+        fixtureDef2.filter.maskBits = 0;
+        fixtureDef2.filter.groupIndex = (short) 0;
+        pShape2.set(new float[]{0, 0, 500, -1000, 500, 1000});
 		
 		fixtureDef.isSensor = true;
+        fixtureDef2.isSensor = true;
 		
 		this.viewWedge = this.body.createFixture(fixtureDef);
+        this.viewWedge2 = this.body.createFixture(fixtureDef2);
 		
 		super.create();
 	}
@@ -90,7 +104,8 @@ public class Player extends Schmuck implements InputProcessor {
 	 * The player's controller currently polls for input.
 	 */
 	public void controller(float delta) {
-	
+
+	    lastDelta = delta;
 		desiredYVel = 0;
 		desiredXVel = 0;
 		desiredAngleVel = 0;
@@ -247,6 +262,9 @@ public class Player extends Schmuck implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        client.client.sendTCP(new Packets.Packet03Click(new Vector2(screenX,screenY),playerData.currentTool, client.myID, lastDelta));
+
         return false;
     }
 

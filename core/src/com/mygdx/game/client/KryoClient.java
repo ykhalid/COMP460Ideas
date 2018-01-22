@@ -15,6 +15,7 @@ import com.mygdx.game.server.*;
 import com.mygdx.game.states.GameState;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.states.TitleState;
+import com.mygdx.game.util.Constants;
 //import com.mygdx.game.server.Packets;
 
 import javax.swing.*;
@@ -69,6 +70,12 @@ public class KryoClient {
                 else if (o instanceof Packets.IDMessage) {
                     Packets.IDMessage p = (Packets.IDMessage) o;
                     myID = p.ID;
+                }
+
+                else if (o instanceof Packets.Packet03Click) {
+                    Packets.Packet03Click p = (Packets.Packet03Click) o;
+                    PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                    ps.player.useToolStart(p.delta, p.usedTool, Constants.PLAYER_HITBOX, (int) p.location.x , (int)(Gdx.graphics.getHeight() - p.location.y), true);
                 }
 
                 else if (o instanceof Packets.Packet02Input) {

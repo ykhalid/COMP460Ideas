@@ -32,8 +32,16 @@ public class Packets {
 	
 	public static class Packet03Click {
 		public Packet03Click() {}
-	    public Vector2 location;
+		public Packet03Click(Vector2 loc, Equipment tool, int id, float d) {
+		    location = loc;
+		    usedTool = tool;
+		    playerID = id;
+		    delta = d;
+        }
+        public int playerID;
+        public Vector2 location;
 		public Equipment usedTool;
+		public float delta;
 	}
 
 	public static class PacketReadyToPlay {

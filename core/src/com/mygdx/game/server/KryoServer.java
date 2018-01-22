@@ -61,6 +61,7 @@ public class KryoServer {
 				else if (o instanceof Packets.Packet03Click) {
 					// We have received a mouse click.
 					Packets.Packet03Click p = (Packets.Packet03Click) o;
+					server.sendToAllTCP(p);
 				}
 
 				else if (o instanceof Packets.PacketReadyToPlay) {
