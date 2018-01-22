@@ -31,6 +31,10 @@ public class TitleState extends GameState {
 		this.client = client;
 	}
 
+	public void startGame() {
+
+    }
+
 	@Override
 	public void show() {
 		stage = new Stage() {
