@@ -26,4 +26,11 @@ public class Player2Dummy extends Schmuck {
 
 	}
 	
+	public void controller(float delta) {
+		super.controller(delta);
+		if (dummyWeapon.reloading) {
+			dummyWeapon.reload(delta);
+		}
+	}
+	
 }
