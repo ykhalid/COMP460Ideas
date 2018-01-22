@@ -8,6 +8,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.comp460game;
 import com.mygdx.game.manager.GameStateManager;
 import com.mygdx.game.server.*;
@@ -84,8 +85,11 @@ public class KryoClient {
                             } else {
                                 if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
                                     ps.player.wPressed2 = true;
+                                    Log.info("W2 pressed");
                                 } else {
                                     ps.player.wPressed2 = false;
+                                    Log.info("W2 released");
+
                                 }
                             }
                         }
