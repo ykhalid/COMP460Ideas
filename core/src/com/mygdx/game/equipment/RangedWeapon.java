@@ -102,7 +102,7 @@ public class RangedWeapon extends Equipment {
 			float phi = Math.abs(bodyAngle - shootAngle) % 360;
 	        float distance = phi > 180 ? 360 - phi : phi;
 	        
-			if (distance <= 60) {
+//			if (distance <= 60) {
 				//Generate the hitbox(s). This method's return is unused, so it may not return a hitbox or whatever at all.
 				onShoot.makeHitbox(user, state, velo, 
 						shooter.getSchmuck().getBody().getPosition().x * PPM, 
@@ -117,7 +117,7 @@ public class RangedWeapon extends Equipment {
 				
 				//process weapon recoil.
 				user.recoil(x, y, recoil);
-			}
+//			}
 		} 
 		if (clipLeft <= 0) {
 			if (!reloading) {

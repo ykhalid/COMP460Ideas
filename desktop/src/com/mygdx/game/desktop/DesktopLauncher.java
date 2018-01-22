@@ -1,21 +1,24 @@
 package com.mygdx.game.desktop;
 
-import java.io.IOException;
-
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.game.comp460game;
-import com.mygdx.game.networking.ChatClient;
-import com.mygdx.game.networking.ChatServer;
+import testNetworking.ChatClient;
+import testNetworking.ChatServer;
+
+import java.io.IOException;
+
 
 public class DesktopLauncher {
-	public static void main (String[] arg) {
+	public static void main (String[] arg) throws IOException {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 1080;
 		config.height = 720;
 //		config.fullscreen = true;
 		config.foregroundFPS = 60;
 		config.backgroundFPS = 60;
+//		new ChatServer();
+//		new ChatClient();
 /*		try {
 			new ChatServer();
 		} catch (IOException e1) {
@@ -24,5 +27,6 @@ public class DesktopLauncher {
     	new ChatClient();*/
 
 		new LwjglApplication(new comp460game(), config);
+
 	}
 }

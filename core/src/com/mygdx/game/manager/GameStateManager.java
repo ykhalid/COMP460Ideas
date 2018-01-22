@@ -2,6 +2,7 @@ package com.mygdx.game.manager;
 
 import java.util.Stack;
 
+import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.comp460game;
 import com.mygdx.game.states.*;
 
@@ -14,9 +15,9 @@ public class GameStateManager {
 	
 	//An instance of the current game
 	private comp460game app;
-	
+	private KryoClient gameClient;
 	//Stack of GameStates. These are all the states that the player has opened in that order.
-	private Stack<GameState> states;
+	public Stack<GameState> states;
 	
 	//This enum lists all the different types of gamestates.
 	public enum State {
@@ -115,7 +116,7 @@ public class GameStateManager {
 	public GameState getState(State state) {
 		switch(state) {
 			case SPLASH: return null;
-			case TITLE: return new TitleState(this);
+			case TITLE: return new TitleState(app.getClient(), this);
 			case MENU: return new MenuState(this);
 			case PLAY: return new PlayState(this);
 		}

@@ -52,6 +52,7 @@ public class ChatServer {
 					ChatMessage chatMessage = new ChatMessage();
 					chatMessage.text = name + " connected.";
 					server.sendToAllExceptTCP(connection.getID(), chatMessage);
+
 					// Send everyone a new list of connection names.
 					updateNames();
 					return;
