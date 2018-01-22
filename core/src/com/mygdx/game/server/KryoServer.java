@@ -29,7 +29,7 @@ public class KryoServer {
 			}
 
 			public void received(Connection c, Object o) {
-				Log.info("" + (o instanceof Packets.PacketReadyToPlay));
+				Log.info("" + (o.getClass().getName()));
 				if (o instanceof Packets.Packet01Message) {
 					// We have received a player connection message.
 					Packets.Packet01Message p = (Packets.Packet01Message) o;

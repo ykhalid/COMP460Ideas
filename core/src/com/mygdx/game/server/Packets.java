@@ -17,11 +17,13 @@ public class Packets {
 	}
 	
 	public static class Packet02Input {
+	    public Packet02Input() {}
 		public Input.Keys message;
 	}
 	
 	public static class Packet03Click {
-		public Vector2 location;
+		public Packet03Click() {}
+	    public Vector2 location;
 		public Equipment usedTool;
 	}
 

@@ -88,8 +88,9 @@ public class KryoClient {
 		kryo.register(Packets.Packet01Message.class);
 		kryo.register(Packets.Packet02Input.class);
         kryo.register(Packets.Packet03Click.class);
-        kryo.register(Packets.PacketReadyToPlay.class);
         kryo.register(Packets.Packet04EnterPlayState.class);
+        kryo.register(Packets.PacketReadyToPlay.class);
 
-	}
+
+    }
 }
