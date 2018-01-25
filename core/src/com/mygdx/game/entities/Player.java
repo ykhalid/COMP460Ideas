@@ -188,12 +188,12 @@ public class Player extends Schmuck implements InputProcessor {
 
 		super.controller(delta);
 
-//        syncTimer += delta;
-//        if (syncTimer > 5) {
-//            if (client.master)
-//                client.client.sendTCP(new Packets.SyncPlayState(this.state));
-//            syncTimer = 0;
-//        }
+        syncTimer += delta;
+        if (syncTimer > 5) {
+            if (client.master)
+                client.client.sendTCP(new Packets.SyncPlayState(this.getBody()));
+            syncTimer = 0;
+        }
 	}
 	
 	public void dispose() {

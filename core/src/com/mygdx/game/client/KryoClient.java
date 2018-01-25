@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -79,8 +80,7 @@ public class KryoClient {
                 else if (o instanceof Packets.SyncPlayState) {
                     Packets.SyncPlayState p = (Packets.SyncPlayState) o;
                     PlayState ps = (PlayState)myGame.getGsm().states.peek();
-                    myGame.getGsm().states.pop();
-                    myGame.getGsm().states.push(ps);
+                    ps.player.body = p.body;
                     Log.info("Received sync message...");
                 }
 
