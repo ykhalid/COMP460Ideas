@@ -81,10 +81,12 @@ public class Packets {
 
     public static class SyncPlayState {
 	    public SyncPlayState() {}
-	    public SyncPlayState(Body bod) {
+	    public SyncPlayState(Vector2 bod, float a) {
 	        body = bod;
+	        angle = a;
         }
-        public Body body;
+        public Vector2 body;
+	    public float angle;
     }
 
     public static void allPackets(Kryo kryo) {

@@ -191,7 +191,7 @@ public class Player extends Schmuck implements InputProcessor {
         syncTimer += delta;
         if (syncTimer > 5) {
             if (client.master)
-                client.client.sendTCP(new Packets.SyncPlayState(this.getBody()));
+                client.client.sendTCP(new Packets.SyncPlayState(this.getBody().getPosition(), this.getBody().getAngle()));
             syncTimer = 0;
         }
 	}
