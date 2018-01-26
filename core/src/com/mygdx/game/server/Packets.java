@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.esotericsoftware.kryo.Kryo;
@@ -80,10 +81,12 @@ public class Packets {
 
     public static class SyncPlayState {
 	    public SyncPlayState() {}
-	    public SyncPlayState(PlayState play) {
-	        ps = play;
+	    public SyncPlayState(Vector2 bod, float a) {
+	        body = bod;
+	        angle = a;
         }
-        public PlayState ps;
+        public Vector2 body;
+	    public float angle;
     }
 
     public static void allPackets(Kryo kryo) {
@@ -99,6 +102,7 @@ public class Packets {
         kryo.register(Equipment.class);
         kryo.register(PlayState.class);
         kryo.register(SyncPlayState.class);
+        kryo.register(Body.class);
 
 //        kryo.register(Player.class);
 //        kryo.register(TiledMap.class);

@@ -29,7 +29,7 @@ public abstract class Entity {
 	protected RayHandler rays;
 	
 	//Fields common to all entities.
-	protected Body body;
+	public Body body;
 	protected UserData userData;
 	public float height, width;
 	protected float startX, startY;

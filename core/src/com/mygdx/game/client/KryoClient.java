@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -79,8 +80,7 @@ public class KryoClient {
                 else if (o instanceof Packets.SyncPlayState) {
                     Packets.SyncPlayState p = (Packets.SyncPlayState) o;
                     PlayState ps = (PlayState)myGame.getGsm().states.peek();
-                    myGame.getGsm().states.pop();
-                    myGame.getGsm().states.push(ps);
+                    ps.player.body.setTransform(p.body,p.angle);
                     Log.info("Received sync message...");
                 }
 
@@ -194,6 +194,24 @@ public class KryoClient {
                                     ps.player.ePressed2 = true;
                                 } else {
                                     ps.player.ePressed2 = false;
+                                }
+                            }
+                        }
+                    }
+                    else if (p.message == Input.Keys.SPACE) {
+                        if (myGame.getGsm().states.peek() instanceof PlayState) {
+                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.spacePressed = true;
+                                } else {
+                                    ps.player.spacePressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                    ps.player.spacePressed = true;
+                                } else {
+                                    ps.player.spacePressed = false;
                                 }
                             }
                         }

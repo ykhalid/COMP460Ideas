@@ -42,6 +42,7 @@ public class Player extends Schmuck implements InputProcessor {
 	//is the button for that respective movement pressed currently?
     public boolean wPressed = false, aPressed = false, sPressed = false, dPressed = false, qPressed = false, ePressed = false;
     public boolean wPressed2 = false, aPressed2 = false, sPressed2 = false, dPressed2 = false, qPressed2 = false, ePressed2 = false;
+    public boolean spacePressed = false;
 		
 	//user data
 	public PlayerData playerData;
@@ -172,12 +173,18 @@ public class Player extends Schmuck implements InputProcessor {
 		}
 		
 		//Pressing 'SPACE' = interact with an event
-		if(Gdx.input.isKeyJustPressed((Input.Keys.SPACE))) {
-			if (currentEvent != null && interactCdCount < 0) {
-				interactCdCount = interactCd;
-				currentEvent.eventData.onInteract(this);
-			}
-		}
+//		if(Gdx.input.isKeyJustPressed((Input.Keys.SPACE))) {
+//			if (currentEvent != null && interactCdCount < 0) {
+//				interactCdCount = interactCd;
+//				currentEvent.eventData.onInteract(this);
+//			}
+//		}
+        if(spacePressed) {
+            if (currentEvent != null && interactCdCount < 0) {
+                interactCdCount = interactCd;
+                currentEvent.eventData.onInteract(this);
+            }
+        }
 				
 		//If player is reloading, run the reload method of the current equipment.
 		if (playerData.currentTool.reloading) {
@@ -188,12 +195,12 @@ public class Player extends Schmuck implements InputProcessor {
 
 		super.controller(delta);
 
-//        syncTimer += delta;
-//        if (syncTimer > 5) {
-//            if (client.master)
-//                client.client.sendTCP(new Packets.SyncPlayState(this.state));
-//            syncTimer = 0;
-//        }
+        syncTimer += delta;
+        if (syncTimer > 5) {
+            if (client.master)
+                client.client.sendTCP(new Packets.SyncPlayState(this.getBody().getPosition(), this.getBody().getAngle()));
+            syncTimer = 0;
+        }
 	}
 	
 	public void dispose() {
@@ -223,6 +230,9 @@ public class Player extends Schmuck implements InputProcessor {
         }
         if (keycode == Input.Keys.E) {
             client.client.sendTCP(new Packets.Packet02Input(Input.Keys.E, Packets.Packet02Input.PRESSED, client.myID));
+        }
+        if (keycode == Input.Keys.SPACE) {
+            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.SPACE, Packets.Packet02Input.PRESSED, client.myID));
         }
 
         //Pressing 'R' = reload current weapon.
@@ -268,6 +278,9 @@ public class Player extends Schmuck implements InputProcessor {
         }
         if (keycode == Input.Keys.E) {
             client.client.sendTCP(new Packets.Packet02Input(Input.Keys.E, Packets.Packet02Input.RELEASED, client.myID));
+        }
+        if (keycode == Input.Keys.SPACE) {
+            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.SPACE, Packets.Packet02Input.RELEASED, client.myID));
         }
         return false;
     }
