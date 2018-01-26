@@ -49,10 +49,9 @@ public class Packets {
 	
 	public static class Packet03Click {
 		public Packet03Click() {}
-		public Packet03Click(Vector2 loc, Equipment tool, int pOrR, int id, float d) {
+		public Packet03Click(Vector2 loc, Equipment tool, int id, float d) {
 		    location = loc;
 		    usedTool = tool;
-		    pressOrRelease = pOrR;
 		    playerID = id;
 		    delta = d;
         }
@@ -60,7 +59,6 @@ public class Packets {
         public Vector2 location;
 		public Equipment usedTool;
 		public float delta;
-		public int pressOrRelease; //0 = pressed, 1 = released.
 	}
 
 	public static class PacketReadyToPlay {

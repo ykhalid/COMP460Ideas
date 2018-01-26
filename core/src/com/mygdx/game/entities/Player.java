@@ -43,7 +43,6 @@ public class Player extends Schmuck implements InputProcessor {
     public boolean wPressed = false, aPressed = false, sPressed = false, dPressed = false, qPressed = false, ePressed = false;
     public boolean wPressed2 = false, aPressed2 = false, sPressed2 = false, dPressed2 = false, qPressed2 = false, ePressed2 = false;
     public boolean spacePressed = false;
-    public boolean clicking = false;
 		
 	//user data
 	public PlayerData playerData;
@@ -154,19 +153,9 @@ public class Player extends Schmuck implements InputProcessor {
 		if (qPressed2) {
 			desiredAngleVel += playerData.maxAngularSpeed;
 		}
-
-		if (clicking) {
-            charging = true;
-		    useToolStart(delta, playerData.currentTool, Constants.PLAYER_HITBOX, Gdx.input.getX() , Gdx.graphics.getHeight() - Gdx.input.getY(), true);
-        } else {
-		    if (charging) {
-                useToolRelease(playerData.currentTool, Constants.PLAYER_HITBOX, Gdx.input.getX() , Gdx.graphics.getHeight() - Gdx.input.getY());
-            }
-            charging = false;
-        }
 		
 		//Clicking left mouse = use tool. charging keeps track of whether button is held.
-		/*if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
 			charging = true;
 			useToolStart(delta, playerData.currentTool, Constants.PLAYER_HITBOX, Gdx.input.getX() , Gdx.graphics.getHeight() - Gdx.input.getY(), true);
 		} else {
@@ -174,7 +163,7 @@ public class Player extends Schmuck implements InputProcessor {
 				useToolRelease(playerData.currentTool, Constants.PLAYER_HITBOX, Gdx.input.getX() , Gdx.graphics.getHeight() - Gdx.input.getY());
 			}
 			charging = false;
-		}*/
+		}
 		
 		//Pressing 'SPACE' = interact with an event
 //		if(Gdx.input.isKeyJustPressed((Input.Keys.SPACE))) {
@@ -297,16 +286,13 @@ public class Player extends Schmuck implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        client.client.sendTCP(new Packets.Packet03Click(new Vector2(screenX,screenY), null, 0, client.myID, lastDelta));
+        client.client.sendTCP(new Packets.Packet03Click(new Vector2(screenX,screenY), null, client.myID, lastDelta));
 
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-
-        client.client.sendTCP(new Packets.Packet03Click(new Vector2(screenX,screenY), null, 1, client.myID, lastDelta));
-
         return false;
     }
 
