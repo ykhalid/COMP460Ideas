@@ -20,7 +20,7 @@
    <polyline points="0,0 1.81457,1563.62 192.724,1760.59 2586.66,1763.62 2783.63,1572.71 2780.6,-0.0137468 2592.72,-190.923 192.724,-190.923 1.81457,-3.04405"/>
   </object>
   <object id="50" x="1792.23" y="3427.7">
-   <polyline points="0,0 -4.67946,563.875 182.499,760.412 189.518,952.27 386.055,1148.81 605.99,1148.81 603.65,1396.82 690.22,1396.82 701.919,1146.47 1048.2,1141.79 1055.22,0 4.67946,-7.01919"/>
+   <polyline points="0,0 0.547385,573.283 189.817,762.503 189.518,952.27 386.055,1148.81 605.99,1148.81 605.741,1404.14 700.674,1402.05 701.919,1146.47 1054.47,1147.02 1056.27,-4.18148 4.67946,-7.01919"/>
   </object>
  </objectgroup>
  <objectgroup name="event-layer">
@@ -234,15 +234,15 @@
   <object id="48" name="UsePortal" type="UsePortal" x="3381.38" y="3572.85" width="32" height="32">
    <properties>
     <property name="oneTime" type="bool" value="false"/>
-    <property name="triggeredId" value="10"/>
-    <property name="triggeringId" value="11"/>
+    <property name="triggeredId" value="13"/>
+    <property name="triggeringId" value="12"/>
    </properties>
   </object>
   <object id="51" name="UsePortal" type="UsePortal" x="2425.61" y="4756.61" width="32" height="32">
    <properties>
     <property name="oneTime" type="bool" value="false"/>
-    <property name="triggeredId" value="10"/>
-    <property name="triggeringId" value="11"/>
+    <property name="triggeredId" value="12"/>
+    <property name="triggeringId" value="13"/>
    </properties>
   </object>
   <object id="52" name="Spawn" type="Spawn" x="5806.7" y="5188.45" width="32" height="32">

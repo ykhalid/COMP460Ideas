@@ -78,6 +78,7 @@ public class KryoClient {
                 }
 
                 else if (o instanceof Packets.SyncPlayState) {
+                    Log.info("Received sync message!");
                     Packets.SyncPlayState p = (Packets.SyncPlayState) o;
                     PlayState ps = (PlayState)myGame.getGsm().states.peek();
                     ps.player.body.setTransform(p.body,p.angle);
@@ -87,7 +88,11 @@ public class KryoClient {
                 else if (o instanceof Packets.Packet03Click) {
                     Packets.Packet03Click p = (Packets.Packet03Click) o;
                     PlayState ps = (PlayState) myGame.getGsm().states.peek();
-                    ps.player.useToolStart(p.delta, ps.player.playerData.currentTool, Constants.PLAYER_HITBOX, (int) p.location.x , (int)(Gdx.graphics.getHeight() - p.location.y), true);
+                    if (p.pressOrRelease == 0) {
+                        ps.player.clicking = true;
+                    } else {
+                        ps.player.clicking = false;
+                    }
                 }
 
                 else if (o instanceof Packets.Packet02Input) {
