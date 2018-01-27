@@ -93,8 +93,8 @@ public class PlayState extends GameState {
 		entities = new HashSet<Entity>();
 		
 		//TODO: Load a map from Tiled file. Eventually, this will take an input map that the player chooses.
-		map = new TmxMapLoader().load("maps/map_1_460.tmx");
-//		map = new TmxMapLoader().load("Maps/test_map.tmx");
+		//map = new TmxMapLoader().load("maps/map_1_460.tmx");
+		map = new TmxMapLoader().load("maps/map_2_460.tmx");
 		
 		tmr = new OrthogonalTiledMapRenderer(map);
 		
