@@ -12,9 +12,8 @@ import com.mygdx.game.entities.userdata.HitboxData;
 import com.mygdx.game.entities.userdata.UserData;
 import com.mygdx.game.equipment.RangedWeapon;
 import com.mygdx.game.states.PlayState;
+import com.mygdx.game.status.DamageTypes;
 import com.mygdx.game.util.HitboxFactory;
-import com.mygdx.game.util.UserDataTypes;
-import com.mygdx.game.entities.userdata.CharacterData;
 
 import box2dLight.RayHandler;
 
@@ -33,8 +32,7 @@ public class AnotherGun extends RangedWeapon {
 	private final static int projectileWidth = 10;
 	private final static int projectileHeight = 10;
 	private final static float lifespan = 0.5f;
-	private final static float gravity = 0.0f;
-	
+
 	private final static int projDura = 2;
 	
 	private final static int numProj = 10;
@@ -43,7 +41,7 @@ public class AnotherGun extends RangedWeapon {
 	private final static HitboxFactory onShoot = new HitboxFactory() {
 
 		@Override
-		public Hitbox makeHitbox(Schmuck user, PlayState state, Vector2 startVelocity, float x, float y, short filter,
+		public Hitbox makeHitbox(final Schmuck user, PlayState state, Vector2 startVelocity, float x, float y, short filter,
 				World world, OrthographicCamera camera,
 				RayHandler rays) {
 			
@@ -51,15 +49,14 @@ public class AnotherGun extends RangedWeapon {
 				
 				float newDegrees = (float) (startVelocity.angle() + (ThreadLocalRandom.current().nextInt(-spread, spread + 1)));
 				
-				Hitbox proj = new HitboxImage(state, x, y, projectileWidth, projectileHeight, gravity, lifespan, projDura, 0, startVelocity.setAngle(newDegrees),
+				Hitbox proj = new HitboxImage(state, x, y, projectileWidth, projectileHeight, lifespan, projDura, 0, startVelocity.setAngle(newDegrees),
 						filter, true, world, camera, rays, user, "orb_yellow");
 				proj.setUserData(new HitboxData(state, world, proj) {
 					
 					public void onHit(UserData fixB) {
 						if (fixB != null) {
-							if (fixB.getType().equals(UserDataTypes.BODY)) {
-								((CharacterData) fixB).receiveDamage(baseDamage, this.hbox.getBody().getLinearVelocity().nor().scl(knockback));
-							}
+							fixB.receiveDamage(baseDamage, this.hbox.getBody().getLinearVelocity().nor().scl(knockback), 
+								user.getBodyData(), true, DamageTypes.TESTTYPE1);
 						}
 						super.onHit(fixB);
 					}

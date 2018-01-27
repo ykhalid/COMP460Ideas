@@ -20,9 +20,6 @@ import static com.mygdx.game.util.Constants.PPM;
  */
 public class Hitbox extends Entity {
 
-	//grav is the effect of gravity on the hitbox. 1 = normal gravity. 0 = no gravity.
-	public float grav;
-	
 	//Initial velocity of the hitbox
 	public Vector2 startVelo;
 		
@@ -51,10 +48,9 @@ public class Hitbox extends Entity {
 	 * This constructor is run whenever a hitbox is created. Usually by a schmuck using a weapon.
 	 * @param : pretty much the same as the fields above.
 	 */
-	public Hitbox(PlayState state, float x, float y, int width, int height, float grav, float lifespan, int dura, float rest,
+	public Hitbox(PlayState state, float x, float y, int width, int height, float lifespan, int dura, float rest,
 			Vector2 startVelo, short filter, boolean sensor, World world, OrthographicCamera camera, RayHandler rays, Schmuck creator) {
 		super(state, world, camera, rays, width, height, x, y);
-		this.grav = grav;
 		this.lifeSpan = lifespan;
 		this.filter = filter;
 		this.sensor = sensor;
@@ -70,7 +66,7 @@ public class Hitbox extends Entity {
 	 * Create the hitbox body. User data is initialized separately.
 	 */
 	public void create() {
-		this.body = BodyBuilder.createBox(world, startX, startY, width / 2, height / 2, grav, 0.0f, rest, false, false, Constants.BIT_PROJECTILE, 
+		this.body = BodyBuilder.createBox(world, startX, startY, width / 2, height / 2, 0, 0.0f, rest, false, false, Constants.BIT_PROJECTILE, 
 				(short) (Constants.BIT_PROJECTILE | Constants.BIT_WALL | Constants.BIT_PLAYER | Constants.BIT_ENEMY | Constants.BIT_SENSOR), filter, sensor, data);
 		this.body.setLinearVelocity(startVelo);
 		

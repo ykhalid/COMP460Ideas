@@ -206,7 +206,7 @@ public class PlayState extends GameState {
 		if (player != null) {
 			if (player.getPlayerData() != null) {
 				font.getData().setScale(1);
-				font.draw(batch, "Score: " + score+ " Hp: " + player.getPlayerData().currentHp, 20, 80);
+				font.draw(batch, "Score: " + score+ " Hp: " + Math.round(player.getPlayerData().currentHp) + "/" + player.getPlayerData().getMaxHp(), 20, 80);
 				font.draw(batch, player.getPlayerData().currentTool.getText(), 20, 60);
 			}
 		}

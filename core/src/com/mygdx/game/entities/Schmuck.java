@@ -109,7 +109,7 @@ public class Schmuck extends Entity implements Location<Vector2> {
 			float newY = acceleration * desiredYVel + (1 - acceleration) * currentVel.y;
 			
 			Vector2 force = new Vector2(newX - currentVel.x, newY - currentVel.y).scl(body.getMass());
-			body.applyLinearImpulse(force, body.getWorldCenter(), true);
+			body.applyLinearImpulse(force.scl((1 + bodyData.getBonusLinSpeed())), body.getWorldCenter(), true);
 			
 			desiredXVel = 0.0f;
 			desiredYVel = 0.0f;
@@ -120,13 +120,13 @@ public class Schmuck extends Entity implements Location<Vector2> {
 			
 			
 			float angularForce = (newAngleVel - currentAngleVel) * (body.getMass());
-			body.applyAngularImpulse(angularForce, true);
+			body.applyAngularImpulse(angularForce * (1 + bodyData.getBonusAngSpeed()), true);
 			
 			desiredAngleVel = 0.0f;
 		}
 		
 		//Apply base hp regen
-		bodyData.regainHp(bodyData.hpRegen * delta);
+		bodyData.regainHp(bodyData.getHpRegen() * delta);
 		
 		//process cooldowns
 		shootCdCount-=delta;
@@ -194,7 +194,7 @@ public class Schmuck extends Entity implements Location<Vector2> {
 	public void useToolEnd() {
 			
 		//the schmuck will not register another tool usage for the tool's cd
-		shootCdCount = usedTool.useCd;
+		shootCdCount = usedTool.useCd * (1 - bodyData.getToolCdReduc());
 		
 		//execute the tool.
 		usedTool.execute(state, bodyData, world, camera, rays);
