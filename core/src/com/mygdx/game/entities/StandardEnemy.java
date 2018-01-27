@@ -46,8 +46,8 @@ public class StandardEnemy extends SteeringEnemy {
 		case ROAMING:
 			
 			direction = new Vector2(
-					state.getPlayer().getBody().getPosition().x - getBody().getPosition().x,
-					state.getPlayer().getBody().getPosition().y - getBody().getPosition().y).nor().scl(moveMag);
+					0,
+					0).nor().scl(moveMag);
 			break;
 		case CHASING:
 			Vector3 target = new Vector3(state.getPlayer().getBody().getPosition().x, state.getPlayer().getBody().getPosition().y, 0);

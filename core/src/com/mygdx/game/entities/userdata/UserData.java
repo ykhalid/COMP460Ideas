@@ -1,7 +1,9 @@
 package com.mygdx.game.entities.userdata;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.status.DamageTypes;
 import com.mygdx.game.util.UserDataTypes;
 
 /**
@@ -32,6 +34,19 @@ public class UserData {
 		this.numContacts = 0;
 	}
 
+	/**
+	 * This method is called when this entity gets hit. Most non-body entities will only care about the kb.
+	 * @param basedamage: amount of damage received
+	 * @param knockback: amount of knockback to apply.
+	 * @param perp: the schmuck who did this
+	 * @param procEffects: Should this proc status effects?
+	 * @param tags: damage tags
+	 *TODO: include the source of damage
+	 */
+	public void receiveDamage(float basedamage, Vector2 knockback, CharacterData perp, Boolean procEffects, DamageTypes... tags) {
+		entity.push(knockback.x, knockback.y);
+	}
+	
 	public int getNumContacts() {
 		return numContacts;
 	}

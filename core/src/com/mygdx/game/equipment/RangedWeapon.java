@@ -113,10 +113,10 @@ public class RangedWeapon extends Equipment {
 				
 				//If player fires in the middle of reloading, reset reload progress
 				reloading = false;
-				reloadCd = reloadTime;
+				reloadCd = reloadTime * (1 - shooter.getReloadRate());
 				
 				//process weapon recoil.
-				user.recoil(x, y, recoil);
+				user.recoil(x, y, recoil * (1 + shooter.getBonusRecoil()));
 //			}
 		} 
 		if (clipLeft <= 0) {
@@ -147,10 +147,19 @@ public class RangedWeapon extends Equipment {
 			reloadCd = reloadTime;
 
 			//If clip is full, finish reloading.
-			if (clipLeft >= clipSize) {
-				clipLeft = clipSize;
+			if (clipLeft >= getClipSize()) {
+				clipLeft = getClipSize();
 				reloading = false;
 			}
+		}
+	}
+
+	public int getClipSize() {
+		
+		if (clipSize * user.getBodyData().getBonusClipSize() > 0 && clipSize * user.getBodyData().getBonusClipSize() < 1) {
+			return clipSize + 1;
+		} else {
+			return (int) (clipSize * (1 + user.getBodyData().getBonusClipSize()));
 		}
 	}
 
@@ -160,9 +169,9 @@ public class RangedWeapon extends Equipment {
 	@Override
 	public String getText() {
 		if (reloading) {
-			return name + ": " + clipLeft + "/" + clipSize + " RELOADING";
+			return name + ": " + clipLeft + "/" + getClipSize() + " RELOADING";
 		} else {
-			return name + ": " + clipLeft + "/" + clipSize;
+			return name + ": " + clipLeft + "/" + getClipSize();
 
 		}
 	}
@@ -173,8 +182,8 @@ public class RangedWeapon extends Equipment {
 	 */
 	public void gainAmmo(int gained) {
 		clipLeft += gained;
-		if (clipLeft >= clipSize) {
-			clipLeft = clipSize;
+		if (clipLeft >= getClipSize()) {
+			clipLeft = getClipSize();
 		}
 	}
 }

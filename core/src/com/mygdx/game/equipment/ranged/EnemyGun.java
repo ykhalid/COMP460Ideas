@@ -9,9 +9,8 @@ import com.mygdx.game.entities.userdata.HitboxData;
 import com.mygdx.game.entities.userdata.UserData;
 import com.mygdx.game.equipment.RangedWeapon;
 import com.mygdx.game.states.PlayState;
+import com.mygdx.game.status.DamageTypes;
 import com.mygdx.game.util.HitboxFactory;
-import com.mygdx.game.util.UserDataTypes;
-import com.mygdx.game.entities.userdata.CharacterData;
 
 import box2dLight.RayHandler;
 
@@ -30,27 +29,25 @@ public class EnemyGun extends RangedWeapon {
 	private final static int projectileWidth = 15;
 	private final static int projectileHeight = 15;
 	private final static float lifespan = 5.5f;
-	private final static float gravity = 0;
 	
 	private final static int projDura = 2;
 	
 	private final static HitboxFactory onShoot = new HitboxFactory() {
 
 		@Override
-		public Hitbox makeHitbox(Schmuck user, PlayState state, Vector2 startVelocity, float x, float y, short filter,
+		public Hitbox makeHitbox(final Schmuck user, PlayState state, Vector2 startVelocity, float x, float y, short filter,
 				World world, OrthographicCamera camera,
 				RayHandler rays) {
 			
-			Hitbox proj = new Hitbox(state, x, y, projectileWidth, projectileHeight, gravity, lifespan, projDura, 0, startVelocity,
+			Hitbox proj = new Hitbox(state, x, y, projectileWidth, projectileHeight, lifespan, projDura, 0, startVelocity,
 					filter, true, world, camera, rays, user);
 			
 			proj.setUserData(new HitboxData(state, world, proj) {
 				
 				public void onHit(UserData fixB) {
 					if (fixB != null) {
-						if (fixB.getType().equals(UserDataTypes.BODY)) {
-							((CharacterData) fixB).receiveDamage(baseDamage, this.hbox.getBody().getLinearVelocity().nor().scl(knockback));
-						}
+						fixB.receiveDamage(baseDamage, this.hbox.getBody().getLinearVelocity().nor().scl(knockback), 
+								user.getBodyData(), true, DamageTypes.TESTTYPE1);
 					}
 					super.onHit(fixB);
 				}
