@@ -141,6 +141,10 @@ public class TiledObjectUtil {
     					(int)(rect.x + rect.width / 2), (int)(rect.y + rect.height / 2), 
     					object.getProperties().get("Hp", Integer.class));
     		}
+    		if (object.getName().equals("Save")) {
+    			new SavePoint(state, world, camera, rays, (int)rect.width, (int)rect.height, 
+    					(int)(rect.x + rect.width / 2), (int)(rect.y + rect.height / 2));
+    		}
     	}
     }
 
