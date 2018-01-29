@@ -163,7 +163,7 @@
   </object>
   <object id="14" name="Spawn" type="Spawn" x="1024" y="64" width="32" height="32">
    <properties>
-    <property name="id" type="int" value="3"/>
+    <property name="id" type="int" value="2"/>
     <property name="interval" type="float" value="0.1"/>
     <property name="limit" type="int" value="1"/>
    </properties>
@@ -225,7 +225,7 @@
   </object>
   <object id="23" name="TriggerSpawn" x="512" y="320" width="32" height="32">
    <properties>
-    <property name="id" type="int" value="0"/>
+    <property name="id" type="int" value="2"/>
     <property name="limit" type="int" value="1"/>
     <property name="triggeredId" value="8"/>
     <property name="triggeringId" value="9999"/>
@@ -239,7 +239,7 @@
   </object>
   <object id="25" name="TriggerSpawn" x="672" y="448" width="32" height="32">
    <properties>
-    <property name="id" type="int" value="0"/>
+    <property name="id" type="int" value="2"/>
     <property name="limit" type="int" value="1"/>
     <property name="triggeredId" value="6"/>
     <property name="triggeringId" value="9999"/>
@@ -253,7 +253,7 @@
   </object>
   <object id="27" name="TriggerSpawn" x="2144" y="544" width="32" height="32">
    <properties>
-    <property name="id" type="int" value="0"/>
+    <property name="id" type="int" value="2"/>
     <property name="limit" type="int" value="1"/>
     <property name="triggeredId" value="10"/>
     <property name="triggeringId" value="9999"/>
@@ -322,7 +322,7 @@
   </object>
   <object id="41" name="TriggerSpawn" x="1536" y="96" width="32" height="32">
    <properties>
-    <property name="id" type="int" value="0"/>
+    <property name="id" type="int" value="2"/>
     <property name="limit" type="int" value="1"/>
     <property name="triggeredId" value="11"/>
     <property name="triggeringId" value="9999"/>
