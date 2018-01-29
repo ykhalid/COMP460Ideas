@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.Player;
+import com.mygdx.game.event.Event;
 import com.mygdx.game.handlers.WorldContactListener;
 import com.mygdx.game.manager.GameStateManager;
 import com.mygdx.game.manager.GameStateManager.State;
@@ -69,6 +70,8 @@ public class PlayState extends GameState {
 //	private float controllerCounter = 0;
 	
 	public Stage stage;
+	
+	public Event lastSave;
 	
 	/**
 	 * Constructor is called upon player beginning a game.
@@ -162,13 +165,22 @@ public class PlayState extends GameState {
 		if (gameover) {
 			gameoverCdCount -= delta;
 			if (gameoverCdCount < 0) {
-				gsm.removeState(PlayState.class);
-				if (won) {
-//					gsm.addState(State.VICTORY, TitleState.class);
+				if (lastSave != null) {
+					gsm.removeState(PlayState.class);
+					if (won) {
+//						gsm.addState(State.VICTORY, TitleState.class);
+					} else {
+//						gsm.addState(State.GAMEOVER, TitleState.class);
+					}
 				} else {
-//					gsm.addState(State.GAMEOVER, TitleState.class);
+					player = new Player(gsm.application().getClient(), this, world, camera, rays, 
+							(int)(lastSave.getBody().getPosition().x * PPM),
+							(int)(lastSave.getBody().getPosition().y * PPM));
+					
+//					controller.setPlayer(player);
+					
+					gameover = false;
 				}
-				Gdx.app.exit();
 			}
 		}
 	}
