@@ -112,7 +112,7 @@ public class PlayState extends GameState {
 
 	@Override
 	public void show() {
-		
+
 		this.stage = new Stage(); 
 		app.newMenu(stage);
 	}

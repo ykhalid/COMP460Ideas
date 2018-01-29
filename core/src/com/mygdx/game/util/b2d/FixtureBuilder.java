@@ -44,7 +44,7 @@ public class FixtureBuilder {
 		fixtureDef.filter.categoryBits = cBits;
         fixtureDef.filter.maskBits = mBits;
         fixtureDef.filter.groupIndex = gIndex;
-		
+        
 		return fixtureDef;
 	}
 }

@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.entities.userdata.PlayerData;
 import com.mygdx.game.event.Event;
@@ -17,10 +16,11 @@ import com.mygdx.game.server.Packets;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.b2d.BodyBuilder;
+import com.mygdx.game.util.b2d.FixtureBuilder;
 
 import box2dLight.RayHandler;
 
-import java.util.HashMap;
+import static com.mygdx.game.util.Constants.PPM;
 
 public class Player extends Schmuck implements InputProcessor {
 
@@ -48,8 +48,10 @@ public class Player extends Schmuck implements InputProcessor {
 	public PlayerData playerData;
 	public Event currentEvent;
 	
-	public Player2Dummy dummy;
-	
+//	public Player2Dummy dummy;
+	public PlayerData player2Data;
+	protected Fixture player1Fixture, player2Fixture;
+
 	/**
 	 * This constructor is called by the player spawn event that must be located in each map
 	 * @param state: current gameState
@@ -63,7 +65,7 @@ public class Player extends Schmuck implements InputProcessor {
 		super(state, world, camera, rays, x, y, "torpedofish_swim", 250, 161, 161, 250);
 		this.client = client;
 		
-		dummy = new Player2Dummy(state, world, camera, rays, 250, 161, x, y, this);
+//		dummy = new Player2Dummy(state, world, camera, rays, 250, 161, x, y, this);
 	}
 	
 	/**
@@ -72,14 +74,24 @@ public class Player extends Schmuck implements InputProcessor {
 	public void create() {
 	    Gdx.input.setInputProcessor(this);
 		this.playerData = new PlayerData(world, this);
+		player2Data = new PlayerData(world, this);
+		
 		this.bodyData = playerData;
 		
 		this.body = BodyBuilder.createBox(world, startX, startY, width, height, 1, 1, 0, false, false, Constants.BIT_PLAYER, 
 				(short) (Constants.BIT_WALL | Constants.BIT_SENSOR | Constants.BIT_PROJECTILE | Constants.BIT_ENEMY),
 				Constants.PLAYER_HITBOX, false, playerData);
-        
-		dummy.body = this.body;
-		dummy.bodyData = this.bodyData;
+		
+		player2Fixture = this.body.createFixture(FixtureBuilder.createFixtureDef(width / 2, height, new Vector2(- width / 2 / PPM, 0), true, 0,
+				Constants.BIT_SENSOR, (short)(Constants.BIT_WALL | Constants.BIT_ENEMY), Constants.PLAYER_HITBOX));
+		player2Fixture.setUserData(player2Data);
+		
+		player1Fixture = this.body.createFixture(FixtureBuilder.createFixtureDef(width / 2, height, new Vector2(height / 2 / PPM, 0), true, 0,
+				Constants.BIT_SENSOR, (short)(Constants.BIT_WALL | Constants.BIT_ENEMY), Constants.PLAYER_HITBOX));
+		player1Fixture.setUserData(playerData);
+		
+//		dummy.body = this.body;
+//		dummy.bodyData = this.bodyData;
 		
 		FixtureDef fixtureDef = new FixtureDef();
         FixtureDef fixtureDef2 = new FixtureDef();
