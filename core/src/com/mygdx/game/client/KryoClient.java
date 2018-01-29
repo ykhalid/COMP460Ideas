@@ -78,6 +78,7 @@ public class KryoClient {
                 }
 
                 else if (o instanceof Packets.SyncPlayState) {
+                    Log.info("Received sync message!");
                     Packets.SyncPlayState p = (Packets.SyncPlayState) o;
                     PlayState ps = (PlayState)myGame.getGsm().states.peek();
                     ps.player.body.setTransform(p.body,p.angle);

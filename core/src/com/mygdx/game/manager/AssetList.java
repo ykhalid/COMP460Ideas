@@ -11,7 +11,11 @@ public enum AssetList {
 	PROJ_1_ATL("sprites/projectiles.atlas", TextureAtlas.class),
 	
 	FISH_1("sprites/fish.png", Texture.class),
-	FISH_ATL("sprites/fish.atlas", TextureAtlas.class);
+	FISH_ATL("sprites/fish.atlas", TextureAtlas.class),
+
+    //The following sprite was acquired from:
+    //https://opengameart.org/content/animated-top-down-survivor-player
+	GUN_DUDE_1("sprites/gun_dude.png", Texture.class);
 	
 	//Enum constructor and methods.
 	private String pathname;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Enemy;
 import com.mygdx.game.entities.StandardEnemy;
+import com.mygdx.game.entities.SteeringEnemy;
 import com.mygdx.game.event.userdata.EventData;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.util.Constants;
@@ -49,18 +50,22 @@ public class EntitySpawner extends Event {
 		if (spawnCount >= interval && (limit == 0 || amountCount < limit)) {
 			spawnCount = 0;
 			amountCount++;
+			//ENEMY ID LOOKUP TABLE HERE!!!!!!!!!!!!!
 			switch(id) {
-			case 0:
-				state.player.getBody().setTransform(
-						spawnX / PPM + state.getPlayer().width / PPM / 2, 
-						spawnY / PPM + state.getPlayer().height / PPM / 2, 0);
-				break;
-			case 1:
-				new Enemy(state, world, camera, rays, 32, 32, spawnX, spawnY);
-				break;
-			case 2:
-				new StandardEnemy(state, world, camera, rays, 24, 24, spawnX, spawnY);
-			}
+                case 0:
+                    state.player.getBody().setTransform(
+                            spawnX / PPM + state.getPlayer().width / PPM / 2,
+                            spawnY / PPM + state.getPlayer().height / PPM / 2, 0);
+                    break;
+                case 1:
+                    new Enemy(state, world, camera, rays, 32, 32, spawnX, spawnY);
+                    break;
+                case 2:
+                    new StandardEnemy(state, world, camera, rays, 24, 24, spawnX, spawnY);
+                    break;
+                case 3:
+                    new SteeringEnemy(state, world, camera, rays, 24, 24, spawnX, spawnY);
+            }
 		}
 	}
 

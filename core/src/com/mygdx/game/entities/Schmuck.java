@@ -1,6 +1,7 @@
 package com.mygdx.game.entities;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -75,6 +76,7 @@ public class Schmuck extends Entity implements Location<Vector2> {
 		super(state, world, camera, rays, width * scale, height * scale, startX, startY);
 		this.atlas = (TextureAtlas) comp460game.assetManager.get(AssetList.FISH_ATL.toString());
 		this.schmuckSprite = atlas.findRegion(spriteId);
+		this.schmuckSprite = new TextureRegion(new Texture(AssetList.GUN_DUDE_1.toString()));
 		this.hbWidth = hbWidth;
 		this.hbHeight = hbHeight;
 		this.spriteWidth = width;
