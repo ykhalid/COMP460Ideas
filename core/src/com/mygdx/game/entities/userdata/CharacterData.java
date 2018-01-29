@@ -185,7 +185,7 @@ public class CharacterData extends UserData {
 		kbScale -= getKnockbackReduc();
 		kbScale += perp.getKnockbackAmp();
 		
-		schmuck.getBody().applyLinearImpulse(knockback.scl(kbScale), schmuck.getBody().getLocalCenter(), true);
+		schmuck.getBody().applyLinearImpulse(knockback.scl(kbScale), schmuck.getBody().getWorldCenter(), true);
 		if (currentHp <= 0) {
 			currentHp = 0;
 			die(perp);

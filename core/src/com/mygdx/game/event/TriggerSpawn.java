@@ -57,10 +57,10 @@ public class TriggerSpawn extends Event {
 						    spawns.add(new StandardEnemy(state, world, camera, rays, 32, 32, randX, randY));
 						    break;
                         case 2:
-                            new StandardEnemy(state, world, camera, rays, 24, 24, spawnX, spawnY);
+                        	spawns.add(new StandardEnemy(state, world, camera, rays, 24, 24, spawnX, spawnY));
                             break;
                         case 3:
-                            new SteeringEnemy(state, world, camera, rays, 24, 24, spawnX, spawnY);
+                        	spawns.add(new SteeringEnemy(state, world, camera, rays, 24, 24, spawnX, spawnY));
 					}
 				}
 			}
