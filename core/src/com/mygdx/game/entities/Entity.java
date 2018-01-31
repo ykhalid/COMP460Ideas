@@ -144,7 +144,7 @@ public abstract class Entity {
 	}
 	
 	public void push(float impulseX, float impulseY) {
-		body.applyLinearImpulse(new Vector2(impulseX, impulseY), body.getWorldCenter(), true);
+//		body.applyLinearImpulse(new Vector2(impulseX, impulseY), body.getWorldCenter(), true);
 	}
 
 	/**

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.entities.Schmuck;
 import com.mygdx.game.entities.StandardEnemy;
+import com.mygdx.game.entities.SteeringEnemy;
 import com.mygdx.game.event.userdata.EventData;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.util.Constants;
@@ -52,9 +53,14 @@ public class TriggerSpawn extends Event {
 					int randY = spawnY + (int)( (Math.random() - 0.5) * 100);
 					
 					switch(id) {
-					case 0:
-						spawns.add(new StandardEnemy(state, world, camera, rays, 32, 32, randX, randY));
-						break;						
+					    case 0:
+						    spawns.add(new StandardEnemy(state, world, camera, rays, 32, 32, randX, randY));
+						    break;
+                        case 2:
+                        	spawns.add(new StandardEnemy(state, world, camera, rays, 24, 24, spawnX, spawnY));
+                            break;
+                        case 3:
+                        	spawns.add(new SteeringEnemy(state, world, camera, rays, 24, 24, spawnX, spawnY));
 					}
 				}
 			}
