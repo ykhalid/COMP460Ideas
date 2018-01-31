@@ -48,9 +48,26 @@ public class PlayState extends GameState {
 	
 	//world manages the Box2d world and physics. b2dr renders debug lines for testing
 	private Box2DDebugRenderer b2dr;
-	private World world;
-		
-	//These represent the set of entities to be added to/removed from the world. This is necessary to ensure we do this between world steps.
+
+    private World world;
+
+    public Set<Entity> getRemoveList() {
+        return removeList;
+    }
+
+    public void setRemoveList(Set<Entity> removeList) {
+        this.removeList = removeList;
+    }
+
+    public Set<Entity> getCreateList() {
+        return createList;
+    }
+
+    public void setCreateList(Set<Entity> createList) {
+        this.createList = createList;
+    }
+
+    //These represent the set of entities to be added to/removed from the world. This is necessary to ensure we do this between world steps.
 	private Set<Entity> removeList;
 	private Set<Entity> createList;
 	
@@ -70,6 +87,7 @@ public class PlayState extends GameState {
 //	private float controllerCounter = 0;
 	
 	public Stage stage;
+	public boolean updating = false;
 	
 	public Event lastSave;
 	
@@ -123,7 +141,8 @@ public class PlayState extends GameState {
 	@Override
 	public void update(float delta) {
 		
-		//The box2d world takes a step. This handles collisions + physics stuff. Maybe change delta to set framerate? 
+		//The box2d world takes a step. This handles collisions + physics stuff. Maybe change delta to set framerate?
+        updating = true;
 		world.step(delta, 6, 2);
 
 		//All entities that are set to be removed are removed.
@@ -183,6 +202,8 @@ public class PlayState extends GameState {
 				}
 			}
 		}
+        updating = false;
+
 	}
 	
 	/**
@@ -191,6 +212,7 @@ public class PlayState extends GameState {
 	 */
 	@Override
 	public void render() {
+	    updating = true;
 		Gdx.gl.glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -226,7 +248,7 @@ public class PlayState extends GameState {
 		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) { gsm.addState(State.MENU, PlayState.class); }
 		
 		batch.end();
-		
+		updating = false;
 	}	
 	
 	/**
@@ -285,10 +307,29 @@ public class PlayState extends GameState {
 		return player;
 	}
 
+	public Set<Entity> getEntities() {
+		return entities;
+	}
+
+	public void setEntities(Set<Entity> e) {
+		entities = e;
+	}
+
+	public void addEntity(Entity e) { entities.add(e); }
+
+    public RayHandler getRays() {
+        return rays;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
 	/**
 	 * Tentative tracker of player kill number.
 	 * @param i: Number to increase score by.
 	 */
+
 	public void incrementScore(int i) {
 		score += i;
 	}
