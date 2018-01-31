@@ -213,7 +213,7 @@ public class Player extends Schmuck implements InputProcessor {
 		super.controller(delta);
 
         syncTimer += delta;
-        if (syncTimer > 5) {
+        if (syncTimer > 1) {
             if (client.master)
                 Log.info("Number of entities: " + this.state.getEntities().size());
                 client.client.sendTCP(new Packets.SyncPlayState(this.getBody().getPosition(), this.getBody().getAngle()));

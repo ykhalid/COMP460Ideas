@@ -453,25 +453,25 @@
   <object id="73" name="Sensor" type="Sensor" x="352" y="1088" width="128" height="32">
    <properties>
     <property name="oneTime" type="bool" value="true"/>
-    <property name="triggeringId" type="int" value="20"/>
+    <property name="triggeringId" value="20"/>
    </properties>
   </object>
   <object id="74" name="Door" type="Door" x="32" y="1248" width="96" height="32">
    <properties>
-    <property name="triggeredId" type="int" value="20"/>
+    <property name="triggeredId" value="20"/>
    </properties>
   </object>
   <object id="75" name="Door" type="Door" x="352" y="896" width="128" height="32">
    <properties>
-    <property name="triggeredId" type="int" value="21"/>
+    <property name="triggeredId" value="21"/>
    </properties>
   </object>
   <object id="76" name="Switch" type="Switch" x="64" y="1472" width="32" height="32">
    <properties>
-    <property name="triggeringId" type="int" value="21"/>
+    <property name="triggeringId" value="21"/>
    </properties>
   </object>
-  <object id="77" name="Equip" type="Equip" x="400.271" y="1168.27" width="32" height="32">
+  <object id="77" name="Equip" type="Equip" x="400.271" y="1168.27" width="32" height="32" visible="0">
    <properties>
     <property name="equipId" type="int" value="1"/>
    </properties>
