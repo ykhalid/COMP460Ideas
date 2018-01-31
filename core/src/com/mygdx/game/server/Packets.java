@@ -23,6 +23,9 @@ import com.mygdx.game.states.PlayState;
 //import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 //import javafx.stage.Stage;
 
+import java.util.Set;
+import java.util.UUID;
+
 public class Packets {
 	
 	public static class Packet01Message {
@@ -89,6 +92,64 @@ public class Packets {
 	    public float angle;
     }
 
+    public static class SyncHitbox {
+	    public SyncHitbox() {}
+        public SyncHitbox(float x, float y, int width, int height, float lifespan, int dura, float rest,
+                          Vector2 startVelo, short filter, boolean sensor) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+	        this.lifespan = lifespan;
+            this.filter = filter;
+            this.sensor = sensor;
+            this.dura = dura;
+            this.rest = rest;
+            this.startVelo = startVelo;
+        }
+	    public float x, y, lifespan, rest;
+        public int width, height, dura;
+        public Vector2 startVelo;
+        public short filter;
+        public boolean sensor;
+    }
+
+    public static class SyncHitboxImage {
+        public SyncHitboxImage() {}
+        public SyncHitboxImage(float x, float y, int width, int height, float lifespan, int dura, float rest,
+                          Vector2 startVelo, short filter, boolean sensor, String spriteID) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.lifespan = lifespan;
+            this.filter = filter;
+            this.sensor = sensor;
+            this.dura = dura;
+            this.rest = rest;
+            this.startVelo = startVelo;
+            this.spriteID = spriteID;
+        }
+        public float x, y, lifespan, rest;
+        public int width, height, dura;
+        public Vector2 startVelo;
+        public short filter;
+        public boolean sensor;
+        public String spriteID;
+    }
+
+    public static class SyncCreateSchmuck {
+	    public SyncCreateSchmuck() {}
+	    public SyncCreateSchmuck(float w, float h, float startX, float startY, UUID id) {
+	        this.w = w;
+	        this.h = h;
+	        this.startX = startX;
+	        this.startY = startY;
+	        this.id = id;
+        }
+	    public float w, h, startX, startY;
+	    public UUID id;
+    }
     public static void allPackets(Kryo kryo) {
         kryo.register(Packets.Packet01Message.class);
         kryo.register(Packets.Packet02Input.class);
@@ -103,6 +164,20 @@ public class Packets {
         kryo.register(PlayState.class);
         kryo.register(SyncPlayState.class);
         kryo.register(Body.class);
+        kryo.register(UUID.class);
+        kryo.register(SyncHitbox.class);
+        kryo.register(SyncCreateSchmuck.class);
+        kryo.register(SyncHitboxImage.class);
+
+        kryo.register(Set.class);
+        kryo.register(Entity.class);
+        kryo.register(java.util.HashSet.class);
+        kryo.register(com.mygdx.game.event.Door.class);
+        kryo.register(com.mygdx.game.event.InfoFlag.class);
+        kryo.register(com.badlogic.gdx.utils.Array.class);
+        kryo.register(com.mygdx.game.event.UsePortal.class);
+        kryo.register(Object[].class);
+        kryo.register(com.badlogic.gdx.physics.box2d.Fixture.class);
 
 //        kryo.register(Player.class);
 //        kryo.register(TiledMap.class);

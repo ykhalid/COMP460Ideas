@@ -2,16 +2,22 @@ package com.mygdx.game.client;
 
 import java.io.IOException;
 
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.KryoSerialization;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.comp460game;
+import com.mygdx.game.entities.Hitbox;
+import com.mygdx.game.entities.HitboxImage;
+import com.mygdx.game.entities.Schmuck;
 import com.mygdx.game.equipment.ranged.Gun;
 import com.mygdx.game.manager.GameStateManager.State;
 import com.mygdx.game.server.*;
@@ -32,6 +38,7 @@ public class KryoClient {
     comp460game myGame;
     public int myID;
     public boolean master = false;
+    public boolean allowedToCreate = false;
 
     public static final int timeout = 5000;
     String name;
@@ -41,7 +48,10 @@ public class KryoClient {
 	}
 
 	public void init() {
-        this.client = new Client();
+        Kryo kryo = new Kryo();
+        kryo.setReferences(true);
+        KryoSerialization serialization = new KryoSerialization(kryo);
+        this.client = new Client(16384, 2048, serialization);
         client.start();
 
         registerPackets();
@@ -78,18 +88,60 @@ public class KryoClient {
                 }
 
                 else if (o instanceof Packets.SyncPlayState) {
-                    Log.info("Received sync message!");
+                    Log.info("Received Player Entity sync message...");
                     Packets.SyncPlayState p = (Packets.SyncPlayState) o;
                     PlayState ps = (PlayState)myGame.getGsm().states.peek();
+//                    while (ps.updating) {}
                     ps.player.body.setTransform(p.body,p.angle);
-                    Log.info("Received sync message...");
+                    Log.info("Processed Player Entity sync message!");
                 }
 
-                else if (o instanceof Packets.Packet03Click) {
-                    Packets.Packet03Click p = (Packets.Packet03Click) o;
-                    PlayState ps = (PlayState) myGame.getGsm().states.peek();
-                    ps.player.dummy.useToolStart(p.delta, ps.player.dummy.dummyWeapon, Constants.PLAYER_HITBOX, (int) p.location.x , (int)(Gdx.graphics.getHeight() - p.location.y), true);
+                else if (o instanceof Packets.SyncHitbox) {
+                    Log.info("Received Hitbox sync message...");
+                    Packets.SyncHitbox p = (Packets.SyncHitbox) o;
+                    PlayState ps = (PlayState)myGame.getGsm().states.peek();
+                    World world = ps.getWorld();
+                    RayHandler rays = ps.getRays();
+//                    while (ps.updating) {}
+                    allowedToCreate = true;
+                    new Hitbox(ps,p.x,p.y,p.width,p.height,p.lifespan,p.dura,p.rest,p.startVelo,p.filter,p.sensor,world, ps.camera, rays);
+                    allowedToCreate = false;
+                    Log.info("Processed Hitbox sync message!");
+
                 }
+
+                else if (o instanceof Packets.SyncHitboxImage) {
+                    Log.info("Received HitboxImage sync message...");
+                    Packets.SyncHitboxImage p = (Packets.SyncHitboxImage) o;
+                    PlayState ps = (PlayState)myGame.getGsm().states.peek();
+                    World world = ps.getWorld();
+                    RayHandler rays = ps.getRays();
+//                    while (ps.updating) {}
+                    allowedToCreate = true;
+                    new HitboxImage(ps,p.x,p.y,p.width,p.height,p.lifespan,p.dura,p.rest,p.startVelo,p.filter,p.sensor,world, ps.camera, rays, p.spriteID);
+                    allowedToCreate = false;
+                    Log.info("Processed HitboxImage sync message!");
+
+                }
+
+                else if (o instanceof Packets.SyncCreateSchmuck) {
+                    Log.info("Received Schmuck creation sync message...");
+                    Packets.SyncCreateSchmuck p = (Packets.SyncCreateSchmuck) o;
+                    PlayState ps = (PlayState)myGame.getGsm().states.peek();
+                    World world = ps.getWorld();
+                    RayHandler rays = ps.getRays();
+//                    while (ps.updating) {}
+                    allowedToCreate = true;
+                    new Schmuck(ps, world, ps.camera, rays, p.w, p.h, p.startX, p.startY, p.id);
+                    allowedToCreate = false;
+                    Log.info("Processed Schmuck creation sync message!");
+
+                }
+//                else if (o instanceof Packets.Packet03Click) {
+//                    Packets.Packet03Click p = (Packets.Packet03Click) o;
+//                    PlayState ps = (PlayState) myGame.getGsm().states.peek();
+//                    ps.player.dummy.useToolStart(p.delta, ps.player.dummy.dummyWeapon, Constants.PLAYER_HITBOX, (int) p.location.x , (int)(Gdx.graphics.getHeight() - p.location.y), true);
+//                }
 
                 else if (o instanceof Packets.Packet02Input) {
                     Packets.Packet02Input p = (Packets.Packet02Input) o;

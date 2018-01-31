@@ -29,7 +29,12 @@ public class Player extends Schmuck implements InputProcessor {
 	//Fixtures and user data
 	protected Fixture viewWedge;
     protected Fixture viewWedge2;
-	private KryoClient client;
+
+    public KryoClient getClient() {
+        return client;
+    }
+
+    private KryoClient client;
 	private float lastDelta;
 		
 	//is the player currently in the process of holding their currently used tool?
@@ -198,6 +203,7 @@ public class Player extends Schmuck implements InputProcessor {
         syncTimer += delta;
         if (syncTimer > 5) {
             if (client.master)
+                Log.info("Number of entities: " + this.state.getEntities().size());
                 client.client.sendTCP(new Packets.SyncPlayState(this.getBody().getPosition(), this.getBody().getAngle()));
             syncTimer = 0;
         }
@@ -293,7 +299,7 @@ public class Player extends Schmuck implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        client.client.sendTCP(new Packets.Packet03Click(new Vector2(screenX,screenY), null, client.myID, lastDelta));
+//        client.client.sendTCP(new Packets.Packet03Click(new Vector2(screenX,screenY), null, client.myID, lastDelta));
 
         return false;
     }

@@ -11,6 +11,8 @@ import com.mygdx.game.states.PlayState;
 
 import box2dLight.RayHandler;
 
+import java.util.UUID;
+
 /**
  * A HadalEntity is enything in the Game world that does stuff.
  * A HadalEntity contains the method to create a Box2d body. It is not a body itself.
@@ -23,7 +25,7 @@ import box2dLight.RayHandler;
 public abstract class Entity {
 
 	//References to game fields.
-	protected PlayState state;
+	protected transient PlayState state;
 	protected World world;
 	protected OrthographicCamera camera;
 	protected RayHandler rays;
@@ -33,7 +35,7 @@ public abstract class Entity {
 	protected UserData userData;
 	public float height, width;
 	protected float startX, startY;
-	
+	public UUID entityID;
 	boolean alive = true;
 
 	/**
@@ -48,6 +50,8 @@ public abstract class Entity {
 	 * @param startY: Starting y position
 	 */
 	public Entity(PlayState state, World world, OrthographicCamera camera, RayHandler rays, float w, float h, float startX, float startY) {
+	    entityID = UUID.randomUUID();
+
 		this.state = state;
 		this.world = world;
 		this.camera = camera;
@@ -59,8 +63,30 @@ public abstract class Entity {
 		this.startY = startY;
 		
 		//Queue this entity up for creating in the world next engine tick
-		state.create(this);
+        state.create(this);
+//        if (state.player == null || state.player.getClient().allowedToCreate || state.player.getClient().master) {
+//            state.create(this);
+//        }
+
 	}
+
+    public Entity(PlayState state, World world, OrthographicCamera camera, RayHandler rays, float w, float h, float startX, float startY, UUID id) {
+        entityID = id;
+
+        this.state = state;
+        this.world = world;
+        this.camera = camera;
+        this.rays = rays;
+
+        this.width = w;
+        this.height = h;
+        this.startX = startX;
+        this.startY = startY;
+
+        //Queue this entity up for creating in the world next engine tick
+        state.create(this);
+
+    }
 		
 	/**
 	 * This method is called by the playstate next engine tick after initializing this entity.

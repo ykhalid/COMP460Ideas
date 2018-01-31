@@ -11,6 +11,7 @@ import com.mygdx.game.equipment.Equipment;
 import com.mygdx.game.manager.AssetList;
 import com.mygdx.game.comp460game;
 import com.mygdx.game.entities.userdata.CharacterData;
+import com.mygdx.game.server.Packets;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.util.SteeringUtil;
 import com.badlogic.gdx.ai.utils.Location;
@@ -19,6 +20,8 @@ import static com.mygdx.game.util.Constants.PPM;
 
 
 import box2dLight.RayHandler;
+
+import java.util.UUID;
 
 public class Schmuck extends Entity implements Location<Vector2> {
 
@@ -69,7 +72,17 @@ public class Schmuck extends Entity implements Location<Vector2> {
 		super(state, world, camera, rays, w * scale, h * scale, startX, startY);
 		atlas = (TextureAtlas) comp460game.assetManager.get(AssetList.FISH_ATL.toString());
 		schmuckSprite = atlas.findRegion("spittlefish_swim");
+//		if (state.player != null) {
+//            state.player.getClient().client.sendTCP(new Packets.SyncCreateSchmuck(w,h,startX,startY,this.entityID));
+//        }
 	}
+
+    public Schmuck(PlayState state, World world, OrthographicCamera camera, RayHandler rays, float w, float h,
+                   float startX, float startY, UUID id) {
+        super(state, world, camera, rays, w * scale, h * scale, startX, startY, id);
+        atlas = (TextureAtlas) comp460game.assetManager.get(AssetList.FISH_ATL.toString());
+        schmuckSprite = atlas.findRegion("spittlefish_swim");
+    }
 	
 	public Schmuck(PlayState state, World world, OrthographicCamera camera, RayHandler rays,
 			float startX, float startY, String spriteId, int width, int height, int hbWidth, int hbHeight) {
