@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.entities.userdata.PlayerData;
 import com.mygdx.game.event.Event;
@@ -29,9 +30,14 @@ public class Player extends Schmuck implements InputProcessor {
 	//Fixtures and user data
 	protected Fixture viewWedge;
     protected Fixture viewWedge2;
-	private KryoClient client;
+
+    public KryoClient getClient() {
+        return client;
+    }
+
+    private KryoClient client;
 	private float lastDelta;
-		
+	public boolean spacePressed;
 	//is the player currently in the process of holding their currently used tool?
 	private boolean charging = false;
 		
@@ -42,7 +48,6 @@ public class Player extends Schmuck implements InputProcessor {
 	//is the button for that respective movement pressed currently?
     public boolean wPressed = false, aPressed = false, sPressed = false, dPressed = false, qPressed = false, ePressed = false;
     public boolean wPressed2 = false, aPressed2 = false, sPressed2 = false, dPressed2 = false, qPressed2 = false, ePressed2 = false;
-    public boolean spacePressed = false;
 		
 	//user data
 	public PlayerData playerData;
@@ -210,6 +215,7 @@ public class Player extends Schmuck implements InputProcessor {
         syncTimer += delta;
         if (syncTimer > 5) {
             if (client.master)
+                Log.info("Number of entities: " + this.state.getEntities().size());
                 client.client.sendTCP(new Packets.SyncPlayState(this.getBody().getPosition(), this.getBody().getAngle()));
             syncTimer = 0;
         }
@@ -305,7 +311,7 @@ public class Player extends Schmuck implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        client.client.sendTCP(new Packets.Packet03Click(new Vector2(screenX,screenY), null, client.myID, lastDelta));
+//        client.client.sendTCP(new Packets.Packet03Click(new Vector2(screenX,screenY), null, client.myID, lastDelta));
 
         return false;
     }
