@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="200" height="200" tilewidth="32" tileheight="32" nextobjectid="57">
+ <tileset firstgid="1" source="460.tsx"/>
+ <layer name="Tile Layer 1" width="200" height="200">
+  <data encoding="base64" compression="zlib">
+   eJzt3duK6zYYgNFAuws9wKa9mfd/0zKIoVMjKZb925KltUBXm4kVW99OfIC8XgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANDHzxsGPJU+oEwfUHbVOtYHM9AHlOkDyvQBZTP0ccc1Btcn1nRHH1evo97rXx/z0oc+KJuxj79OvFarPzPb18c8eh/H6D7ubOPLu0Z4rt7HMbqPXmqN8Fy9j+MsfWyNOCfa3Xn+cdX2R1yLI86Jdvq4xohzot1KfRy5ptZyTuH8Yz6Ra+aKNdf6Hu56ry2vz3P1biK6j55z1cd8ejehD55sxB7umJs+2GPlPmrba5kP89JHfnst82FepWPe+pxT7vmLyLlF0QctItr4sudZ116fRV/29tFjboyhdqzPPh97VSNR9ME7V7Xx5YpGouiDd1Y+zqu9X9qtvEZWfu/ss/IaWfm9s8/Ka2Tl984+I51/jHR+Dp/0oQ/K9KEP9um9Xvbej7hje7B11XqJuM+mD3rTB5R9Xy+/Bb3mj5c+mMN2jZ5tJNdGxNyi6IMWuf/HjzZS+tyImFsUfdCi9F2ntZHad6qIuUXRBy2OnCecPa84Mrco+qCFPqBMH/BM+oAyfUCZPqBMH1CmDyjTB5TN1sdHh20yr1Hvy8AI9NGHz7ln0Ecf+oAyfUCZPljdR2G8Xvr4dPV3++jzgt5zWnGsrPe+bz0uvee04lhZ733felz2/N0vxu6hj7rR9sPZPqJ++2oVe37ja2Wj7YczfWjjmHeNrGy0/XC0D22cU2tkZaPthyN9aCNGqZGVjbYfWvvQRqxcIysbbT+09JFrwz2t87aNrGy0/bC3j99vm9Gafn39t6//7jyXnvRBjj4SfZCz7WPVRvRBjj4SfZCjj0Qf5Dj/SPRBzvc+VqYPcvSR6IMcfST6IEcfiT7I0UeiD3L0kXxfj2d/8zyCPsagj+Tna6xG9DEGfSTbPno3oo8x6CPJ9dGzEX2MQR9JqY9ejehjDPpIan30aEQfY9BH8q6Pu/dPbbsfL33cRR+JPsjRR6IPcvSR6IMcfST6IEcfdfpYmz7qel3j1ccY9FHX6z6I+x9j0Eddr3uF+hiDPupK5+pXN6KPMeijrnY968pG9DEGfdS9u+b7rpHtbwUf2W7t3/VxLX3U7bkvUhvf+zj6GrV56eNa+qjTx9r0UaePtekjXmltb7uJ2IY+rqWPePqYhz7i6WMe+oinj3noI54+5qGPeHuva0VsQx/X0kc8fcxDH/H0MQ99xNvzzJU+nkEfsT4qI5I+7qGPWLU+IjvRxz30EeuOz45P+riHPp5JH/fQxzPp4x76eCZ93EMfz6SPe+jjmb7fa+z9W4mz+vEqP0vH2Lb34zUSa9uGPp4l98yKRmLk2tDHs5Se69LIOaU29PEstWcfNXJMrQ19PMu754M1kvxTGFvv2tDHs+x5hv4PY/fYsz95jj3H04gdPEfvtbLiAP7vimevYRb6gDJ9QJk+oEwfUKYPKNMHAAAAAAAAAAAAAAAAAAAAAHCnfwGPG6mU
+  </data>
+ </layer>
+ <objectgroup name="collision-layer">
+  <object id="27" x="1760" y="2400">
+   <polyline points="0,0 0,96 96,96 96,288 224,416 576,416 704,288 704,224 1024,224 1024,96 1344,96 1344,736 1920,736 1920,-160 1344,-160 1344,-32 1024,-32 704,-32 576,-160 224,-160 96,-32 96,0 0,0"/>
+  </object>
+  <object id="12" x="3168" y="1888">
+   <polyline points="0,0 0,192 224,192 224,128 832,128 832,384 992,384 992,128 1088,128 1088,32 992,32 896,-64 64,-64 0,0"/>
+  </object>
+  <object id="3" x="1600" y="1600">
+   <polyline points="0,0 0,448 608,448 608,352 768,352 768,448 928,448 928,256 608,256 608,0 0,0"/>
+  </object>
+  <object id="47" x="3198.19" y="3612.13">
+   <polyline points="0,0 1.81457,1563.62 192.724,1760.59 2586.66,1763.62 2783.63,1572.71 2780.6,-0.0137468 2592.72,-190.923 192.724,-190.923 1.81457,-3.04405"/>
+  </object>
+  <object id="50" x="1792.23" y="3427.7">
+   <polyline points="0,0 0.547385,573.283 189.817,762.503 189.518,952.27 386.055,1148.81 605.99,1148.81 605.741,1404.14 700.674,1402.05 701.919,1146.47 1054.47,1147.02 1056.27,-4.18148 4.67946,-7.01919"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="event-layer">
+  <object id="5" name="Spawn" type="Spawn" x="1696" y="1824" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="0"/>
+    <property name="interval" type="float" value="0"/>
+    <property name="limit" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="6" name="Text" type="Text" x="1600" y="1600" width="320" height="448">
+   <properties>
+    <property name="text" value="USE 'W,A,S,D' TO MOVE."/>
+   </properties>
+  </object>
+  <object id="7" name="Text" type="Text" x="1920" y="1600" width="288" height="448">
+   <properties>
+    <property name="text" value="USE 'SPACE' TO INTERACT WITH OBJECTS"/>
+   </properties>
+  </object>
+  <object id="8" name="Switch" type="Switch" x="2144" y="1696" width="32" height="32">
+   <properties>
+    <property name="triggeringId" value="0"/>
+   </properties>
+  </object>
+  <object id="9" name="Door" type="Door" x="2208" y="1856" width="32" height="96">
+   <properties>
+    <property name="triggeredId" value="0"/>
+   </properties>
+  </object>
+  <object id="10" name="UsePortal" type="UsePortal" x="2432" y="1984" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="false"/>
+    <property name="triggeredId" value="1"/>
+    <property name="triggeringId" value="2"/>
+   </properties>
+  </object>
+  <object id="11" name="UsePortal" type="UsePortal" x="3264" y="1984" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="false"/>
+    <property name="triggeredId" value="2"/>
+    <property name="triggeringId" value="1"/>
+   </properties>
+  </object>
+  <object id="13" name="Current" type="Current" x="3392" y="1952" width="256" height="64">
+   <properties>
+    <property name="currentX" type="float" value="3"/>
+    <property name="currentY" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="14" name="Current" type="Current" x="3648" y="1824" width="256" height="64">
+   <properties>
+    <property name="currentX" type="float" value="-3"/>
+    <property name="currentY" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="15" name="Current" type="Current" x="3392" y="1824" width="256" height="64">
+   <properties>
+    <property name="currentX" type="float" value="3"/>
+    <property name="currentY" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="17" name="Current" type="Current" x="3392" y="1888" width="256" height="64">
+   <properties>
+    <property name="currentX" type="float" value="-3"/>
+    <property name="currentY" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="18" name="Current" type="Current" x="3648" y="1952" width="256" height="64">
+   <properties>
+    <property name="currentX" type="float" value="-3"/>
+    <property name="currentY" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="20" name="Current" type="Current" x="3648" y="1888" width="256" height="64">
+   <properties>
+    <property name="currentX" type="float" value="3"/>
+    <property name="currentY" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="21" name="Equip" type="Equip" x="4192" y="1952" width="32" height="32">
+   <properties>
+    <property name="equipId" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="23" name="Text" type="Text" x="3168" y="1824" width="832" height="256">
+   <properties>
+    <property name="text" value="CONVEYOR BELTS WILL MOVE CHARACTERS IN A SET DIRECTION."/>
+   </properties>
+  </object>
+  <object id="24" name="Text" type="Text" x="4000" y="1824" width="256" height="448">
+   <properties>
+    <property name="text" value="USE ' SPACE' TO PICK UP NEW WEAPONS. USE NUMBER KEYS TO SWITCH ACTIVE WEAPON."/>
+   </properties>
+  </object>
+  <object id="25" name="UsePortal" type="UsePortal" x="4064" y="2208" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="false"/>
+    <property name="triggeredId" value="3"/>
+    <property name="triggeringId" value="4"/>
+   </properties>
+  </object>
+  <object id="26" name="UsePortal" type="UsePortal" x="1792" y="2432" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="false"/>
+    <property name="triggeredId" value="4"/>
+    <property name="triggeringId" value="3"/>
+   </properties>
+  </object>
+  <object id="28" name="Target" type="Target" x="2016" y="2304" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="true"/>
+    <property name="triggeringId" value="5"/>
+   </properties>
+  </object>
+  <object id="29" name="Target" type="Target" x="2624" y="2560" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="true"/>
+    <property name="triggeringId" value="5"/>
+   </properties>
+  </object>
+  <object id="30" name="Target" type="Target" x="2144" y="2752" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="true"/>
+    <property name="triggeringId" value="5"/>
+   </properties>
+  </object>
+  <object id="31" name="Counter" type="Counter" x="2528" y="2272" width="32" height="32">
+   <properties>
+    <property name="count" type="int" value="3"/>
+    <property name="triggeredId" value="5"/>
+    <property name="triggeringId" value="6"/>
+   </properties>
+  </object>
+  <object id="32" name="Door" type="Door" x="2784" y="2368" width="96" height="128">
+   <properties>
+    <property name="triggeredId" value="6"/>
+   </properties>
+  </object>
+  <object id="33" name="Sensor" type="Sensor" x="3072" y="2368" width="32" height="128">
+   <properties>
+    <property name="oneTime" type="bool" value="true"/>
+    <property name="triggeringId" value="7"/>
+   </properties>
+  </object>
+  <object id="34" name="TriggerSpawn" x="3616" y="2272" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="0"/>
+    <property name="limit" type="int" value="3"/>
+    <property name="triggeredId" value="7"/>
+    <property name="triggeringId" value="9"/>
+   </properties>
+  </object>
+  <object id="35" name="TriggerSpawn" x="3200" y="3040" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="0"/>
+    <property name="limit" type="int" value="3"/>
+    <property name="triggeredId" value="8"/>
+    <property name="triggeringId" value="9"/>
+   </properties>
+  </object>
+  <object id="36" name="Sensor" type="Sensor" x="3072" y="2368" width="32" height="128">
+   <properties>
+    <property name="oneTime" type="bool" value="true"/>
+    <property name="triggeringId" value="8"/>
+   </properties>
+  </object>
+  <object id="37" name="Door" type="Door" x="3328" y="2624" width="96" height="96">
+   <properties>
+    <property name="triggeredId" value="9"/>
+   </properties>
+  </object>
+  <object id="38" name="UsePortal" type="UsePortal" x="3360" y="2656" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="false"/>
+    <property name="triggeredId" value="10"/>
+    <property name="triggeringId" value="11"/>
+   </properties>
+  </object>
+  <object id="39" name="UsePortal" type="UsePortal" x="1887.55" y="3530.46" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="false"/>
+    <property name="triggeredId" value="11"/>
+    <property name="triggeringId" value="10"/>
+   </properties>
+  </object>
+  <object id="41" name="Spawn" type="Spawn" x="2172.16" y="4379.89" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+    <property name="interval" type="float" value="10"/>
+    <property name="limit" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="42" name="Spawn" type="Spawn" x="2688" y="4448" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+    <property name="interval" type="float" value="100"/>
+    <property name="limit" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="43" name="Text" type="Text" x="1856" y="2240" width="928" height="608">
+   <properties>
+    <property name="text" value="DESTROY TARGETS TO CONTINUE"/>
+   </properties>
+  </object>
+  <object id="44" name="Text" type="Text" x="3104" y="2240" width="576" height="896">
+   <properties>
+    <property name="text" value="DEFEAT ENEMIES TO CONTINUE"/>
+   </properties>
+  </object>
+  <object id="48" name="UsePortal" type="UsePortal" x="3381.38" y="3572.85" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="false"/>
+    <property name="triggeredId" value="13"/>
+    <property name="triggeringId" value="12"/>
+   </properties>
+  </object>
+  <object id="51" name="UsePortal" type="UsePortal" x="2425.61" y="4756.61" width="32" height="32">
+   <properties>
+    <property name="oneTime" type="bool" value="false"/>
+    <property name="triggeredId" value="12"/>
+    <property name="triggeringId" value="13"/>
+   </properties>
+  </object>
+  <object id="52" name="Spawn" type="Spawn" x="5806.7" y="5188.45" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+    <property name="interval" type="float" value="100"/>
+    <property name="limit" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="53" name="Spawn" type="Spawn" x="3360" y="5200" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+    <property name="interval" type="float" value="100"/>
+    <property name="limit" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="54" name="Spawn" type="Spawn" x="5800" y="3564" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+    <property name="interval" type="float" value="100"/>
+    <property name="limit" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="55" name="Spawn" type="Spawn" x="5805.21" y="4362.79" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+    <property name="interval" type="float" value="100"/>
+    <property name="limit" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="56" name="Spawn" type="Spawn" x="4587.03" y="5220.36" width="32" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+    <property name="interval" type="float" value="100"/>
+    <property name="limit" type="int" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
