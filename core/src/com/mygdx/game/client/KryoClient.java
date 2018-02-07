@@ -5,8 +5,6 @@ import java.io.IOException;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
@@ -18,13 +16,10 @@ import com.mygdx.game.comp460game;
 import com.mygdx.game.entities.Hitbox;
 import com.mygdx.game.entities.HitboxImage;
 import com.mygdx.game.entities.Schmuck;
-import com.mygdx.game.equipment.ranged.Gun;
 import com.mygdx.game.manager.GameStateManager.State;
 import com.mygdx.game.server.*;
-import com.mygdx.game.states.GameState;
 import com.mygdx.game.states.PlayState;
 import com.mygdx.game.states.TitleState;
-import com.mygdx.game.util.Constants;
 //import com.mygdx.game.server.Packets;
 
 import javax.swing.*;
@@ -59,7 +54,7 @@ public class KryoClient {
         client.addListener(new Listener() {
 
             public void connected(Connection c) {
-                Packets.Packet01Message connected = new Packets.Packet01Message(name);
+                Packets.PlayerConnect connected = new Packets.PlayerConnect(name);
                 client.sendTCP(connected);
             }
 
@@ -69,11 +64,11 @@ public class KryoClient {
 
             public void received(Connection c, Object o) {
 
-                if (o instanceof Packets.Packet01Message) {
-                    Packets.Packet01Message p = (Packets.Packet01Message) o;
+                if (o instanceof Packets.PlayerConnect) {
+                    Packets.PlayerConnect p = (Packets.PlayerConnect) o;
                 }
 
-                else if (o instanceof Packets.Packet04EnterPlayState) {
+                else if (o instanceof Packets.EnterPlayState) {
                     Gdx.app.postRunnable(new Runnable() {
                         public void run() {
                             myGame.getGsm().addState(State.PLAY, TitleState.class);
@@ -143,19 +138,19 @@ public class KryoClient {
 //                    ps.player.dummy.useToolStart(p.delta, ps.player.dummy.dummyWeapon, Constants.PLAYER_HITBOX, (int) p.location.x , (int)(Gdx.graphics.getHeight() - p.location.y), true);
 //                }
 
-                else if (o instanceof Packets.Packet02Input) {
-                    Packets.Packet02Input p = (Packets.Packet02Input) o;
+                else if (o instanceof Packets.KeyPressOrRelease) {
+                    Packets.KeyPressOrRelease p = (Packets.KeyPressOrRelease) o;
                     if (p.message == Input.Keys.W) {
                         if (myGame.getGsm().states.peek() instanceof PlayState) {
                             PlayState ps = (PlayState) myGame.getGsm().states.peek();
                             if (p.playerID == myID) {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.wPressed = true;
                                 } else {
                                     ps.player.wPressed = false;
                                 }
                             } else {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.wPressed2 = true;
                                     Log.info("W2 pressed");
                                 } else {
@@ -169,13 +164,13 @@ public class KryoClient {
                         if (myGame.getGsm().states.peek() instanceof PlayState) {
                             PlayState ps = (PlayState) myGame.getGsm().states.peek();
                             if (p.playerID == myID) {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.aPressed = true;
                                 } else {
                                     ps.player.aPressed = false;
                                 }
                             } else {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.aPressed2 = true;
                                 } else {
                                     ps.player.aPressed2 = false;
@@ -186,13 +181,13 @@ public class KryoClient {
                         if (myGame.getGsm().states.peek() instanceof PlayState) {
                             PlayState ps = (PlayState) myGame.getGsm().states.peek();
                             if (p.playerID == myID) {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.sPressed = true;
                                 } else {
                                     ps.player.sPressed = false;
                                 }
                             } else {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.sPressed2 = true;
                                 } else {
                                     ps.player.sPressed2 = false;
@@ -203,13 +198,13 @@ public class KryoClient {
                         if (myGame.getGsm().states.peek() instanceof PlayState) {
                             PlayState ps = (PlayState) myGame.getGsm().states.peek();
                             if (p.playerID == myID) {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.dPressed = true;
                                 } else {
                                     ps.player.dPressed = false;
                                 }
                             } else {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.dPressed2 = true;
                                 } else {
                                     ps.player.dPressed2 = false;
@@ -220,13 +215,13 @@ public class KryoClient {
                         if (myGame.getGsm().states.peek() instanceof PlayState) {
                             PlayState ps = (PlayState) myGame.getGsm().states.peek();
                             if (p.playerID == myID) {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.qPressed = true;
                                 } else {
                                     ps.player.qPressed = false;
                                 }
                             } else {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.qPressed2 = true;
                                 } else {
                                     ps.player.qPressed2 = false;
@@ -237,13 +232,13 @@ public class KryoClient {
                         if (myGame.getGsm().states.peek() instanceof PlayState) {
                             PlayState ps = (PlayState) myGame.getGsm().states.peek();
                             if (p.playerID == myID) {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.ePressed = true;
                                 } else {
                                     ps.player.ePressed = false;
                                 }
                             } else {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.ePressed2 = true;
                                 } else {
                                     ps.player.ePressed2 = false;
@@ -255,13 +250,13 @@ public class KryoClient {
                         if (myGame.getGsm().states.peek() instanceof PlayState) {
                             PlayState ps = (PlayState) myGame.getGsm().states.peek();
                             if (p.playerID == myID) {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.spacePressed = true;
                                 } else {
                                     ps.player.spacePressed = false;
                                 }
                             } else {
-                                if (p.pressOrRelease == Packets.Packet02Input.PRESSED) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.spacePressed = true;
                                 } else {
                                     ps.player.spacePressed = false;

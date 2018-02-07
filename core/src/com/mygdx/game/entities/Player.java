@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -19,8 +18,6 @@ import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.b2d.BodyBuilder;
 
 import box2dLight.RayHandler;
-
-import java.util.HashMap;
 
 public class Player extends Schmuck implements InputProcessor {
 
@@ -220,25 +217,25 @@ public class Player extends Schmuck implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.W) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.W, Packets.Packet02Input.PRESSED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.W, Packets.KeyPressOrRelease.PRESSED, client.myID));
         }
         if (keycode == Input.Keys.A) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.A, Packets.Packet02Input.PRESSED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.A, Packets.KeyPressOrRelease.PRESSED, client.myID));
         }
         if (keycode == Input.Keys.S) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.S, Packets.Packet02Input.PRESSED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.S, Packets.KeyPressOrRelease.PRESSED, client.myID));
         }
         if (keycode == Input.Keys.D) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.D, Packets.Packet02Input.PRESSED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.D, Packets.KeyPressOrRelease.PRESSED, client.myID));
         }
         if (keycode == Input.Keys.Q) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.Q, Packets.Packet02Input.PRESSED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.Q, Packets.KeyPressOrRelease.PRESSED, client.myID));
         }
         if (keycode == Input.Keys.E) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.E, Packets.Packet02Input.PRESSED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.E, Packets.KeyPressOrRelease.PRESSED, client.myID));
         }
         if (keycode == Input.Keys.SPACE) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.SPACE, Packets.Packet02Input.PRESSED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.SPACE, Packets.KeyPressOrRelease.PRESSED, client.myID));
         }
 
         //Pressing 'R' = reload current weapon.
@@ -268,25 +265,25 @@ public class Player extends Schmuck implements InputProcessor {
     @Override
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.W) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.W, Packets.Packet02Input.RELEASED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.W, Packets.KeyPressOrRelease.RELEASED, client.myID));
         }
         if (keycode == Input.Keys.A) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.A, Packets.Packet02Input.RELEASED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.A, Packets.KeyPressOrRelease.RELEASED, client.myID));
         }
         if (keycode == Input.Keys.S) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.S, Packets.Packet02Input.RELEASED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.S, Packets.KeyPressOrRelease.RELEASED, client.myID));
         }
         if (keycode == Input.Keys.D) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.D, Packets.Packet02Input.RELEASED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.D, Packets.KeyPressOrRelease.RELEASED, client.myID));
         }
         if (keycode == Input.Keys.Q) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.Q, Packets.Packet02Input.RELEASED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.Q, Packets.KeyPressOrRelease.RELEASED, client.myID));
         }
         if (keycode == Input.Keys.E) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.E, Packets.Packet02Input.RELEASED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.E, Packets.KeyPressOrRelease.RELEASED, client.myID));
         }
         if (keycode == Input.Keys.SPACE) {
-            client.client.sendTCP(new Packets.Packet02Input(Input.Keys.SPACE, Packets.Packet02Input.RELEASED, client.myID));
+            client.client.sendTCP(new Packets.KeyPressOrRelease(Input.Keys.SPACE, Packets.KeyPressOrRelease.RELEASED, client.myID));
         }
         return false;
     }

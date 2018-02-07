@@ -2,14 +2,12 @@ package com.mygdx.game.server;
 
 import java.io.IOException;
 
-import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.KryoSerialization;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
-import com.mygdx.game.equipment.ranged.Gun;
 import com.mygdx.game.manager.GameStateManager;
 
 public class KryoServer {
@@ -38,22 +36,22 @@ public class KryoServer {
 
 			public void received(Connection c, Object o) {
 				Log.info("" + (o.getClass().getName()));
-				if (o instanceof Packets.Packet01Message) {
+				if (o instanceof Packets.PlayerConnect) {
 					// We have received a player connection message.
-					Packets.Packet01Message p = (Packets.Packet01Message) o;
+					Packets.PlayerConnect p = (Packets.PlayerConnect) o;
 
 					// Ignore the object if the name is invalid.
-					String name = ((Packets.Packet01Message)o).message;
+					String name = ((Packets.PlayerConnect)o).message;
 					if (name == null) {
-						server.sendToTCP(c.getID(), new Packets.Packet01Message("Invalid Player name."));
+						server.sendToTCP(c.getID(), new Packets.PlayerConnect("Invalid Player name."));
 						return;
 					}
 					name = name.trim();
 					if (name.length() == 0) {
-						server.sendToTCP(c.getID(), new Packets.Packet01Message("Cannot have empty player name."));
+						server.sendToTCP(c.getID(), new Packets.PlayerConnect("Cannot have empty player name."));
 						return;
 					}
-					Packets.Packet01Message newPlayer = new Packets.Packet01Message( name + " has joined the game server.");
+					Packets.PlayerConnect newPlayer = new Packets.PlayerConnect( name + " has joined the game server.");
 					Log.info(name + " has joined the game.");
 					server.sendToAllExceptTCP(c.getID(), newPlayer);
 					server.sendToTCP(c.getID(), new Packets.IDMessage(c.getID(), setMaster));
@@ -61,9 +59,9 @@ public class KryoServer {
 
 				}
 
-				else if (o instanceof Packets.Packet02Input) {
+				else if (o instanceof Packets.KeyPressOrRelease) {
 					// We have received a player movement message.
-					Packets.Packet02Input p = (Packets.Packet02Input) o;
+					Packets.KeyPressOrRelease p = (Packets.KeyPressOrRelease) o;
 					server.sendToAllTCP(p);
 				}
 
@@ -73,13 +71,13 @@ public class KryoServer {
 					server.sendToAllTCP(p);
 				}
 
-				else if (o instanceof Packets.PacketReadyToPlay) {
+				else if (o instanceof Packets.ReadyToPlay) {
 					Log.info("Server received ReadyToPlay");
-				    Packets.PacketReadyToPlay p = (Packets.PacketReadyToPlay) o;
+				    Packets.ReadyToPlay p = (Packets.ReadyToPlay) o;
 				    players += 1;
 					Log.info("Player " + c.getID() + " ready.");
 				    if (players == 2) {
-				        server.sendToAllTCP(new Packets.Packet04EnterPlayState());
+				        server.sendToAllTCP(new Packets.EnterPlayState());
                     }
                 }
 

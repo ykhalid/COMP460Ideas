@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.client.KryoClient;
@@ -42,6 +43,12 @@ public class comp460game extends ApplicationAdapter {
 	public static int CONFIG_WIDTH;
 	public static int CONFIG_HEIGHT;
     public Stage currentMenu;
+
+    public boolean serverMode;
+
+    public comp460game(boolean serverMode) {
+        this.serverMode = serverMode;
+    }
 
 	/**
 	 * This creates a game, setting up the sprite batch to render things and the main game camera.
@@ -102,15 +109,19 @@ public class comp460game extends ApplicationAdapter {
 		gsm.update(Gdx.graphics.getDeltaTime());
 		currentMenu.act();
 
-		Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		gsm.render();
+		if (serverMode) {
 
-		batch.setProjectionMatrix(hud.combined);
-		batch.begin();
-		currentMenu.draw();
-		batch.end();
+        } else {
+            Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            gsm.render();
+
+            batch.setProjectionMatrix(hud.combined);
+            batch.begin();
+            currentMenu.draw();
+            batch.end();
+        }
 	}
 	
 	/**

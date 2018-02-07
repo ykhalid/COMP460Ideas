@@ -1,7 +1,5 @@
 package com.mygdx.game.states;
 
-import java.io.IOException;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,9 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.manager.GameStateManager;
-import com.mygdx.game.manager.GameStateManager.State;
-import com.mygdx.game.networking.ChatClient;
-import com.mygdx.game.networking.ChatServer;
 import com.mygdx.game.comp460game;
 import com.mygdx.game.actors.Text;
 import com.mygdx.game.server.KryoServer;
@@ -49,7 +44,7 @@ public class TitleState extends GameState {
 			            Log.info("Clicked play button...");
 			            if (client == null) return;
                         Log.info("Client successfully set");
-                        Packets.PacketReadyToPlay r2p = new Packets.PacketReadyToPlay();
+                        Packets.ReadyToPlay r2p = new Packets.ReadyToPlay();
                         client.client.sendTCP(r2p);
                         
 //                        gsm.addState(State.PLAY, TitleState.class);
