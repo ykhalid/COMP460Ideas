@@ -16,6 +16,7 @@ import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.manager.AssetList;
 import com.mygdx.game.manager.GameStateManager;
+import com.mygdx.game.server.KryoServer;
 
 public class comp460game extends ApplicationAdapter {
 	
@@ -30,7 +31,8 @@ public class comp460game extends ApplicationAdapter {
 	//This is the Gamestate Manager. It manages the current game state.
 	private GameStateManager gsm;
 
-    private KryoClient client;
+    public static KryoClient client;
+    public static KryoServer server;
 
 	public static AssetManager assetManager;
     public static FitViewport viewportCamera, viewportSprite;
@@ -44,7 +46,7 @@ public class comp460game extends ApplicationAdapter {
 	public static int CONFIG_HEIGHT;
     public Stage currentMenu;
 
-    public boolean serverMode;
+    public static boolean serverMode;
 
     public comp460game(boolean serverMode) {
         this.serverMode = serverMode;
@@ -84,6 +86,9 @@ public class comp460game extends ApplicationAdapter {
 	    currentMenu = new Stage();
 	    
 		gsm = new GameStateManager(this);
+        if (serverMode) {
+            server = new KryoServer(gsm);
+        }
 	}
 	
 	public void loadAssets() {
@@ -109,9 +114,9 @@ public class comp460game extends ApplicationAdapter {
 		gsm.update(Gdx.graphics.getDeltaTime());
 		currentMenu.act();
 
-		if (serverMode) {
+		//if (serverMode) {
 
-        } else {
+        //} else {
             Gdx.gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -121,7 +126,7 @@ public class comp460game extends ApplicationAdapter {
             batch.begin();
             currentMenu.draw();
             batch.end();
-        }
+        //}
 	}
 	
 	/**
@@ -188,11 +193,6 @@ public class comp460game extends ApplicationAdapter {
 	public SpriteBatch getBatch() {
 		return batch;
 	}
-
-    public KryoClient getClient() {
-        Log.info("Client: " + client);
-        return client;
-    }
 
     public GameStateManager getGsm() {
 	    return gsm;

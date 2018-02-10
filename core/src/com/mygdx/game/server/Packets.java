@@ -90,15 +90,6 @@ public class Packets {
         public int ID;
     }
 
-    public static class EntityCreate {
-	    public UUID uuid;
-	    public float x, y;
-	    public int entityType;
-	    public UUIDMessage(UUID uuid, float x, float y, int entityType, ) {
-	        this.uuid = uuid;
-        }
-    }
-
     public static class SyncPlayState {
 	    public SyncPlayState() {}
 	    public SyncPlayState(Vector2 bod, float a) {
@@ -157,7 +148,7 @@ public class Packets {
 
     public static class SyncCreateSchmuck {
 	    public SyncCreateSchmuck() {}
-	    public SyncCreateSchmuck(float w, float h, float startX, float startY, UUID id) {
+	    public SyncCreateSchmuck(UUID id, float w, float h, float startX, float startY) {
 	        this.w = w;
 	        this.h = h;
 	        this.startX = startX;
@@ -170,7 +161,7 @@ public class Packets {
     public static void allPackets(Kryo kryo) {
         kryo.register(PlayerConnect.class);
         kryo.register(KeyPressOrRelease.class);
-        kryo.register(Packets.Packet03Click.class);
+        kryo.register(Packets.Shoot.class);
         kryo.register(EnterPlayState.class);
         kryo.register(ReadyToPlay.class);
         kryo.register(Packets.IDMessage.class);

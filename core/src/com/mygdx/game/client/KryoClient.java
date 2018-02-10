@@ -30,10 +30,8 @@ public class KryoClient {
 	String ipAddress = "localhost";
 	
 	public Client client;
-    comp460game myGame;
+    public comp460game myGame;
     public int myID;
-    public boolean master = false;
-    public boolean allowedToCreate = false;
 
     public static final int timeout = 5000;
     String name;
@@ -79,7 +77,6 @@ public class KryoClient {
                 else if (o instanceof Packets.IDMessage) {
                     Packets.IDMessage p = (Packets.IDMessage) o;
                     myID = p.ID;
-                    master = p.master;
                 }
 
                 else if (o instanceof Packets.SyncPlayState) {
@@ -98,9 +95,7 @@ public class KryoClient {
                     World world = ps.getWorld();
                     RayHandler rays = ps.getRays();
 //                    while (ps.updating) {}
-                    allowedToCreate = true;
                     new Hitbox(ps,p.x,p.y,p.width,p.height,p.lifespan,p.dura,p.rest,p.startVelo,p.filter,p.sensor,world, ps.camera, rays);
-                    allowedToCreate = false;
                     Log.info("Processed Hitbox sync message!");
 
                 }
@@ -112,9 +107,7 @@ public class KryoClient {
                     World world = ps.getWorld();
                     RayHandler rays = ps.getRays();
 //                    while (ps.updating) {}
-                    allowedToCreate = true;
                     new HitboxImage(ps,p.x,p.y,p.width,p.height,p.lifespan,p.dura,p.rest,p.startVelo,p.filter,p.sensor,world, ps.camera, rays, p.spriteID);
-                    allowedToCreate = false;
                     Log.info("Processed HitboxImage sync message!");
 
                 }
@@ -126,9 +119,7 @@ public class KryoClient {
                     World world = ps.getWorld();
                     RayHandler rays = ps.getRays();
 //                    while (ps.updating) {}
-                    allowedToCreate = true;
                     new Schmuck(ps, world, ps.camera, rays, p.w, p.h, p.startX, p.startY, p.id);
-                    allowedToCreate = false;
                     Log.info("Processed Schmuck creation sync message!");
 
                 }

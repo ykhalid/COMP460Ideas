@@ -16,14 +16,12 @@ import com.mygdx.game.server.Packets;
 public class TitleState extends GameState {
 
 	private Stage stage;
-	private KryoClient client;
 
     //Temporary links to other modules for testing.
 	private Actor playOption, exitOption, joinServerOption, startServerOption;
 	
-	public TitleState(KryoClient client, GameStateManager gsm) {
+	public TitleState(GameStateManager gsm) {
 		super(gsm);
-		this.client = client;
 	}
 
 	public void startGame() {
@@ -42,10 +40,13 @@ public class TitleState extends GameState {
 				playOption.addListener(new ClickListener() {
 			        public void clicked(InputEvent e, float x, float y) {
 			            Log.info("Clicked play button...");
-			            if (client == null) return;
+			            if (comp460game.client == null) return;
                         Log.info("Client successfully set");
                         Packets.ReadyToPlay r2p = new Packets.ReadyToPlay();
-                        client.client.sendTCP(r2p);
+
+                        if (!comp460game.serverMode) {
+                            comp460game.client.client.sendTCP(r2p);
+                        }
                         
 //                        gsm.addState(State.PLAY, TitleState.class);
 			        }
@@ -54,15 +55,17 @@ public class TitleState extends GameState {
 				
 				joinServerOption.addListener(new ClickListener() {
 			        public void clicked(InputEvent e, float x, float y) {
-                        client.init();
+                        comp460game.client.init();
 			        }
 			    });
 				joinServerOption.setScale(0.5f);
 				
 				startServerOption.addListener(new ClickListener() {
 			        public void clicked(InputEvent e, float x, float y) {
-			        	//TODO: start a server
-						new KryoServer(gsm);
+
+						/*if (client.myGame.server == null) {
+						    client.myGame.server = new KryoServer(gsm);
+                        }*/
 //			        	try {
 //							new KryoServer();
 //						} catch (IOException e1) {

@@ -36,9 +36,9 @@ public class ServerNetworkListener extends Listener {
 			KeyPressOrRelease p = (KeyPressOrRelease) o;
 		}
 
-		if (o instanceof Packets.Packet03Click) {
+		if (o instanceof Packets.Shoot) {
 			// We have received a mouse click.
-			Packet03Click p = (Packet03Click) o;
+			Shoot p = (Shoot) o;
 		}
 	}
 }

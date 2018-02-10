@@ -15,7 +15,6 @@ public class GameStateManager {
 	
 	//An instance of the current game
 	private comp460game app;
-	private KryoClient gameClient;
 	//Stack of GameStates. These are all the states that the player has opened in that order.
 	public Stack<GameState> states;
 	
@@ -116,7 +115,7 @@ public class GameStateManager {
 	public GameState getState(State state) {
 		switch(state) {
 			case SPLASH: return null;
-			case TITLE: return new TitleState(app.getClient(), this);
+			case TITLE: return new TitleState(this);
 			case MENU: return new MenuState(this);
 			case PLAY: return new PlayState(this);
 		}

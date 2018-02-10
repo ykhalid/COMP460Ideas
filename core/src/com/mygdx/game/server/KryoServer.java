@@ -2,6 +2,7 @@ package com.mygdx.game.server;
 
 import java.io.IOException;
 
+import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.KryoSerialization;
@@ -9,13 +10,13 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.manager.GameStateManager;
+import com.mygdx.game.states.TitleState;
 
 public class KryoServer {
 
 	int serverPort = 25565;
 	int players = 0;
-	Server server;
-	ServerNetworkListener serverListener;
+	public Server server;
 	GameStateManager gsm;
 	boolean setMaster = true;
 
@@ -25,7 +26,6 @@ public class KryoServer {
 		KryoSerialization serialization = new KryoSerialization(kryo);
 		this.server = new Server(16384, 2048, serialization);
 
-		this.serverListener = new ServerNetworkListener();
 		gsm = gameStateManager;
 
 		server.addListener(new Listener() {
@@ -41,7 +41,7 @@ public class KryoServer {
 					Packets.PlayerConnect p = (Packets.PlayerConnect) o;
 
 					// Ignore the object if the name is invalid.
-					String name = ((Packets.PlayerConnect)o).message;
+					String name = p.message;
 					if (name == null) {
 						server.sendToTCP(c.getID(), new Packets.PlayerConnect("Invalid Player name."));
 						return;
@@ -54,7 +54,7 @@ public class KryoServer {
 					Packets.PlayerConnect newPlayer = new Packets.PlayerConnect( name + " has joined the game server.");
 					Log.info(name + " has joined the game.");
 					server.sendToAllExceptTCP(c.getID(), newPlayer);
-					server.sendToTCP(c.getID(), new Packets.IDMessage(c.getID(), setMaster));
+					server.sendToTCP(c.getID(), new Packets.IDMessage(c.getID()));
 					setMaster = false;
 
 				}
@@ -65,9 +65,9 @@ public class KryoServer {
 					server.sendToAllTCP(p);
 				}
 
-				else if (o instanceof Packets.Packet03Click) {
+				else if (o instanceof Packets.Shoot) {
 					// We have received a mouse click.
-					Packets.Packet03Click p = (Packets.Packet03Click) o;
+					Packets.Shoot p = (Packets.Shoot) o;
 					server.sendToAllTCP(p);
 				}
 
@@ -78,6 +78,11 @@ public class KryoServer {
 					Log.info("Player " + c.getID() + " ready.");
 				    if (players == 2) {
 				        server.sendToAllTCP(new Packets.EnterPlayState());
+						Gdx.app.postRunnable(new Runnable() {
+							public void run() {
+								gsm.addState(GameStateManager.State.PLAY, TitleState.class);
+							}
+						});
                     }
                 }
 
@@ -90,7 +95,7 @@ public class KryoServer {
 				else if (o instanceof Packets.SyncHitbox) {
 					Log.info("Syncing Hitbox...");
 					Packets.SyncHitbox p = (Packets.SyncHitbox) o;
-					server.sendToAllExceptTCP(c.getID(),p);
+					server.sendToAllTCP(p);
 				}
 
 				else if (o instanceof Packets.SyncCreateSchmuck) {
