@@ -131,9 +131,9 @@ public class KryoClient {
 
                 else if (o instanceof Packets.KeyPressOrRelease) {
                     Packets.KeyPressOrRelease p = (Packets.KeyPressOrRelease) o;
-                    if (p.message == Input.Keys.W) {
-                        if (myGame.getGsm().states.peek() instanceof PlayState) {
-                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                    PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                    if (myGame.getGsm().states.peek() instanceof PlayState) {
+                        if (p.message == Input.Keys.W) {
                             if (p.playerID == myID) {
                                 if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.wPressed = true;
@@ -150,10 +150,7 @@ public class KryoClient {
 
                                 }
                             }
-                        }
-                    } else if (p.message == Input.Keys.A) {
-                        if (myGame.getGsm().states.peek() instanceof PlayState) {
-                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                        } else if (p.message == Input.Keys.A) {
                             if (p.playerID == myID) {
                                 if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.aPressed = true;
@@ -167,10 +164,7 @@ public class KryoClient {
                                     ps.player.aPressed2 = false;
                                 }
                             }
-                        }
-                    } else if (p.message == Input.Keys.S) {
-                        if (myGame.getGsm().states.peek() instanceof PlayState) {
-                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                        } else if (p.message == Input.Keys.S) {
                             if (p.playerID == myID) {
                                 if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.sPressed = true;
@@ -184,10 +178,7 @@ public class KryoClient {
                                     ps.player.sPressed2 = false;
                                 }
                             }
-                        }
-                    } else if (p.message == Input.Keys.D) {
-                        if (myGame.getGsm().states.peek() instanceof PlayState) {
-                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                        } else if (p.message == Input.Keys.D) {
                             if (p.playerID == myID) {
                                 if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.dPressed = true;
@@ -201,10 +192,7 @@ public class KryoClient {
                                     ps.player.dPressed2 = false;
                                 }
                             }
-                        }
-                    } else if (p.message == Input.Keys.Q) {
-                        if (myGame.getGsm().states.peek() instanceof PlayState) {
-                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                        } else if (p.message == Input.Keys.Q) {
                             if (p.playerID == myID) {
                                 if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.qPressed = true;
@@ -218,10 +206,7 @@ public class KryoClient {
                                     ps.player.qPressed2 = false;
                                 }
                             }
-                        }
-                    } else if (p.message == Input.Keys.E) {
-                        if (myGame.getGsm().states.peek() instanceof PlayState) {
-                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                        } else if (p.message == Input.Keys.E) {
                             if (p.playerID == myID) {
                                 if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.ePressed = true;
@@ -235,11 +220,7 @@ public class KryoClient {
                                     ps.player.ePressed2 = false;
                                 }
                             }
-                        }
-                    }
-                    else if (p.message == Input.Keys.SPACE) {
-                        if (myGame.getGsm().states.peek() instanceof PlayState) {
-                            PlayState ps = (PlayState) myGame.getGsm().states.peek();
+                        } else if (p.message == Input.Keys.SPACE) {
                             if (p.playerID == myID) {
                                 if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.spacePressed = true;

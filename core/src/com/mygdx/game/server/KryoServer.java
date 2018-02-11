@@ -3,6 +3,7 @@ package com.mygdx.game.server;
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.KryoSerialization;
@@ -10,6 +11,7 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.manager.GameStateManager;
+import com.mygdx.game.states.PlayState;
 import com.mygdx.game.states.TitleState;
 
 public class KryoServer {
@@ -63,6 +65,112 @@ public class KryoServer {
 					// We have received a player movement message.
 					Packets.KeyPressOrRelease p = (Packets.KeyPressOrRelease) o;
 					server.sendToAllTCP(p);
+					PlayState ps = (PlayState) gsm.states.peek();
+                    Packets.KeyPressOrRelease p = (Packets.KeyPressOrRelease) o;
+                    if (myGame.getGsm().states.peek() instanceof PlayState) {
+                        if (p.message == Input.Keys.W) {
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.wPressed = true;
+                                } else {
+                                    ps.player.wPressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.wPressed2 = true;
+                                    Log.info("W2 pressed");
+                                } else {
+                                    ps.player.wPressed2 = false;
+                                    Log.info("W2 released");
+
+                                }
+                            }
+                        } else if (p.message == Input.Keys.A) {
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.aPressed = true;
+                                } else {
+                                    ps.player.aPressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.aPressed2 = true;
+                                } else {
+                                    ps.player.aPressed2 = false;
+                                }
+                            }
+                        } else if (p.message == Input.Keys.S) {
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.sPressed = true;
+                                } else {
+                                    ps.player.sPressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.sPressed2 = true;
+                                } else {
+                                    ps.player.sPressed2 = false;
+                                }
+                            }
+                        } else if (p.message == Input.Keys.D) {
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.dPressed = true;
+                                } else {
+                                    ps.player.dPressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.dPressed2 = true;
+                                } else {
+                                    ps.player.dPressed2 = false;
+                                }
+                            }
+                        } else if (p.message == Input.Keys.Q) {
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.qPressed = true;
+                                } else {
+                                    ps.player.qPressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.qPressed2 = true;
+                                } else {
+                                    ps.player.qPressed2 = false;
+                                }
+                            }
+                        } else if (p.message == Input.Keys.E) {
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.ePressed = true;
+                                } else {
+                                    ps.player.ePressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.ePressed2 = true;
+                                } else {
+                                    ps.player.ePressed2 = false;
+                                }
+                            }
+                        } else if (p.message == Input.Keys.SPACE) {
+                            if (p.playerID == myID) {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.spacePressed = true;
+                                } else {
+                                    ps.player.spacePressed = false;
+                                }
+                            } else {
+                                if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
+                                    ps.player.spacePressed = true;
+                                } else {
+                                    ps.player.spacePressed = false;
+                                }
+                            }
+                        }
+                    }
 				}
 
 				else if (o instanceof Packets.Shoot) {

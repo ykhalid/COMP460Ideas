@@ -2,8 +2,10 @@ package com.mygdx.game.manager;
 
 import java.util.Stack;
 
+import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.comp460game;
+import com.mygdx.game.server.Packets;
 import com.mygdx.game.states.*;
 
 /**
@@ -17,6 +19,7 @@ public class GameStateManager {
 	private comp460game app;
 	//Stack of GameStates. These are all the states that the player has opened in that order.
 	public Stack<GameState> states;
+    private float syncTimer = 0;
 	
 	//This enum lists all the different types of gamestates.
 	public enum State {
@@ -52,6 +55,20 @@ public class GameStateManager {
 	 */
 	public void update(float delta) {
 		states.peek().update(delta);
+
+		//Any world sync things, even if we wanted to implement something syncing in the title screen, should ideally
+        //be done here.
+		if (states.peek() instanceof PlayState) {
+            syncTimer += delta;
+            if (syncTimer > 0.5 && comp460game.serverMode) {
+                PlayState ps = (PlayState) states.peek();
+                Log.info("Number of entities: " + ps.getEntities().size());
+                comp460game.server.server.sendToAllTCP(new Packets.SyncPlayState(ps.player.getBody().getPosition(),
+                        ps.player.getBody().getAngle()));
+
+                syncTimer = 0;
+            }
+        }
 	}
 	
 	/**
