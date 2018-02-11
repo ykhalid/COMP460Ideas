@@ -3,7 +3,9 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -19,6 +21,8 @@ import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.b2d.BodyBuilder;
 import com.mygdx.game.util.b2d.FixtureBuilder;
 
+import box2dLight.ConeLight;
+import box2dLight.PointLight;
 import box2dLight.RayHandler;
 
 import static com.mygdx.game.util.Constants.PPM;
@@ -57,6 +61,8 @@ public class Player extends Schmuck implements InputProcessor {
 	public PlayerData player2Data;
 	protected Fixture player1Fixture, player2Fixture;
 
+	private ConeLight vision;
+	
 	/**
 	 * This constructor is called by the player spawn event that must be located in each map
 	 * @param state: current gameState
@@ -98,31 +104,7 @@ public class Player extends Schmuck implements InputProcessor {
 //		dummy.body = this.body;
 //		dummy.bodyData = this.bodyData;
 		
-		FixtureDef fixtureDef = new FixtureDef();
-        FixtureDef fixtureDef2 = new FixtureDef();
-		
-		PolygonShape pShape = new PolygonShape();
-        PolygonShape pShape2 = new PolygonShape();
-		fixtureDef.shape = pShape;
-        fixtureDef2.shape = pShape2;
-		
-		fixtureDef.density = 0;
-		fixtureDef.filter.categoryBits = Constants.BIT_SENSOR;
-		fixtureDef.filter.maskBits = 0;
-		fixtureDef.filter.groupIndex = (short) 0;
-		pShape.set(new float[]{0, 0, -500, 1000, -500, -1000});
-
-        fixtureDef2.density = 0;
-        fixtureDef2.filter.categoryBits = Constants.BIT_SENSOR;
-        fixtureDef2.filter.maskBits = 0;
-        fixtureDef2.filter.groupIndex = (short) 0;
-        pShape2.set(new float[]{0, 0, 500, -1000, 500, 1000});
-		
-		fixtureDef.isSensor = true;
-        fixtureDef2.isSensor = true;
-		
-		this.viewWedge = this.body.createFixture(fixtureDef);
-        this.viewWedge2 = this.body.createFixture(fixtureDef2);
+		vision = new ConeLight(rays, 128, Color.WHITE, 25, 0, 0, 0, 0);
 		
 		super.create();
 	}
@@ -219,6 +201,12 @@ public class Player extends Schmuck implements InputProcessor {
                 client.client.sendTCP(new Packets.SyncPlayState(this.getBody().getPosition(), this.getBody().getAngle()));
             syncTimer = 0;
         }
+	}
+	
+	@Override
+	public void render(SpriteBatch batch) {
+		super.render(batch);
+		vision.setPosition(body.getPosition());
 	}
 	
 	public void dispose() {
