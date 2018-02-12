@@ -15,7 +15,11 @@ public enum AssetList {
 
     //The following sprite was acquired from:
     //https://opengameart.org/content/animated-top-down-survivor-player
-	GUN_DUDE_1("sprites/gun_dude.png", Texture.class);
+	GUN_DUDE_1("sprites/gun_dude.png", Texture.class),
+	BRIDE("sprites/bride.png", Texture.class),
+	DRESS("sprites/bride_dress.png", Texture.class),	
+	GROOM("sprites/groom.png", Texture.class),
+	COMBINED("sprites/combined.png", Texture.class);
 	
 	//Enum constructor and methods.
 	private String pathname;

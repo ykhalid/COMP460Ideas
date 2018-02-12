@@ -89,7 +89,7 @@ public class Schmuck extends Entity implements Location<Vector2> {
 		super(state, world, camera, rays, width * scale, height * scale, startX, startY);
 		this.atlas = (TextureAtlas) comp460game.assetManager.get(AssetList.FISH_ATL.toString());
 		this.schmuckSprite = atlas.findRegion(spriteId);
-		this.schmuckSprite = new TextureRegion(new Texture(AssetList.GUN_DUDE_1.toString()));
+		this.schmuckSprite = new TextureRegion(new Texture(AssetList.GROOM.toString()));
 		this.hbWidth = hbWidth;
 		this.hbHeight = hbHeight;
 		this.spriteWidth = width;
@@ -159,14 +159,6 @@ public class Schmuck extends Entity implements Location<Vector2> {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		
-		if (body.getAngle() < 0 && !schmuckSprite.isFlipY()) {
-			schmuckSprite.flip(false, true);
-		}
-		
-		if (body.getAngle() > 0 && schmuckSprite.isFlipY()) {
-			schmuckSprite.flip(false, true);
-		}
 		
 		batch.setProjectionMatrix(state.sprite.combined);
 
