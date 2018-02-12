@@ -105,7 +105,10 @@ public class PlayState extends GameState {
 		world = new World(new Vector2(0, 0), false);
 		world.setContactListener(new WorldContactListener());
 		rays = new RayHandler(world);
-        rays.setAmbientLight(1.0f);
+        rays.setAmbientLight(0.1f);
+        rays.setCulling(false);
+        rays.useDiffuseLight(true);
+        rays.setCombinedMatrix(camera);
 		b2dr = new Box2DDebugRenderer();
 		
 		//Initialize sets to keep track of active entities
