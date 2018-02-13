@@ -2,6 +2,7 @@ package com.mygdx.game.states;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -178,12 +179,10 @@ public class PlayState extends GameState {
 		for (Entity entity : entities) {
 			entity.controller(delta);
 		}
-
         if (needToSetPlayerPos) {
             player.body.setTransform(desiredPlayerPosition, desiredPlayerAngle);
             needToSetPlayerPos = false;
         }
-		
 		//Update the game camera and batch.
 		cameraUpdate();
 		tmr.setView(camera);
@@ -349,5 +348,21 @@ public class PlayState extends GameState {
 		gameover = true;
 		gameoverCdCount = gameoverCd;
 	}
-	
+	public Entity getEntity(UUID entityID) {
+	    Entity[] e = (Entity[]) entities.toArray();
+	    for (int i = 0; i < e.length; i++) {
+	        if (e[i].entityID == entityID) {
+	            return e[i];
+            }
+        }
+        return null;
+    }
+	public void updateEntity(UUID entityID, Vector2 pos, Vector2 vel, float aVel, float a) {
+	    Entity target = getEntity(entityID);
+	    if (target == null) { return; }
+        target.getBody().setTransform(pos,a);
+	    target.getBody().setLinearVelocity(vel);
+	    target.getBody().setAngularVelocity(aVel);
+    }
+
 }

@@ -1,10 +1,12 @@
 package com.mygdx.game.manager;
 
+import java.util.Set;
 import java.util.Stack;
 
 import com.esotericsoftware.minlog.Log;
 import com.mygdx.game.client.KryoClient;
 import com.mygdx.game.comp460game;
+import com.mygdx.game.entities.Entity;
 import com.mygdx.game.server.Packets;
 import com.mygdx.game.states.*;
 
@@ -62,10 +64,16 @@ public class GameStateManager {
             //syncTimer += delta;
             if (/*syncTimer > 0.5 && */comp460game.serverMode) {
                 PlayState ps = (PlayState) states.peek();
-                //Log.info("Number of entities: " + ps.getEntities().size());
+//                Log.info("Number of entities: " + ps.getEntities().size());
                 comp460game.server.server.sendToAllTCP(new Packets.SyncPlayState(ps.player.getBody().getPosition(),
                         ps.player.getBody().getAngle()));
-
+//                Entity[] entities = ps.getEntities().toArray(new Entity[0]);
+//                Entity x;
+//                for (int i = 0; i < entities.length; i++) {
+//                    x = entities[i];
+//                    comp460game.server.server.sendToAllTCP(new Packets.SyncEntity(x.entityID, x.getBody().getPosition(),
+//                            x.getBody().getLinearVelocity(), x.getBody().getAngularVelocity(), x.getBody().getAngle()));
+//				}
                 syncTimer = 0;
             }
         }
