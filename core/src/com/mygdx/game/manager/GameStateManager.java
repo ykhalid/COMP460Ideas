@@ -59,8 +59,8 @@ public class GameStateManager {
 		//Any world sync things, even if we wanted to implement something syncing in the title screen, should ideally
         //be done here.
 		if (states.peek() instanceof PlayState) {
-            syncTimer += delta;
-            if (syncTimer > 0.5 && comp460game.serverMode) {
+            //syncTimer += delta;
+            if (/*syncTimer > 0.5 && */comp460game.serverMode) {
                 PlayState ps = (PlayState) states.peek();
                 Log.info("Number of entities: " + ps.getEntities().size());
                 comp460game.server.server.sendToAllTCP(new Packets.SyncPlayState(ps.player.getBody().getPosition(),

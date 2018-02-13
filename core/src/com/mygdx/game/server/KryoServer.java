@@ -71,7 +71,7 @@ public class KryoServer {
 				else if (o instanceof Packets.KeyPressOrRelease) {
 					// We have received a player movement message.
 					Packets.KeyPressOrRelease p = (Packets.KeyPressOrRelease) o;
-					server.sendToAllTCP(p);
+					//server.sendToAllTCP(p);
                     if (gsm.states.peek() instanceof PlayState) {
                         PlayState ps = (PlayState) gsm.states.peek();
                         if (p.message == Input.Keys.W) {
