@@ -112,49 +112,51 @@ public class Player extends Schmuck implements InputProcessor {
 
 	    lastDelta = delta;
 
-		desiredYVel = 0;
-		desiredXVel = 0;
-		desiredAngleVel = 0;
-		
-		if (wPressed) {
-			desiredYVel += playerData.maxSpeed;
-		}
-		if (aPressed) {
-			desiredXVel += -playerData.maxSpeed;
-		}
-		if (sPressed) {
-			desiredYVel += -playerData.maxSpeed;
-		}
-		if (dPressed) {
-			desiredXVel += playerData.maxSpeed;
-		}
+	    if (comp460game.serverMode) {
+            desiredYVel = 0;
+            desiredXVel = 0;
+            desiredAngleVel = 0;
 
-        if (wPressed2) {
-            desiredYVel += playerData.maxSpeed;
+            if (wPressed) {
+                desiredYVel += playerData.maxSpeed;
+            }
+            if (aPressed) {
+                desiredXVel += -playerData.maxSpeed;
+            }
+            if (sPressed) {
+                desiredYVel += -playerData.maxSpeed;
+            }
+            if (dPressed) {
+                desiredXVel += playerData.maxSpeed;
+            }
+
+            if (wPressed2) {
+                desiredYVel += playerData.maxSpeed;
+            }
+            if (aPressed2) {
+                desiredXVel += -playerData.maxSpeed;
+            }
+            if (sPressed2) {
+                desiredYVel += -playerData.maxSpeed;
+            }
+            if (dPressed2) {
+                desiredXVel += playerData.maxSpeed;
+            }
+
+            if (ePressed) {
+                desiredAngleVel += -playerData.maxAngularSpeed;
+            }
+            if (ePressed2) {
+                desiredAngleVel += -playerData.maxAngularSpeed;
+            }
+
+            if (qPressed) {
+                desiredAngleVel += playerData.maxAngularSpeed;
+            }
+            if (qPressed2) {
+                desiredAngleVel += playerData.maxAngularSpeed;
+            }
         }
-        if (aPressed2) {
-            desiredXVel += -playerData.maxSpeed;
-        }
-        if (sPressed2) {
-            desiredYVel += -playerData.maxSpeed;
-        }
-        if (dPressed2) {
-            desiredXVel += playerData.maxSpeed;
-        }
-		
-		if (ePressed) {
-			desiredAngleVel += -playerData.maxAngularSpeed;
-		}
-		if (ePressed2) {
-			desiredAngleVel += -playerData.maxAngularSpeed;
-		}
-		
-		if (qPressed) {
-			desiredAngleVel += playerData.maxAngularSpeed;
-		}
-		if (qPressed2) {
-			desiredAngleVel += playerData.maxAngularSpeed;
-		}
 		
 		//Clicking left mouse = use tool. charging keeps track of whether button is held.
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {

@@ -39,7 +39,7 @@ public class KryoServer {
 			}
 
 			public void received(Connection c, Object o) {
-				Log.info("" + (o.getClass().getName()));
+				//Log.info("" + (o.getClass().getName()));
 				if (o instanceof Packets.PlayerConnect) {
 					// We have received a player connection message.
 					Packets.PlayerConnect p = (Packets.PlayerConnect) o;
@@ -84,10 +84,10 @@ public class KryoServer {
                             } else {
                                 if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
                                     ps.player.wPressed2 = true;
-                                    Log.info("W2 pressed");
+                                    //Log.info("W2 pressed");
                                 } else {
                                     ps.player.wPressed2 = false;
-                                    Log.info("W2 released");
+                                    //Log.info("W2 released");
 
                                 }
                             }
@@ -186,7 +186,7 @@ public class KryoServer {
 				}
 
 				else if (o instanceof Packets.ReadyToPlay) {
-					Log.info("Server received ReadyToPlay");
+					//Log.info("Server received ReadyToPlay");
 				    Packets.ReadyToPlay p = (Packets.ReadyToPlay) o;
 				    players += 1;
 					Log.info("Player " + c.getID() + " ready.");
@@ -201,19 +201,19 @@ public class KryoServer {
                 }
 
                 else if (o instanceof Packets.SyncPlayState) {
-					Log.info("Syncing PlayStates...");
+					//Log.info("Syncing PlayStates...");
 					Packets.SyncPlayState p = (Packets.SyncPlayState) o;
 					server.sendToAllExceptTCP(c.getID(),p);
 				}
 
 				else if (o instanceof Packets.SyncHitbox) {
-					Log.info("Syncing Hitbox...");
+					//Log.info("Syncing Hitbox...");
 					Packets.SyncHitbox p = (Packets.SyncHitbox) o;
 					server.sendToAllTCP(p);
 				}
 
 				else if (o instanceof Packets.SyncCreateSchmuck) {
-					Log.info("Syncing Schmuck Creation...");
+					//Log.info("Syncing Schmuck Creation...");
 					Packets.SyncCreateSchmuck p = (Packets.SyncCreateSchmuck) o;
 					server.sendToAllExceptTCP(c.getID(),p);
 				}

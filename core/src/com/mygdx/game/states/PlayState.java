@@ -82,6 +82,10 @@ public class PlayState extends GameState {
 	public boolean won = false;
 	public static final float gameoverCd = 2.5f;
 	public float gameoverCdCount;
+
+	public float desiredPlayerAngle = Float.NEGATIVE_INFINITY;
+	public Vector2 desiredPlayerPosition = new Vector2(Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY);
+	public boolean needToSetPlayerPos = false;
 	
 //	public Set<Zone> zones;
 	
@@ -145,6 +149,10 @@ public class PlayState extends GameState {
 		//The box2d world takes a step. This handles collisions + physics stuff. Maybe change delta to set framerate?
         updating = true;
 		world.step(delta, 6, 2);
+		if (needToSetPlayerPos) {
+            player.body.setTransform(desiredPlayerPosition, desiredPlayerAngle);
+            needToSetPlayerPos = false;
+        }
 
 		//All entities that are set to be removed are removed.
 		for (Entity entity : removeList) {

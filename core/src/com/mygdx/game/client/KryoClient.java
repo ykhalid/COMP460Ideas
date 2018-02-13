@@ -80,47 +80,50 @@ public class KryoClient {
                 }
 
                 else if (o instanceof Packets.SyncPlayState) {
-                    Log.info("Received Player Entity sync message...");
+                    //Log.info("Received Player Entity sync message...");
                     Packets.SyncPlayState p = (Packets.SyncPlayState) o;
                     PlayState ps = (PlayState)myGame.getGsm().states.peek();
 //                    while (ps.updating) {}
-                    ps.player.body.setTransform(p.body,p.angle);
-                    Log.info("Processed Player Entity sync message!");
+                    ps.desiredPlayerAngle = p.angle;
+                    ps.desiredPlayerPosition = p.body;
+                    ps.needToSetPlayerPos = true;
+
+                    //Log.info("Processed Player Entity sync message!");
                 }
 
                 else if (o instanceof Packets.SyncHitbox) {
-                    Log.info("Received Hitbox sync message...");
+                    //Log.info("Received Hitbox sync message...");
                     Packets.SyncHitbox p = (Packets.SyncHitbox) o;
                     PlayState ps = (PlayState)myGame.getGsm().states.peek();
                     World world = ps.getWorld();
                     RayHandler rays = ps.getRays();
 //                    while (ps.updating) {}
                     new Hitbox(ps,p.x,p.y,p.width,p.height,p.lifespan,p.dura,p.rest,p.startVelo,p.filter,p.sensor,world, ps.camera, rays);
-                    Log.info("Processed Hitbox sync message!");
+                    //Log.info("Processed Hitbox sync message!");
 
                 }
 
                 else if (o instanceof Packets.SyncHitboxImage) {
-                    Log.info("Received HitboxImage sync message...");
+                    //Log.info("Received HitboxImage sync message...");
                     Packets.SyncHitboxImage p = (Packets.SyncHitboxImage) o;
                     PlayState ps = (PlayState)myGame.getGsm().states.peek();
                     World world = ps.getWorld();
                     RayHandler rays = ps.getRays();
 //                    while (ps.updating) {}
                     new HitboxImage(ps,p.x,p.y,p.width,p.height,p.lifespan,p.dura,p.rest,p.startVelo,p.filter,p.sensor,world, ps.camera, rays, p.spriteID);
-                    Log.info("Processed HitboxImage sync message!");
+                    //Log.info("Processed HitboxImage sync message!");
 
                 }
 
                 else if (o instanceof Packets.SyncCreateSchmuck) {
-                    Log.info("Received Schmuck creation sync message...");
+                    //Log.info("Received Schmuck creation sync message...");
                     Packets.SyncCreateSchmuck p = (Packets.SyncCreateSchmuck) o;
                     PlayState ps = (PlayState)myGame.getGsm().states.peek();
                     World world = ps.getWorld();
                     RayHandler rays = ps.getRays();
 //                    while (ps.updating) {}
                     new Schmuck(ps, world, ps.camera, rays, p.w, p.h, p.startX, p.startY, p.id);
-                    Log.info("Processed Schmuck creation sync message!");
+                    //Log.info("Processed Schmuck creation sync message!");
 
                 }
 //                else if (o instanceof Packets.Packet03Click) {
@@ -132,7 +135,7 @@ public class KryoClient {
                 else if (o instanceof Packets.KeyPressOrRelease) {
                     Packets.KeyPressOrRelease p = (Packets.KeyPressOrRelease) o;
                     PlayState ps = (PlayState) myGame.getGsm().states.peek();
-                    if (myGame.getGsm().states.peek() instanceof PlayState) {
+                    /*if (myGame.getGsm().states.peek() instanceof PlayState) {
                         if (p.message == Input.Keys.W) {
                             if (p.playerID == myID) {
                                 if (p.pressOrRelease == Packets.KeyPressOrRelease.PRESSED) {
@@ -235,7 +238,7 @@ public class KryoClient {
                                 }
                             }
                         }
-                    }
+                    }*/
                 }
             }
         });
