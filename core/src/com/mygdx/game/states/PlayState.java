@@ -149,10 +149,6 @@ public class PlayState extends GameState {
 		//The box2d world takes a step. This handles collisions + physics stuff. Maybe change delta to set framerate?
         updating = true;
 		world.step(delta, 6, 2);
-		if (needToSetPlayerPos) {
-            player.body.setTransform(desiredPlayerPosition, desiredPlayerAngle);
-            needToSetPlayerPos = false;
-        }
 
 		//All entities that are set to be removed are removed.
 		for (Entity entity : removeList) {
@@ -182,6 +178,11 @@ public class PlayState extends GameState {
 		for (Entity entity : entities) {
 			entity.controller(delta);
 		}
+
+        if (needToSetPlayerPos) {
+            player.body.setTransform(desiredPlayerPosition, desiredPlayerAngle);
+            needToSetPlayerPos = false;
+        }
 		
 		//Update the game camera and batch.
 		cameraUpdate();

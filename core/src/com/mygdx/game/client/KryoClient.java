@@ -82,11 +82,13 @@ public class KryoClient {
                 else if (o instanceof Packets.SyncPlayState) {
                     //Log.info("Received Player Entity sync message...");
                     Packets.SyncPlayState p = (Packets.SyncPlayState) o;
-                    PlayState ps = (PlayState)myGame.getGsm().states.peek();
+                    if (myGame.getGsm().states.peek() instanceof PlayState) {
+                        PlayState ps = (PlayState) myGame.getGsm().states.peek();
 //                    while (ps.updating) {}
-                    ps.desiredPlayerAngle = p.angle;
-                    ps.desiredPlayerPosition = p.body;
-                    ps.needToSetPlayerPos = true;
+                        ps.desiredPlayerAngle = p.angle;
+                        ps.desiredPlayerPosition = p.body;
+                        ps.needToSetPlayerPos = true;
+                    }
 
                     //Log.info("Processed Player Entity sync message!");
                 }

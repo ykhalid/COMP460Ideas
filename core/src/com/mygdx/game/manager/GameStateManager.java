@@ -62,7 +62,7 @@ public class GameStateManager {
             //syncTimer += delta;
             if (/*syncTimer > 0.5 && */comp460game.serverMode) {
                 PlayState ps = (PlayState) states.peek();
-                Log.info("Number of entities: " + ps.getEntities().size());
+                //Log.info("Number of entities: " + ps.getEntities().size());
                 comp460game.server.server.sendToAllTCP(new Packets.SyncPlayState(ps.player.getBody().getPosition(),
                         ps.player.getBody().getAngle()));
 
