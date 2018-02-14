@@ -111,7 +111,10 @@ public class PlayState extends GameState {
 		world = new World(new Vector2(0, 0), false);
 		world.setContactListener(new WorldContactListener());
 		rays = new RayHandler(world);
-        rays.setAmbientLight(.4f);
+        rays.setAmbientLight(0.1f);
+        rays.setCulling(false);
+        rays.useDiffuseLight(true);
+        rays.setCombinedMatrix(camera);
 		b2dr = new Box2DDebugRenderer();
 		
 		//Initialize sets to keep track of active entities
@@ -120,12 +123,15 @@ public class PlayState extends GameState {
 		entities = new HashSet<Entity>();
 		
 		//TODO: Load a map from Tiled file. Eventually, this will take an input map that the player chooses.
-		map = new TmxMapLoader().load("maps/map_1_460.tmx");
-//		map = new TmxMapLoader().load("maps/map_2_460.tmx");
+		//map = new TmxMapLoader().load("maps/map_1_460.tmx");
+		map = new TmxMapLoader().load("maps/argh.tmx");
 		
 		tmr = new OrthogonalTiledMapRenderer(map);
 		
-		player = new Player(this, world, camera, rays, 100, 100);
+		rays.setCombinedMatrix(camera);
+		//rays.setCombinedMatrix(camera.combined.cpy().scl(PPM));
+		
+		player = new Player(gsm.application().getClient(), this, world, camera, rays, 100, 100);
 		
 		TiledObjectUtil.parseTiledObjectLayer(world, map.getLayers().get("collision-layer").getObjects());
 		
@@ -136,7 +142,7 @@ public class PlayState extends GameState {
 
 	@Override
 	public void show() {
-		
+
 		this.stage = new Stage(); 
 		app.newMenu(stage);
 	}
@@ -230,9 +236,7 @@ public class PlayState extends GameState {
 
 		//Render debug lines for box2d objects.
 		b2dr.render(world, camera.combined.scl(PPM));
-
-		//Update rays. Does nothing yet.
-		rays.updateAndRender();
+		
 		
 		//Iterate through entities in the world to render
 		batch.setProjectionMatrix(camera.combined);
@@ -242,6 +246,10 @@ public class PlayState extends GameState {
 			schmuck.render(batch);
 		}
 		
+		//Update rays. Does nothing yet.
+		rays.setCombinedMatrix(camera);
+		rays.updateAndRender();
+				
 		batch.setProjectionMatrix(hud.combined);
 		
 		//Draw player information for temporary ui.
